@@ -1,0 +1,13 @@
+body.beta-feedback {
+	&.main-open {
+		.feedback-button[aria-hidden="true"] {
+			transform: translateX(0) scale(1);
+			opacity: 1;
+		}
+	}
+	@include for-screen-max(tablet) {
+		.o-helloform__form, .page__content {
+			margin-bottom: 12rem;
+		}
+	}
+}

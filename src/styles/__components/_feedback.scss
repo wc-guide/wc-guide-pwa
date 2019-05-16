@@ -1,0 +1,16 @@
+.feedback {
+	&__title {
+		color: c(blue);
+	}
+	&__description {
+		margin: $space-item 0;
+	}
+}
+
+.feedback-button {
+	@include transition();
+	&[aria-hidden="true"] {
+		transform: translateX(100%) scale(0);
+		opacity: 0;
+	}
+}

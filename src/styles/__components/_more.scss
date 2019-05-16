@@ -1,0 +1,10 @@
+.more {
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+
+	&__update {
+		margin-top: auto;
+		padding-top: $space-item;
+	}
+}

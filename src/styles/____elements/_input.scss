@@ -1,0 +1,58 @@
+/*
+.input-checkbox {
+	display: none;
+	& + label {
+		position: relative;
+		padding-left: 1.5em;
+		cursor: pointer;
+		&:after, &:before {
+			content: '';
+			width: 1em;
+			height: 1em;
+			display: block;
+			position: absolute;
+			left: 0;
+			top: 50%;
+			@include transition();
+		}
+
+		&:before {
+			background-color: #ccc;
+			transform: translateY(-50%);
+		}
+
+		&:after {
+			width: .5em;
+			color: #fff;
+			border-right: 3px solid currentColor;
+			border-bottom: 3px solid currentColor;
+			transform: translateY(-55%) translateX(50%) rotate(45deg) scale(.7);
+			will-change: opacity;
+			opacity: 0;
+		}
+	}
+
+	&:checked {
+		& + label {
+			&:after {
+				opacity: 1;
+			}
+			&:before {
+				background-color: c(secondary);
+			}
+		}
+	}
+}
+
+.input-text, .input-select {
+	font-family: $font;
+	border: none;
+	border-bottom: 2px solid c();
+	padding: .2em .5em;
+	background-color: #fff;
+}
+
+.input-select {
+
+}
+*/

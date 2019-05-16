@@ -1,0 +1,191 @@
+.o-helloform {
+	&__form {
+		& > * + * {
+			margin-top: $space-item;
+		}
+	}
+
+	&--label-red {
+		.o-helloform__label {
+			color: c(red);
+		}
+	}
+
+	&__element {
+		position: relative;
+		display: flex;
+		flex-direction: column-reverse;
+		&--controls {
+			display: flex;
+			justify-content: flex-end;
+			align-items: center;
+			flex-direction: row;
+			margin-bottom: $space-item;
+		}
+		&--red {
+			.o-helloform__label {
+				color: c(red);
+			}
+		}
+		&--black {
+			.o-helloform__label {
+				color: c();
+			}
+		}
+		&--disabled {
+			opacity: 0.5;
+			pointer-events: none;
+		}
+	}
+
+	&__input,
+	&__label {
+		width: 100%;
+		line-height: 120%;
+		cursor: pointer;
+	}
+
+	&__label {
+		font-size: $font-size-small;
+	}
+
+	&__label-icon {
+		width: 1em;
+		transform: scale(1.3) translateY(10%);
+		margin-left: 0.4em;
+	}
+
+	&__input {
+		border: none;
+		border-bottom: 2px solid c(gray, light);
+		padding: $space-item/2 0;
+		@include transition();
+		background-color: transparent;
+		outline: 2px dashed transparent;
+		outline-offset: 3px;
+		&:focus {
+			border-bottom-color: c(gray);
+			outline: 2px dashed c(blue);
+		}
+	}
+
+	&__feedback {
+		margin-bottom: $space-item;
+		&--error p {
+			color: c(red);
+		}
+	}
+
+	&__control--back {
+		margin-right: auto;
+	}
+
+	/**
+	 * Input Types
+	 */
+	&__element--type-checkbox .o-helloform {
+		&__input {
+			position: absolute;
+			opacity: 0;
+			& + label:before {
+				opacity: 0;
+				will-change: opacity;
+				@include transition(opacity, fast);
+			}
+			&:checked + label:before {
+				opacity: 1;
+			}
+			&:focus + label:after {
+				outline: 2px dashed c(blue);
+				outline-offset: 3px;
+			}
+		}
+		&__label {
+			position: relative;
+			padding-left: 2em;
+			line-height: 1.2;
+			font-size: $font-size;
+			span {
+				line-height: 1.4;
+			}
+			&:after,
+			&:before {
+				position: absolute;
+				content: '';
+				border: 1px solid currentColor;
+				width: 1em;
+				height: 1em;
+				left: 0;
+				top: 0.2em;
+			}
+			&:before {
+				border-width: 2px;
+				width: 0.5em;
+				border-left: none;
+				border-top: none;
+				left: 0.25em;
+				top: 0.15em;
+				transform: scale(0.7) rotate(45deg);
+			}
+		}
+	}
+
+	&__element--type-select {
+		position: relative;
+		&:after {
+			content: '';
+			width: 0.7em;
+			height: 0.7em;
+			border-bottom: 2px solid currentColor;
+			border-left: 2px solid currentColor;
+			position: absolute;
+			right: 1em;
+			top: 50%;
+			transform: rotate(-45deg);
+			pointer-events: none;
+		}
+		.o-helloform__input {
+			appearance: none;
+		}
+	}
+
+	&__element--type-hidden {
+		display: none;
+	}
+
+	&__element--type-textarea {
+		.o-helloform__input {
+			height: 7rem;
+		}
+	}
+
+	/**
+	 * Form Types
+	 */
+	&--filter {
+		.o-helloform__input:checked + .o-helloform__label {
+			color: c();
+			img {
+				filter: grayscale(0);
+				opacity: 1;
+			}
+		}
+		.o-helloform__label {
+			display: flex;
+			align-items: center;
+			color: c(gray);
+			&:after {
+				border-color: c();
+			}
+			img {
+				width: 1em;
+				height: 1em;
+				margin-left: 0.5em;
+				display: inline-block;
+				filter: grayscale(100%);
+				opacity: 0.5;
+				@include transition();
+			}
+		}
+	}
+}

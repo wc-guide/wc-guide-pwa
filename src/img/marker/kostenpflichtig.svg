@@ -1,0 +1,27 @@
+<svg viewBox="0 0 2164 2164" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414">
+  <path fill="none" d="M0 0h2163.11v2163.11H0z"/>
+  <circle cx="1080.82" cy="1095.84" r="810.75" fill="url(#_Radial1)"/>
+  <circle cx="1080.82" cy="1095.84" r="810.75" fill="url(#_Radial2)"/>
+  <g fill="#fff">
+    <circle cx="1065.18" cy="796.084" r="149.968"/>
+    <circle cx="1065.18" cy="796.084" r="149.968"/>
+  </g>
+  <g fill="#fff">
+    <circle cx="1296.75" cy="1210.4" r="149.968"/>
+    <circle cx="1296.75" cy="1210.4" r="149.968"/>
+  </g>
+  <g fill="#fff">
+    <circle cx="932.077" cy="1343.03" r="149.968"/>
+    <circle cx="932.077" cy="1343.03" r="149.968"/>
+  </g>
+  <defs>
+    <radialGradient id="_Radial1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(750.881 497.585) scale(1578.27)">
+      <stop offset="0" stop-color="#8e95bf"/>
+      <stop offset="1" stop-color="#4f69ff"/>
+    </radialGradient>
+    <radialGradient id="_Radial2" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(750.881 497.585) scale(1578.27)">
+      <stop offset="0" stop-color="#8e95bf"/>
+      <stop offset="1" stop-color="#4f69ff"/>
+    </radialGradient>
+  </defs>
+</svg>

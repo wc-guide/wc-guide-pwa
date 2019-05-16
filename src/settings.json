@@ -1,0 +1,45 @@
+{
+    "theme_colors": {
+        "black": {
+            "base": "#1d1d1b",
+            "dark": "#000",
+            "light": "#959494"
+        },
+        "white": {
+            "base": "#fff",
+            "background": "#F6F6F6"
+        },
+        "gray": {
+            "base": "#B2B2B2",
+            "light": "#DBD5D0"
+        },
+        "red": {
+            "base": "#af1616"
+        },
+        "blue": {
+            "base": "#5582C2"
+        },
+        "brown": {
+            "base": "#A8956E"
+        },
+        "green": {
+            "base": "#5B9A4E"
+        }
+    },
+    "theme_breakpoints": {
+        "phone": 330,
+        "tablet": 600,
+        "tablet_landscape": 900,
+        "desktop": 1300,
+        "desktop_large": 2000
+    },
+    "easing_speed": 300,
+    "easing_speed_fast": 150,
+    "easing_speed_slow": 400,
+    "easing_bezier": [
+        0.25,
+        0.8,
+        0.25,
+        1
+    ]
+}

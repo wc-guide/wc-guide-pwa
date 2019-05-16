@@ -1,0 +1,94 @@
+.o-button {
+	cursor: pointer;
+	background-color: c(blue);
+	color: #fff;
+	padding: 0.6em 1.6em;
+	border-radius: $border-radius/2;
+	text-transform: uppercase;
+	&:hover {
+		opacity: 0.8;
+	}
+
+	&--hint {
+		width: 1em;
+		height: 1em;
+		font-size: .8em;
+		display: inline-block;
+		border: 1px solid currentColor;
+		color: c();
+		border-radius: 50%;
+		position: relative;
+		vertical-align: baseline;
+		.o-hello-icon {
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			transform: translateX(-50%) translateY(-50%) scale(.5);
+		}
+	}
+
+	/*
+	&--icon {
+		display: block;
+		width: 3.2em;
+		height: 3.2em;
+		position: relative;
+		border-radius: 50%;
+		padding: 0;
+
+		.hello-icon {
+			font-size: 2em;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translateX(-50%) translateY(-50%);
+		}
+	}
+
+	&--has-icon {
+		.hello-icon {
+			transform: translateY(0.2em) scale(1.4);
+			margin-right: 0.5em;
+		}
+	}
+	*/
+
+	&--small {
+		font-size: 0.6em;
+	}
+
+	&--gray {
+		background-color: c(gray);
+	}
+
+	&--green {
+		background-color: c(green);
+	}
+
+	&--red {
+		background-color: c(red);
+	}
+
+	position: relative;
+	&:after {
+		@include transition();
+		content: '';
+		opacity: 0;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		margin-top: -0.5em;
+		margin-left: -0.5em;
+		@include spinner(1em, 2px solid #fff);
+	}
+
+	&:disabled,
+	&--loading {
+		color: transparent !important;
+		cursor: default;
+		pointer-events: none;
+		&:after {
+			opacity: 1;
+		}
+	}
+}

@@ -1,0 +1,23 @@
+<svg viewBox="0 0 2164 2164" xmlns="http://www.w3.org/2000/svg" xmlns:serif="http://www.serif.com/" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414">
+  <path serif:id="Pissoir new" fill="none" d="M0 0h2163.11v2163.11H0z"/>
+  <circle cx="1066.92" cy="1081.56" r="810.75" fill="url(#_Radial1)"/>
+  <circle cx="1066.92" cy="1081.56" r="810.75" fill="url(#_Radial2)"/>
+  <g fill="#fff">
+    <circle cx="1067.16" cy="704.609" r="73.381"/>
+    <circle cx="1067.16" cy="704.609" r="73.381"/>
+  </g>
+  <g fill="#fff" fill-rule="nonzero">
+    <path d="M989.261 798.31c-56.424 0-92.573 48.854-92.573 97.089v225.786c-.519 44.119 63.009 44.119 63.221 0V913.462h15.805v573.498c-.98 59.879 83.632 58.163 83.541 0v-334.165h13.548v334.165c1.106 58.163 86.16 59.879 85.799 0V913.462h15.805v207.723c-.745 44.458 62.453 44.458 63.221 0V895.399c-.903-48.235-38.407-96.224-94.831-97.089H989.261z"/>
+    <path d="M989.261 798.31c-56.424 0-92.573 48.854-92.573 97.089v225.786c-.519 44.119 63.009 44.119 63.221 0V913.462h15.805v573.498c-.98 59.879 83.632 58.163 83.541 0v-334.165h13.548v334.165c1.106 58.163 86.16 59.879 85.799 0V913.462h15.805v207.723c-.745 44.458 62.453 44.458 63.221 0V895.399c-.903-48.235-38.407-96.224-94.831-97.089H989.261z"/>
+  </g>
+  <defs>
+    <radialGradient id="_Radial1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(753.301 631.228) scale(1358.78)">
+      <stop offset="0" stop-color="#a66cb5"/>
+      <stop offset="1" stop-color="#4c2556"/>
+    </radialGradient>
+    <radialGradient id="_Radial2" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(753.301 631.228) scale(1358.78)">
+      <stop offset="0" stop-color="#a66cb5"/>
+      <stop offset="1" stop-color="#4c2556"/>
+    </radialGradient>
+  </defs>
+</svg>

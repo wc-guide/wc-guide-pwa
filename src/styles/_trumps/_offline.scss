@@ -1,0 +1,6 @@
+body.is-offline {
+	.toilet__direction {
+		filter: grayscale(100%);
+		opacity: 0.5;
+	}
+}

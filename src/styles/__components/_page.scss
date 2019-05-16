@@ -1,0 +1,93 @@
+.page {
+	&__title {
+		color: c(blue);
+		display: none;
+		@include desktop {
+			display: block;
+		}
+	}
+
+	&__loading {
+		position: relative;
+		height: 30vh;
+		&:after {
+			content: '';
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			margin: -25px 0 0 -25px;
+			@include spinner(50px, 2px solid c());
+		}
+	}
+
+	&__content {
+		@include desktop {
+			margin-top: $space-item;
+		}
+	}
+}
+
+.page-content {
+	h2,
+	h3 {
+		font-size: $font-size;
+		margin-bottom: -1rem;
+	}
+
+	h2 {
+		color: c(black, light);
+	}
+
+	h3 {
+		font-weight: bold;
+	}
+
+	> * + * {
+		&:not(:empty) {
+			margin-top: $space-item;
+		}
+	}
+
+	p {
+		vertical-align: top;
+		margin-bottom: 0;
+	}
+
+	a {
+		color: c(blue);
+		//display: inline-block;
+		position: relative;
+		text-decoration: none;
+		background-image: linear-gradient(to right, currentColor 75%, transparent 75%);
+		background-position: 0 1.2em;
+		background-repeat: repeat-x;
+		background-size: .5em .05em;
+		/*
+		&:after {
+			content: '';
+			display: block;
+			position: absolute;
+			bottom: -0.1em;
+			left: 0;
+			right: 0;
+			border-bottom: 1px dashed currentColor;
+		}
+		*/
+		&:hover {
+			color: c();
+		}
+	}
+
+	ul,
+	ol {
+		margin-left: 1.2em;
+	}
+
+	.wp-block-image {
+		figcaption {
+			text-align: right;
+			font-size: $font-size-small;
+			font-style: italic;
+		}
+	}
+}

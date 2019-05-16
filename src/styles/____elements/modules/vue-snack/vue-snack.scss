@@ -1,0 +1,131 @@
+.snackbar {
+	--primary: #c849f4;
+	--text: #e3e3e3;
+}
+
+$sm: 576px;
+
+.snackbar {
+	$padding: 1.6rem;
+	font-size: $font-size;
+	background-color: c();
+	color: var(--text);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: fixed;
+	min-height: $padding;
+	padding: $padding;
+	border-radius: 4px;
+	@include phone {
+		border-radius: 0;
+		width: 100%;
+	}
+	&.top,
+	&.bottom {
+		@include desktop {
+			transform: translateX(-50%);
+			left: 50%;
+			&-left {
+				left: 1rem;
+			}
+			&-right {
+				right: 1rem;
+			}
+		}
+	}
+	&[class*='bottom'] {
+		bottom: 1rem;
+	}
+	&[class*='top'] {
+		top: 1rem;
+	}
+	@include phone {
+		left: 0;
+		&[class*='bottom'] {
+			bottom: 0;
+		}
+		&[class*='top'] {
+			top: 0;
+		}
+	}
+
+	.snackbar__text {
+		flex: 1;
+	}
+	.snackbar__action {
+		text-transform: uppercase;
+		font-weight: 500;
+		margin: 0 0 0 1rem;
+		color: var(--primary);
+		cursor: pointer;
+		user-select: none;
+	}
+	.times {
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: $padding;
+		width: $padding;
+		margin-left: 1rem;
+		transform: scale(1.25);
+		position: relative;
+		&:before {
+			display: block;
+			content: '';
+			height: 100%;
+			width: 100%;
+			position: absolute;
+			top: 0;
+			left: 0;
+			transform: scale(0.9);
+			border-radius: 50%;
+			transition: transform 0.1s ease-in;
+		}
+		&:hover {
+			&:before {
+				background-color: rgba(255, 255, 255, 0.2);
+				transform: scale(2);
+			}
+		}
+	}
+}
+
+.snack-enter-active,
+.snack-leave-active {
+	transition: all 0.4s ease;
+}
+
+.snack-enter,
+.snack-leave-to {
+	opacity: 0;
+	@include desktop {
+		&.bottom {
+			transform: translateY(100%) translateX(-50%);
+		}
+		&.top {
+			transform: translateY(-100%) translateX(-50%);
+		}
+	}
+	&[class*='top'] {
+		@include phone {
+			transform: translateY(-100%);
+		}
+	}
+	&[class*='bottom'] {
+		@include phone {
+			transform: translateY(100%);
+		}
+	}
+	&[class*='-left'] {
+		@include desktop {
+			transform: translateX(-50%);
+		}
+	}
+	&[class*='-right'] {
+		@include desktop {
+			transform: translateX(50%);
+		}
+	}
+}

@@ -1,0 +1,65 @@
+.shadowbox {
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	transform: translateY(-50%) translateX(-50%);
+	z-index: 9999;
+	width: 90%;
+	max-width: 700px;
+	background: #fff;
+	border-radius: $border-radius;
+	max-height: 90vh;
+	padding: $space-item;
+	overflow: auto;
+	&__title {
+		color: c(blue);
+	}
+	&__close {
+		height: 1.5rem;
+		width: 1.5rem;
+		position: absolute;
+		top: 1.5rem;
+		right: 1.5rem;
+		&:before, &:after {
+			content: '';
+			height: 1px;
+			background-color: c(gray);
+			width: 100%;
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			transform: translateX(-50%) translateY(-50%) rotate(45deg);
+		}
+		&:after {
+			transform: translateX(-50%) translateY(-50%) rotate(-45deg);
+		}
+		&:hover {
+			&:before, &:after {
+				background-color: c();
+			}
+		}
+	}
+}
+
+.shadowbox-bkg {
+	z-index: 9998;
+	cursor: pointer;
+	&:after {
+		z-index: 20;
+		position: fixed;
+		content: '';
+		width: 5vmin;
+		height: 5vmin;
+		@include spinner(50px, 5px solid #fff);
+		top: 50%;
+		left: 50%;
+		margin-top: -25px;
+		margin-left: -25px;
+	}
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	top: 0;
+	background-color: rgba(c(), .8);
+}

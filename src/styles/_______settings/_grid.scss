@@ -1,0 +1,20 @@
+$grid-space-x: 1.6rem;
+$grid-space: ($grid-space-x / 2);
+
+$grid-size: 100%;
+$grid-max-size: 0px;
+@each $name, $size in $theme_breakpoints {
+	$grid-max-size: $size + 0px;
+}
+
+$breakpoints: map-merge(
+	(
+		small-phone: 0
+	),
+	$theme_breakpoints
+);
+
+$space-item: 2rem;
+$space-nav: 3rem;
+$space-section: $space-item * 2;
+$space-section-small: $space-section * 0.6;

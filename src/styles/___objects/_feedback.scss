@@ -1,0 +1,21 @@
+.o-feedback {
+	border: 1px solid currentColor;
+	color: c(blue);
+	padding: 1em;
+	background-color: #fff;
+	border-radius: $border-radius;
+	p {
+		color: currentColor;
+		line-height: 1.5;
+		&:not(.o-feedback__colored) {
+			color: c();
+		}
+	}
+	&--error {
+		color: c(red);
+	}
+	&__controls {
+		margin-top: 1em;
+		text-align: right;
+	}
+}

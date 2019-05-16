@@ -1,0 +1,115 @@
+.navigation-mobile {
+	pointer-events: none;
+	&__navigation {
+		pointer-events: auto;
+		position: absolute;
+		right: 0;
+		left: 1em;
+		top: 0;
+	}
+	&__navtoggler {
+		pointer-events: auto;
+	}
+	.navigation-element__title {
+		display: none;
+	}
+}
+
+.navigation {
+	display: flex;
+	justify-content: space-evenly;
+	@include desktop {
+		justify-content: space-between;
+	}
+	@include transition(transform);
+	will-change: transform;
+	transform-origin: 0 center;
+	&[aria-hidden='true'] {
+		transform: scale(0);
+	}
+}
+
+.navigation-element {
+	display: block;
+	position: relative;
+	@include desktop {
+		padding-bottom: 0.5em;
+	}
+	&__title {
+		font-size: 0.25em;
+		line-height: 150%;
+		display: block;
+		position: absolute;
+		bottom: 0;
+		left: 50%;
+		transform: translateX(-50%);
+		white-space: nowrap;
+	}
+	&__button {
+		border: 1px solid c(gray, light);
+		width: 1em;
+		height: 1em;
+		box-sizing: border-box;
+		border-radius: 50%;
+		background-color: #fff;
+		display: block;
+		cursor: pointer;
+		svg {
+			transform: scale(0.4);
+		}
+	}
+	&--active {
+		@include desktop {
+			color: c(blue);
+			.navigation-element__button {
+				border-color: c(blue);
+			}
+		}
+	}
+	&--fehlermeldung {
+		color: c(red);
+		.navigation-element__button {
+			border-color: c(red);
+			svg {
+				transform: rotate(45deg) scale(0.4);
+			}
+		}
+	}
+}
+
+body {
+	.navigation-element--fehlermeldung {
+		display: none;
+	}
+	&.fehlermeldung {
+		.navigation-element--add {
+			display: none;
+		}
+		.navigation-element--fehlermeldung {
+			display: block;
+		}
+	}
+}
+/*
+.navigation {
+	position: fixed;
+	display: flex;
+	justify-content: space-between;
+	&__element {
+		text-align: center;
+		&--active {
+			color: c(blue);
+			.navigation__button {
+				border-color: c(blue);
+			}
+		}
+	}
+	&__title {
+		display: block;
+		font-size: $font-size-small;
+	}
+	&__button {
+		border-color: c(gray, light);
+	}
+}
+*/

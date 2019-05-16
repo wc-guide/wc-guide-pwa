@@ -1,0 +1,8 @@
+.DS_Store
+node_modules/
+npm-debug.log
+.idea
+.htaccess
+dist/
+wc-guide.code-workspace
+ssr-cache/
