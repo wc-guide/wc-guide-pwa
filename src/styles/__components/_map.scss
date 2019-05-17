@@ -116,3 +116,11 @@
 		color: c();
 	}
 }
+
+.mapboxgl-popup-tip {
+	border-width: 15px;
+}
+
+.mapboxgl-popup-content {
+	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}

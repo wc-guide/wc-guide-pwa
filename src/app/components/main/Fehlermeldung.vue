@@ -65,7 +65,7 @@
 		},
 		methods: {
 			loadEntry: async function () {
-				new Promise(resolve => {
+				return new Promise(resolve => {
 					entriesDB.get(this.$route.params.entryId).then(marker => {
 						this.element = marker;
 						resolve(marker);

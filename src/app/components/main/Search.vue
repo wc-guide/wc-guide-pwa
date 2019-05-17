@@ -31,7 +31,7 @@
 	import {mapBoxSettings, isMobile} from "./../../vendor/settings";
 	import {mapState} from "vuex";
 
-	const searchPlace = `https://api.mapbox.com/geocoding/v5/mapbox.places/{text}.json?access_token=${mapBoxSettings.token}&types=place,poi&proximity={lon}%2C{lat}&language={lang}`;
+	const searchPlace = `https://api.mapbox.com/geocoding/v5/mapbox.places/{text}.json?access_token=${mapBoxSettings.token}&types=place,address,poi&proximity={lon}%2C{lat}&language={lang}`;
 
 	export default {
 		data() {

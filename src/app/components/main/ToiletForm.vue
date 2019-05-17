@@ -26,7 +26,7 @@
 		</template>
 		<template v-else>
 			<slot></slot>
-			<set-position :disabled="(disabled || inputdisabled)"></set-position>
+			<set-position :disabled="(disabled || inputdisabled)" :position="(defaultValues?{lat:defaultValues.lat,lng:defaultValues.lng}:false)"></set-position>
 			<hello-input
 				title="entry Lat"
 				name="toilet-lat"
@@ -211,8 +211,6 @@
 						});
 					}
 					return val;
-					console.log(val.lat, val.lng);
-
 				}
 			},
 			mapState(["map"]),
@@ -239,6 +237,7 @@
 						if (this.map.getZoom() >= zoom) {
 							zoom = this.map.getZoom();
 						}
+						/*
 						this.map.flyTo({
 							center: {
 								lng: entry.lng,
@@ -247,6 +246,7 @@
 							offset: [0, (isMobile() ? 0 : -350)],
 							zoom
 						});
+						*/
 					}
 				} else {
 					if (data['toilet-form-agreement']) {

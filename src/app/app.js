@@ -56,6 +56,8 @@ export const vueInstance = new Vue({
 	render: h => h(App)
 });
 
+vueInstance.$cookies.config('30d');
+
 document.body.classList.add('beta-feedback');
 if (IsDev) {
 	document.body.classList.add('dev');

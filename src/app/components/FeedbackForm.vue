@@ -1,7 +1,7 @@
 <template>
 	<shadow-box :close="closeBox" class="feedback">
 		<h2 class="feedback__title">{{$t('feedback_form')}}</h2>
-		<p class="feedback__description">{{$t('feedback_description')}}</p>
+		<p v-if="!success" class="feedback__description">{{$t('feedback_description')}}</p>
 		<div v-if="!online" class="o-feedback o-feedback--error add__agreement">
 			<p class="o-feedback__colored">
 				<b>{{$t('offline')}}</b>

@@ -71,6 +71,7 @@
 	&__element {
 		color: c(blue);
 		display: inline-block;
+		font-size: $font-size-small;
 	}
 	& > * + * {
 		margin-left: $space-item/2;

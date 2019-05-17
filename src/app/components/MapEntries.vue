@@ -40,6 +40,7 @@
 							}
 						});
 
+
 						map.addLayer({
 							id: "wcs",
 							interactive: true,
@@ -188,9 +189,11 @@
 					});
 				}
 
+				/*
 				if (this.$route.params.entryId) {
 					this.openPopup(this.$route.params.entryId);
 				}
+				*/
 				store.dispatch("loadEntriesList", this.map.getBounds());
 				mapLoaderHide("filterEntries");
 				mapLoaderHide("loadEntries");
@@ -203,7 +206,7 @@
 					const loaded = [];
 					markerImages.forEach(key => {
 						this.map.loadImage(
-							`/assets/img/marker/png-20/${key}.png`,
+							`/assets/img/marker/png-30/${key}.png`,
 							(error, image) => {
 								this.map.addImage(`marker-${key}`, image);
 								loaded.push(key);

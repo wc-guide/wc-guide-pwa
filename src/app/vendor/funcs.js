@@ -112,6 +112,9 @@ export const openMapPopup = function (description, coordinates, map) {
 		.setLngLat(coordinates)
 		.setHTML(description)
 		.addTo(map);
+	map.flyTo({
+		center: coordinates
+	});
 };
 
 export const closeMapPopup = function () {
