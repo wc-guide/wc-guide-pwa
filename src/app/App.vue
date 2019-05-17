@@ -39,7 +39,6 @@
 			Beta<br>Feed<br>back
 		</button>
 		<feedback-form v-if="feedbackForm" :close="function(){showFeedbackForm(false);}"></feedback-form>
-		<portal-target name="shadowbox"></portal-target>
 		<cookie-banner></cookie-banner>
 	</div>
 </template>

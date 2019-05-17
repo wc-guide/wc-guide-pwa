@@ -16,6 +16,7 @@
 	&__navigation {
 		margin-top: $space-nav;
 		font-size: 5.5rem;
+		min-height: 80px;
 		&.navigation {
 			@include phone {
 				display: none;

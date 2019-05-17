@@ -123,6 +123,14 @@ export const closeMapPopup = function () {
 	}
 };
 
+export const getZoomIconSize = function (mapZoom) {
+	let size = 0.4;
+	if (mapZoom >= 12) {
+		size = .8;
+	}
+	return size;
+};
+
 function degreesToRadians(degrees) {
 	return degrees * Math.PI / 180;
 }

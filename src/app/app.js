@@ -9,14 +9,12 @@ import VueI18n from 'vue-i18n';
 import VueCookies from 'vue-cookies'
 import VueMatomo from 'vue-matomo';
 import VueSnackbar from 'vue-snack';
-import PortalVue from 'portal-vue'
 import {c, IsDev} from './vendor/settings';
 
 import Icon from "./components/globals/Icon.vue";
 import LocalizedLink from "./components/globals/LocalizedLink.vue";
 import ShadowBox from "./components/globals/ShadowBox.vue";
 
-Vue.use(PortalVue);
 Vue.component('icon', Icon);
 Vue.component('localized-link', LocalizedLink);
 Vue.component('shadow-box', ShadowBox);

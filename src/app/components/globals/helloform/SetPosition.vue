@@ -14,7 +14,7 @@
 	import {store} from "./../../../store/store.js";
 	import mapboxgl from "mapbox-gl";
 	import {isMobile} from "../../../vendor/settings";
-	import {closeMapPopup} from "../../../vendor/funcs";
+	import {closeMapPopup, getZoomIconSize} from "../../../vendor/funcs";
 
 	window.addMarkerOnClick = false;
 	let marker = false;
@@ -128,7 +128,10 @@
 				});
 				styleLoaded.then(() => {
 					sourceSet.then(() => {
-						this.map.setLayoutProperty('wcs', 'visibility', style);
+						this.map.setLayoutProperty('wcs', 'icon-image', (show ? 'marker-{icon}' : 'marker-{icon}-gray'));
+						this.map.setLayoutProperty('wcs', 'icon-size', (show ? getZoomIconSize(this.map.getZoom()) : 0.5));
+						//this.map.setPaintProperty('wcs', 'icon-opacity', 0.5);
+						//this.map.setLayoutProperty('wcs', 'visibility', style);
 					});
 				});
 			}

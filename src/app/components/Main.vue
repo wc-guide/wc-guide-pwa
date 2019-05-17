@@ -21,7 +21,7 @@
 					v-for="(icon, element) in navigation"
 					:key="element"
 					activeClass="navigation-element--active"
-					:to="`/${element}/`"
+					:to="(element==='fehlermeldung'?'/':`/${element}/`)"
 					:class="`navigation-element navigation-element--${element}`"
 				>
 					<icon :icon="icon" class="navigation-element__button"></icon>

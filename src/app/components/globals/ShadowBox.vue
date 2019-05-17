@@ -1,5 +1,5 @@
 <template>
-	<portal to="shadowbox">
+	<portal>
 		<div class="shadowbox" v-if="!pageSlug || page">
 			<button class="shadowbox__close" @click="close"></button>
 			<slot v-if="!pageSlug" class="shadowbox__content"></slot>
@@ -15,6 +15,7 @@
 <script>
 	import {getPageId, fetchPage} from "../../vendor/funcsPage";
 	import {pagesDB} from "../../store/storeDB";
+	import {Portal} from '@linusborg/vue-simple-portal'
 
 	export default {
 		props: {
@@ -65,6 +66,9 @@
 						});
 				}
 			}
+		},
+		components: {
+			Portal
 		}
 	};
 </script>

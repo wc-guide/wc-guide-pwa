@@ -3,18 +3,27 @@
 	import {store} from "./../store/store.js";
 	import {vueInstance} from "./../app";
 	import {mapLoaderShow, mapLoaderHide} from "./../vendor/mapLoader";
-	import {toilet, getEntryDescription, openMapPopup} from "./../vendor/funcs";
+	import {toilet, getEntryDescription, openMapPopup, getZoomIconSize} from "./../vendor/funcs";
 
 	const markerImages = [
 		"eurokey",
+		"eurokey-gray",
 		"gelaender",
+		"gelaender-gray",
 		"iv",
+		"iv-gray",
 		"iv-nette-toilette",
+		"iv-nette-toilette-gray",
 		"kostenpflichtig",
+		"kostenpflichtig-gray",
 		"normal",
+		"normal-gray",
 		"normal-nette-toilette",
+		"normal-nette-toilette-gray",
 		"pissoir",
-		"treppe"
+		"pissoir-gray",
+		"treppe",
+		"treppe-gray"
 	];
 	let loadParksTimer = "init";
 	let parksSet = 0;
@@ -49,11 +58,14 @@
 							layout: {
 								"icon-image": "marker-{icon}",
 								"icon-allow-overlap": true,
-								"icon-size": this.getZoomIconSize()
+								"icon-size": getZoomIconSize(this.map.getZoom())
 							}
 						});
 
 						map.on("click", "wcs", e => {
+							if (window.addMarkerOnClick) {
+								return;
+							}
 							const coordinates = e.features[0].geometry.coordinates.slice();
 							const description =
 								e.features[0].properties.description;
@@ -82,7 +94,7 @@
 							map.setLayoutProperty(
 								"wcs",
 								"icon-size",
-								this.getZoomIconSize()
+								getZoomIconSize(this.map.getZoom())
 							);
 						});
 
@@ -217,13 +229,6 @@
 						);
 					});
 				});
-			},
-			getZoomIconSize: function () {
-				let size = 0.4;
-				if (this.map.getZoom() >= 12) {
-					size = 1;
-				}
-				return size;
 			},
 			openPopup: function (entryId) {
 				const markerIndex = window.markerIds[entryId];
