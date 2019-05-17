@@ -49,8 +49,7 @@ export const api = {
  */
 
 export const mapBoxSettings = {
-	token:
-		"pk.eyJ1Ijoic29ubmVuc2NoYXVlciIsImEiOiJjampsanZuNGo2YXlmM3FyNWV1cmR4MHNqIn0.ZXpoHnrWGfIdsGSUBpYO7Q",
+	token: "pk.eyJ1Ijoic29ubmVuc2NoYXVlciIsImEiOiJjampsanZuNGo2YXlmM3FyNWV1cmR4MHNqIn0.ZXpoHnrWGfIdsGSUBpYO7Q",
 	style: "mapbox://styles/sonnenschauer/cjjlk7zfb02lh2spjs8bzbs2k"
 };
 

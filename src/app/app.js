@@ -86,8 +86,6 @@ if ("serviceWorker" in navigator && !IsDev) {
 			reg.onupdatefound = function () {
 				const installing = reg.installing;
 				installing.onstatechange = function () {
-					console.log(installing);
-					console.log(installing.state);
 					if (installing.state === 'installed' && !navigator.serviceWorker.controller) {
 						vueInstance.$snack.success({
 							text: vueInstance.$t("pwa_installed"),
