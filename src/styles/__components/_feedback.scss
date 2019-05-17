@@ -1,6 +1,7 @@
 .feedback {
 	&__title {
 		color: c(blue);
+		margin-bottom: $space-item;
 	}
 	&__description {
 		margin: $space-item 0;

@@ -40,6 +40,8 @@ export const api = {
 	wp: {
 		base: 'https://wc-guide.sayhello.dev/wp-json/',
 		delete: 'https://wc-guide.sayhello.dev/wp-json/wc-guide/v1/delete-toilet/',
+		edit: 'https://wc-guide.sayhello.dev/wp-json/wc-guide/v1/edit-toilet/',
+		add: 'https://wc-guide.sayhello.dev/wp-json/wc-guide/v1/add-toilet/',
 		feedback: 'https://wc-guide.sayhello.dev/wp-json/wc-guide/v1/feedback/'
 	}
 };

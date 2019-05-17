@@ -1,4 +1,4 @@
-import idb from 'idb';
+import {openDB} from 'idb';
 
 const db = 'wc-guide';
 const dbVersion = 1;
@@ -8,7 +8,7 @@ const stores = [
 	'entries',
 ];
 
-const Store = idb.open(db, dbVersion, upgradeDB => {
+const Store = openDB(db, dbVersion, upgradeDB => {
 	stores.forEach((store) => {
 		upgradeDB.createObjectStore(store);
 	});

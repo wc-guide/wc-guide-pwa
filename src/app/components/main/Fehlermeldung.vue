@@ -109,7 +109,7 @@
 							}
 						});
 
-						console.log(newData);
+						axios.post(api.wp.edit, newData);
 						axios.post(api.wc.failure, newData)
 							.then(resp => {
 								console.log(resp);
