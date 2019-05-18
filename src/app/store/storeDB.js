@@ -1,7 +1,7 @@
 import {openDB} from 'idb';
 
-const db = 'wc-guide';
-const dbVersion = 2;
+const db = 'wcguide';
+const dbVersion = 1;
 const stores = [
 	'settings',
 	'pages',

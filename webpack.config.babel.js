@@ -165,13 +165,19 @@ const config = {
 			runtimeCaching: [
 				{
 					urlPattern: new RegExp('^https://wc-guide\.sayhello\.dev/wp-content/uploads/'),
-					handler: 'staleWhileRevalidate',
+					handler: 'cacheFirst',
 					options: {
 						cacheName: 'api-image-cache'
 					}
 				}, {
+					urlPattern: new RegExp('^https://wc-guide\.sayhello\.dev/wp-json/'),
+					handler: 'networkFirst',
+					options: {
+						cacheName: 'api-rest-cache'
+					}
+				}, {
 					urlPattern: new RegExp('^https://api\.mapbox\.com/'),
-					handler: 'staleWhileRevalidate',
+					handler: 'networkFirst',
 					options: {
 						cacheName: 'api-mapbox-cache'
 					}
