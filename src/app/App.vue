@@ -65,7 +65,13 @@
 					return title
 						? `WC-Guide: ${title}`
 						: `WC-Guide: ${this.$t('claim')}`;
-				}
+				},
+				meta: [
+					{
+						name: 'description',
+						content: this.$t('description')
+					}
+				]
 			};
 		},
 		components: {

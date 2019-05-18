@@ -6,7 +6,7 @@ body.beta-feedback {
 		}
 	}
 	@include for-screen-max(tablet) {
-		.o-helloform__form, .page__content {
+		.o-helloform__form#toilet, .page__content {
 			margin-bottom: 12rem;
 		}
 	}

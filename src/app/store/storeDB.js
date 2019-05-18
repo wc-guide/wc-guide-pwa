@@ -1,50 +1,52 @@
 import {openDB} from 'idb';
 
 const db = 'wc-guide';
-const dbVersion = 1;
+const dbVersion = 2;
 const stores = [
 	'settings',
 	'pages',
 	'entries',
 ];
 
-const Store = openDB(db, dbVersion, upgradeDB => {
-	stores.forEach((store) => {
-		upgradeDB.createObjectStore(store);
-	});
+const theStore = openDB(db, dbVersion, {
+	upgrade(db) {
+		stores.forEach((store) => {
+			db.createObjectStore(store);
+		});
+	}
 });
 
 const exp = {};
 stores.forEach((store) => {
 	exp[store] = {
 		set: function (key, val) {
-			return Store.then(db => {
+			return theStore.then(db => {
 				const tx = db.transaction(store, 'readwrite');
 				tx.objectStore(store).put(val, key);
 				return tx.complete;
 			});
 		},
 		get: function (key) {
-			return Store.then(db => {
+			return theStore.then(db => {
 				return db.transaction(store)
 					.objectStore(store).get(key);
 			});
 		},
 		delete: function (key) {
-			return Store.then(db => {
+			return theStore.then(db => {
 				const tx = db.transaction(store, 'readwrite');
 				tx.objectStore(store).delete(key);
 				return tx.complete;
 			});
 		},
 		getAll: function () {
-			return Store.then(db => {
+			return theStore.then(db => {
 				return db.transaction(store)
 					.objectStore(store).getAll();
 			});
 		},
 		keys: function () {
-			return Store.then(db => {
+			return theStore.then(db => {
 				const tx = db.transaction(store);
 				const keys = [];
 				const oStore = tx.objectStore(store);

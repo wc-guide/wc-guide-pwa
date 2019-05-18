@@ -129,7 +129,7 @@
 				styleLoaded.then(() => {
 					sourceSet.then(() => {
 						this.map.setLayoutProperty('wcs', 'icon-image', (show ? 'marker-{icon}' : 'marker-{icon}-gray'));
-						this.map.setLayoutProperty('wcs', 'icon-size', (show ? getZoomIconSize(this.map.getZoom()) : 0.5));
+						//this.map.setLayoutProperty('wcs', 'icon-size', (show ? getZoomIconSize(this.map.getZoom()) : 0.5));
 						//this.map.setPaintProperty('wcs', 'icon-opacity', 0.5);
 						//this.map.setLayoutProperty('wcs', 'visibility', style);
 					});

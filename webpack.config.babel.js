@@ -114,7 +114,8 @@ const config = {
 		new LiveReloadPlugin(),
 		new HtmlWebpackPlugin({
 			//hash: true,
-			title: 'WC-Guide',
+			title: 'WC-Guide: Irgendwann musst auch Du',
+			description: 'WC-Guide ist das grösste Verzeichnis öffentlicher Toiletten der Schweiz.',
 			template: 'src/index.html',
 			filename: './index.html'
 		}),
@@ -141,9 +142,9 @@ const config = {
 			}
 		}),
 		new WebpackPwaManifest({
-			name: 'WC-Guide',
+			name: 'WC-Guide: Irgendwann musst auch Du',
 			short_name: 'WC-Guide',
-			description: 'Irgendwann musst auch Du',
+			description: 'WC-Guide ist das grösste Verzeichnis öffentlicher Toiletten der Schweiz.',
 			theme_color: '#a7956f',
 			background_color: '#A8956E',
 			crossorigin: 'use-credentials', //can be null, use-credentials or anonymous
