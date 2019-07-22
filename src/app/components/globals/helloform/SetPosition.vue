@@ -4,7 +4,7 @@
 	>
 		<p class="add__position-desc">
 			{{$t('form_add_position')}}
-			<icon :class="'add__position-icon '+(mapZoom <= 12?'':'add__position-icon--red')" icon="marker"></icon>
+			<hello-icon :class="'add__position-icon '+(mapZoom <= 12?'':'add__position-icon--red')" icon="marker"></hello-icon>
 		</p>
 		<label for="toilet-position" class="o-helloform__label">{{$t('form_position')}}</label>
 	</div>
@@ -41,7 +41,7 @@
 				this.setMapMove();
 			}
 			store.subscribe((mutation, state) => {
-				if (mutation.type === "SET_MAP" && state.map) {
+				if (mutation.type === "entries/setMap" && state.map) {
 					this.setOnlick();
 					this.setMapMove();
 				}
@@ -136,7 +136,10 @@
 				});
 			}
 		},
-		computed: mapState(["map", "online"]),
+		computed: mapState({
+			online: state => state.client.online,
+			map: state => state.entries.map
+		}),
 		beforeDestroy() {
 			window.addMarkerOnClick = false;
 			this.showWcLayer(true);

@@ -213,7 +213,9 @@
 					return val;
 				}
 			},
-			mapState(["map"]),
+			mapState({
+				map: state => state.entries.map
+			})
 		),
 		methods: {
 			submit: function (data) {

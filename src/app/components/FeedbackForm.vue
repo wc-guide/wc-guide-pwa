@@ -74,6 +74,8 @@
 				this.close();
 			}
 		},
-		computed: mapState(["online"])
+		computed: mapState({
+			online: state => state.client.online
+		})
 	};
 </script>

@@ -14,7 +14,7 @@
 					id="search-place"
 					@keyup="searchLocations"
 				/>
-				<icon class="search-form__icon" icon="search"></icon>
+				<hello-icon class="search-form__icon" icon="search"></hello-icon>
 			</form>
 			<div class="home__search-list search-list">
 				<button @click="setCenter(place.center)" v-for="(place, index) in results" :key="index" class="search-list__element">
@@ -40,7 +40,7 @@
 			};
 		},
 		mounted: function () {
-			this.$store.dispatch("setMobileHeader", {
+			this.$store.dispatch("page/loadMobileHeader", {
 				title: this.$t("menu_search")
 			});
 		},
@@ -101,6 +101,9 @@
 		components: {
 			Support
 		},
-		computed: mapState(["map", "online"]),
+		computed: mapState({
+			online: state => state.client.online,
+			map: state => state.entries.map
+		}),
 	};
 </script>

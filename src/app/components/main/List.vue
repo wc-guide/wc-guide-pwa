@@ -36,7 +36,7 @@
 
 	export default {
 		mounted: function () {
-			this.$store.dispatch("setMobileHeader", {
+			this.$store.dispatch("page/loadMobileHeader", {
 				title: this.$t("menu_list"),
 				to: false,
 				color: "brown",
@@ -67,6 +67,9 @@
 				openMapPopup(description, coordinates, this.map);
 			}
 		},
-		computed: mapState(["entriesList", "map", "geolocation"]),
+		computed: mapState({
+			entriesList: state => state.entries.entriesList,
+			geolocation: state => state.entries.geolocation
+		}),
 	};
 </script>

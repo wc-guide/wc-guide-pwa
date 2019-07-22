@@ -1,3 +1,3 @@
-<svg viewbox="0 0 383.875 1024" xmlns="http://www.w3.org/2000/svg">
-  <path d="M.062 128.25L383.812 512 .062 895.75v-767.5z"/>
+<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414">
+  <path d="M256 0l512 512-512 512V0z" fill-rule="nonzero"/>
 </svg>

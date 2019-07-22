@@ -17,7 +17,7 @@
 		mounted() {
 			const map = this.map;
 			store.subscribe((mutation, state) => {
-				if (mutation.type === "SET_DIRECTIONS") {
+				if (mutation.type === "entries/setDirections") {
 					if (!state.directions) {
 						return;
 					}

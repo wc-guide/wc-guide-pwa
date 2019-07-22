@@ -1,63 +1,41 @@
 import {openDB} from 'idb';
 
-const db = 'wcguide';
+const dbName = 'wcguide';
 const dbVersion = 1;
-const stores = [
+const dbStores = [
 	'settings',
 	'pages',
-	'entries',
+	'entries'
 ];
 
-const theStore = openDB(db, dbVersion, {
-	upgrade(db) {
-		stores.forEach((store) => {
+const idbPromise = openDB(dbName, dbVersion, {
+	upgrade(db, oldVersion, dbVersion, transaction) {
+		dbStores.forEach(store => {
 			db.createObjectStore(store);
 		});
 	}
 });
 
 const exp = {};
-stores.forEach((store) => {
+dbStores.forEach(store => {
 	exp[store] = {
-		set: function (key, val) {
-			return theStore.then(db => {
-				const tx = db.transaction(store, 'readwrite');
-				tx.objectStore(store).put(val, key);
-				return tx.complete;
-			});
+		async get(key) {
+			return (await idbPromise).get(store, key);
 		},
-		get: function (key) {
-			return theStore.then(db => {
-				return db.transaction(store)
-					.objectStore(store).get(key);
-			});
+		async set(key, val) {
+			return (await idbPromise).put(store, val, key);
 		},
-		delete: function (key) {
-			return theStore.then(db => {
-				const tx = db.transaction(store, 'readwrite');
-				tx.objectStore(store).delete(key);
-				return tx.complete;
-			});
+		async delete(key) {
+			return (await idbPromise).delete(store, key);
 		},
-		getAll: function () {
-			return theStore.then(db => {
-				return db.transaction(store)
-					.objectStore(store).getAll();
-			});
+		async clear() {
+			return (await idbPromise).clear(store);
 		},
-		keys: function () {
-			return theStore.then(db => {
-				const tx = db.transaction(store);
-				const keys = [];
-				const oStore = tx.objectStore(store);
-				(oStore.iterateKeyCursor || oStore.iterateCursor).call(oStore, cursor => {
-					if (!cursor) return;
-					keys.push(cursor.key);
-					cursor.continue();
-				});
-
-				return tx.complete.then(() => keys);
-			});
+		async getAll() {
+			return (await idbPromise).getAll(store);
+		},
+		async keys() {
+			return (await idbPromise).getAllKeys(store);
 		}
 	};
 });

@@ -54,7 +54,7 @@
 		},
 		mounted() {
 			this.loadEntry();
-			this.$store.dispatch("setMobileHeader", {
+			this.$store.dispatch("page/loadMobileHeader", {
 				title: this.$t("menu_fehlermeldung"),
 				color: "red",
 				map: true
@@ -137,6 +137,9 @@
 			ToiletForm,
 			HelloInput
 		},
-		computed: mapState(["map", "online"])
+		computed: mapState({
+			online: state => state.client.online,
+			map: state => state.entries.map
+		}),
 	};
 </script>

@@ -46,7 +46,7 @@
 				this.note = false;
 			}
 
-			this.$store.dispatch("setMobileHeader", {
+			this.$store.dispatch("page/loadMobileHeader", {
 				title: this.$t("menu_add"),
 				map: true
 			});
@@ -98,7 +98,10 @@
 		components: {
 			ToiletForm
 		},
-		computed: mapState(["online", "map"]),
+		computed: mapState({
+			online: state => state.client.online,
+			map: state => state.entries.map,
+		}),
 		beforeDestroy: function () {
 			window.addMarkerOnClick = false;
 		}

@@ -41,13 +41,15 @@
 				$fields.forEach($item => {
 					filter[$item.getAttribute("value")] = $item.checked;
 				});
-				this.$store.dispatch("setToiletFilter", filter);
+				this.$store.dispatch("entries/setToiletFilter", filter);
 			}
 		},
 		components: {
 			HelloForm,
 			HelloInput
 		},
-		computed: mapState(["toiletfilter"])
+		computed: mapState({
+			toiletfilter: state => state.entries.toiletfilter
+		}),
 	};
 </script>

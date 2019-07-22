@@ -17,7 +17,7 @@
 			aria-controls="main-content"
 			@click="toggleDesktopMain"
 		>
-			<icon icon="angle-right" class="map__togglemain-icon"></icon>
+			<hello-icon icon="angle-right" class="map__togglemain-icon"></hello-icon>
 		</button>
 	</div>
 </template>
@@ -99,7 +99,7 @@
 				this.mapBox.dragRotate.disable();
 				this.mapBox.touchZoomRotate.disableRotation();
 
-				this.$store.dispatch("setMap", this.mapBox);
+				this.$store.dispatch("entries/setMap", this.mapBox);
 				this.mapBox.on('load', () => {
 					i18nSetMapLang();
 				});
@@ -117,6 +117,8 @@
 			MapGeoLocation,
 			MapDirections
 		},
-		computed: mapState(["map"])
+		computed: mapState({
+			map: state => state.entries.map
+		})
 	};
 </script>

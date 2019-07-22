@@ -49,7 +49,6 @@
 							}
 						});
 
-
 						map.addLayer({
 							id: "wcs",
 							interactive: true,
@@ -87,7 +86,7 @@
 
 						map.on("moveend", () => {
 							this.entriesMaybeReload();
-							store.dispatch("loadEntriesList", this.map.getBounds());
+							store.dispatch("entries/loadEntriesList", this.map.getBounds());
 						});
 
 						map.on("zoomend", () => {
@@ -101,11 +100,11 @@
 						this.entriesLoad(true);
 
 						store.subscribe((mutation, state) => {
-							if (mutation.type === "SET_ENTRIES") {
-								if (state.entries.length === 0) {
+							if (mutation.type === "entries/setEntries") {
+								if (state.entries.entries.length === 0) {
 									//return;
 								}
-								this.entriesSet(state.entries);
+								this.entriesSet(state.entries.entries);
 							}
 						});
 					});
@@ -156,7 +155,7 @@
 						lng: mapBounds.getNorthEast().lng
 					}
 				];
-				store.dispatch("loadEntries", {bounds, initial});
+				store.dispatch("entries/loadEntries", {bounds, initial});
 			},
 			entriesSet: function (entries) {
 
@@ -166,7 +165,7 @@
 					return;
 				}
 				if (parksSet == 0) {
-					store.dispatch("loadEntriesList", this.map.getBounds());
+					store.dispatch("entries/loadEntriesList", this.map.getBounds());
 				}
 				parksSet = entries.length;
 				const geoElements = [];
@@ -178,7 +177,7 @@
 					window.markerIds[item.id] = index;
 					index++;
 					let icon = toilet.getType(item);
-					if (item.details.indexOf('5') !== -1) {
+					if (item.details && item.details.indexOf('5') !== -1) {
 						icon = `${icon}-nette-toilette`;
 					}
 					geoElements.push({
@@ -206,7 +205,7 @@
 					this.openPopup(this.$route.params.entryId);
 				}
 				*/
-				store.dispatch("loadEntriesList", this.map.getBounds());
+				store.dispatch("entries/loadEntriesList", this.map.getBounds());
 				mapLoaderHide("filterEntries");
 				mapLoaderHide("loadEntries");
 			},
@@ -255,9 +254,9 @@
 		}
 
 		const myPosition = new Promise((resolve, reject) => {
-			vueInstance.$store.dispatch("setGeoLocation").then(() => {
+			vueInstance.$store.dispatch("entries/setGeoLocation").then(() => {
 				vueInstance.$store.subscribe((mutation, state) => {
-					if (mutation.type === "SET_GEOLOCATION") {
+					if (mutation.type === "entries/setGeoLocation") {
 						if (state.geolocation) {
 							resolve(vueInstance.$store.state.geolocation);
 						}
@@ -268,7 +267,7 @@
 
 		myPosition.then(location => {
 			document.querySelector('.toilet').classList.add('toilet--route-active');
-			vueInstance.$store.dispatch("setDirections", {
+			vueInstance.$store.dispatch("entries/setDirections", {
 				from: location,
 				to: {
 					lat,

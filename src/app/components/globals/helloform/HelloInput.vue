@@ -50,7 +50,7 @@
 		<label :for="name" class="o-helloform__label">
 			<span v-html="title+(required?'*':'')"></span>
 			<span v-if="hint" @click="hint" class="o-button--hint">
-				<icon icon="fa/question"></icon>
+				<hello-icon icon="fa/question"></hello-icon>
 			</span>
 		</label>
 	</div>

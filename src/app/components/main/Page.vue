@@ -13,7 +13,7 @@
 
 	export default {
 		mounted: function () {
-			this.$store.dispatch("loadPage", this.$route.params.page);
+			this.$store.dispatch("page/load", this.$route.params.page);
 		},
 		metaInfo: function () {
 			return {
@@ -21,9 +21,11 @@
 			};
 		},
 		beforeRouteUpdate(to, from, next) {
-			this.$store.dispatch("loadPage", to.params.page);
+			this.$store.dispatch("page/load", to.params.page);
 			next();
 		},
-		computed: mapState(["page"])
+		computed: mapState({
+			page: state => state.page.current
+		})
 	};
 </script>

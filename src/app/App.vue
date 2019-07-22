@@ -1,7 +1,7 @@
 <template>
 	<div class="app" id="app">
 		<button :class="'app__location '+(geolocation?'app__location--active':'')" @click="setMyPosition()">
-			<icon icon="position"></icon>
+			<hello-icon icon="position"></hello-icon>
 		</button>
 		<Main class="app__main app__main--mobile-hidden"></Main>
 		<Map class="app__map"></Map>
@@ -30,7 +30,7 @@
 				                :to="`/${element}/`"
 				                :class="`navigation-element navigation-element--${element}`"
 				>
-					<icon :icon="icon" class="navigation-element__button"></icon>
+					<hello-icon :icon="icon" class="navigation-element__button"></hello-icon>
 					<span class="navigation-element__title">{{$t(`menu_${element}`)}}</span>
 				</localized-link>
 			</nav>
@@ -93,9 +93,9 @@
 			},
 			setMyPosition: function () {
 				const myPosition = new Promise((resolve, reject) => {
-					this.$store.dispatch("setGeoLocation").then(() => {
+					this.$store.dispatch("entries/setGeoLocation").then(() => {
 						this.$store.subscribe((mutation, state) => {
-							if (mutation.type === "SET_GEOLOCATION") {
+							if (mutation.type === "entries/setGeolocation") {
 								if (state.geolocation) {
 									resolve(this.$store.state.geolocation);
 								}
@@ -119,7 +119,9 @@
 		mounted: function () {
 			i18nSetLang();
 		},
-		computed: mapState(["geolocation", "map"])
-	}
-	;
+		computed: mapState({
+			map: state => state.entries.map,
+			geolocation: state => state.entries.geolocation,
+		}),
+	};
 </script>

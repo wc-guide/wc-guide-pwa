@@ -12,10 +12,12 @@ import VueSnackbar from 'vue-snack';
 import {c, IsDev} from './vendor/settings';
 
 import Icon from "./components/globals/Icon.vue";
+import HelloIcon from "./components/globals/HelloIcon.vue";
 import LocalizedLink from "./components/globals/LocalizedLink.vue";
 import ShadowBox from "./components/globals/ShadowBox.vue";
 
 Vue.component('icon', Icon);
+Vue.component('hello-icon', HelloIcon);
 Vue.component('localized-link', LocalizedLink);
 Vue.component('shadow-box', ShadowBox);
 

@@ -13,7 +13,7 @@
 		},
 		mounted() {
 			store.subscribe((mutation, state) => {
-				if (mutation.type === "SET_GEOLOCATION") {
+				if (mutation.type === "entries/setGeolocation") {
 					if (!state.geolocation) {
 						return;
 					}
@@ -21,7 +21,10 @@
 				}
 			});
 		},
-		computed: mapState(["geolocation"]),
+		computed: mapState({
+			mobileheader: state => state.page.mobileheader,
+			geolocation: state => state.entries.geolocation
+		}),
 		methods: {
 			setOrUpdatePosition: function (geolocation) {
 				if (!marker) {

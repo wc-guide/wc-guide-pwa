@@ -28,7 +28,7 @@
 			</div>
 			<div class="morenav__category">
 				<localized-link :to="(showFilter?'/more':'/more/filter')" class="morenav__element morenav__element--filter">
-					<icon icon="fa/filter" class="morenav__icon"></icon>
+					<hello-icon icon="fa/filter" class="morenav__icon"></hello-icon>
 					<span :class="`morenav__content ${showFilter?'morenav__content--open':''}`">{{$t('filter')}}</span>
 				</localized-link>
 				<map-filter class="morenav__body" v-if="showFilter"></map-filter>
@@ -42,14 +42,14 @@
 						:to="`/more/${element}/`"
 						:class="`morenav__element morenav__element--${element}`"
 					>
-						<icon :icon="`fa/${vals.icon}`" class="morenav__icon"></icon>
+						<hello-icon :icon="`fa/${vals.icon}`" class="morenav__icon"></hello-icon>
 						<span class="morenav__content">{{$t(`submenu_${element}`)}}</span>
 					</localized-link>
 				</template>
 			</div>
 			<div class="morenav__category morenav__category--a2h">
 				<div class="morenav__element morenav__element--a2h">
-					<icon icon="fa/download" class="morenav__icon"></icon>
+					<hello-icon icon="fa/download" class="morenav__icon"></hello-icon>
 					<button class="morenav__content" @click="installPrompt();">{{$t('pwa_a2h')}}</button>
 				</div>
 			</div>
@@ -90,7 +90,7 @@
 		},
 		mounted: function () {
 			this.setFilter();
-			this.$store.dispatch("setMobileHeader", {
+			this.$store.dispatch("page/loadMobileHeader", {
 				title: this.$t("menu_more"),
 				to: false,
 				color: "brown",
