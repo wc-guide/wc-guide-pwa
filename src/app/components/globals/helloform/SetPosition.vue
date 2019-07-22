@@ -41,7 +41,7 @@
 				this.setMapMove();
 			}
 			store.subscribe((mutation, state) => {
-				if (mutation.type === "entries/setMap" && state.map) {
+				if (mutation.type === "entries/setMap" && state.entries.map) {
 					this.setOnlick();
 					this.setMapMove();
 				}

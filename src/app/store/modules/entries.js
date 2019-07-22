@@ -4,6 +4,7 @@ import {vueInstance} from "./../../app";
 import {i18n} from '../../i18n';
 import {mapLoaderShow, mapLoaderHide} from "./../../vendor/mapLoader";
 import {toilet, distanceBetweenCoordinates, humanizeDistance, sortProperties, angleBetweenCoordinates} from "./../../vendor/funcs";
+import {api} from './../../vendor/settings';
 
 let geoWatchID = false;
 const fetchEntries = function (bounds) {
@@ -58,12 +59,13 @@ const actions = {
 				entriesDB.getAll().then(entries => {
 					commit('setEntries', entries);
 				})
-			}).catch(error => {
-			vueInstance.$snack.danger({
-				text: vueInstance.$t('offline_entries_request'),
-				button: 'OK'
+			})
+			.catch(error => {
+				vueInstance.$snack.danger({
+					text: vueInstance.$t('offline_entries_request'),
+					button: 'OK'
+				});
 			});
-		});
 	},
 	loadEntriesList({commit}, bounds) {
 		let newEntriesList = [];

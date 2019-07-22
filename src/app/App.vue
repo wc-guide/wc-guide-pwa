@@ -43,8 +43,9 @@
 	</div>
 </template>
 <script>
-	import Map from "./components/Map.vue";
-	import Main from "./components/Main.vue";
+	const Map = () => import(/* webpackChunkName: "map" */'./components/Map.vue');
+	const Main = () => import(/* webpackChunkName: "map" */'./components/Main.vue');
+
 	import {i18nSetLang} from './i18n';
 	import {settings, navigation, IsDev} from "./vendor/settings.js";
 	import {mapState} from "vuex";

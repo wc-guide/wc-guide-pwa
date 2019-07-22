@@ -231,9 +231,7 @@
 			},
 			openPopup: function (entryId) {
 				const markerIndex = window.markerIds[entryId];
-				const marker = this.map.getSource("wcs")["_data"].features[
-					markerIndex
-					];
+				const marker = this.map.getSource("wcs")["_data"].features[markerIndex];
 				const coordinates = marker.geometry.coordinates.slice();
 				const description = marker.properties.description;
 
@@ -256,9 +254,9 @@
 		const myPosition = new Promise((resolve, reject) => {
 			vueInstance.$store.dispatch("entries/setGeoLocation").then(() => {
 				vueInstance.$store.subscribe((mutation, state) => {
-					if (mutation.type === "entries/setGeoLocation") {
-						if (state.geolocation) {
-							resolve(vueInstance.$store.state.geolocation);
+					if (mutation.type === "entries/setGeolocation") {
+						if (state.entries.geolocation) {
+							resolve(vueInstance.$store.state.entries.geolocation);
 						}
 					}
 				});
@@ -267,6 +265,7 @@
 
 		myPosition.then(location => {
 			document.querySelector('.toilet').classList.add('toilet--route-active');
+			console.log(location);
 			vueInstance.$store.dispatch("entries/setDirections", {
 				from: location,
 				to: {

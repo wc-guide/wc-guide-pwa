@@ -1,12 +1,13 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Meta from 'vue-meta';
-import List from './components/main/List.vue';
-import Add from './components/main/Add.vue';
-import Fehlermeldung from './components/main/Fehlermeldung.vue';
-import Search from './components/main/Search.vue';
-import More from './components/main/More.vue';
-import Page from './components/main/Page.vue';
+
+const List = () => import(/* webpackChunkName: "list" */'./components/main/List.vue');
+const Add = () => import(/* webpackChunkName: "add" */'./components/main/Add.vue');
+const Fehlermeldung = () => import(/* webpackChunkName: "fehlermeldung" */'./components/main/Fehlermeldung.vue');
+const Search = () => import(/* webpackChunkName: "search" */'./components/main/Search.vue');
+const More = () => import(/* webpackChunkName: "more" */'./components/main/More.vue');
+const Page = () => import(/* webpackChunkName: "page" */'./components/main/Page.vue');
 
 Vue.use(Router);
 Vue.use(Meta);

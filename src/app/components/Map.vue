@@ -30,9 +30,10 @@
 	import {i18nSetMapLang} from "./../i18n";
 	import {settings} from "./../vendor/settings";
 
-	import MapEntries from "./MapEntries.vue";
-	import MapGeoLocation from "./MapGeoLocation.vue";
-	import MapDirections from "./MapDirections.vue";
+	const MapEntries = () => import(/* webpackChunkName: "map" */'./MapEntries.vue');
+	const MapGeoLocation = () => import(/* webpackChunkName: "map" */'./MapGeoLocation.vue');
+	const MapDirections = () => import(/* webpackChunkName: "map" */'./MapDirections.vue');
+
 	import logo from "./../../img/wc-guide-logo.svg";
 
 	export default {

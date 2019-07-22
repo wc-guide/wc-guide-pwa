@@ -18,15 +18,14 @@
 			const map = this.map;
 			store.subscribe((mutation, state) => {
 				if (mutation.type === "entries/setDirections") {
-					if (!state.directions) {
+
+					if (!state.entries.directions) {
 						return;
 					}
-					const from = state.directions.from;
-					const to = state.directions.to;
+					const from = state.entries.directions.from;
+					const to = state.entries.directions.to;
 					const points = `${from.lng},${from.lat};${to.lng},${to.lat}`;
-					const url = `https://api.mapbox.com/directions/v5/mapbox/walking/${points}.json?steps=true&geometries=geojson&access_token=${
-						mapBoxSettings.token
-						}`;
+					const url = `https://api.mapbox.com/directions/v5/mapbox/walking/${points}.json?steps=true&geometries=geojson&access_token=${mapBoxSettings.token}`;
 					mapLoaderShow("directions");
 					axios
 						.get(url)

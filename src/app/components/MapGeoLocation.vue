@@ -14,10 +14,10 @@
 		mounted() {
 			store.subscribe((mutation, state) => {
 				if (mutation.type === "entries/setGeolocation") {
-					if (!state.geolocation) {
+					if (!state.entries.geolocation) {
 						return;
 					}
-					this.setOrUpdatePosition(state.geolocation);
+					this.setOrUpdatePosition(state.entries.geolocation);
 				}
 			});
 		},
