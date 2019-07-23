@@ -90,7 +90,7 @@
 		},
 		mounted: function () {
 			this.setFilter();
-			this.$store.dispatch("page/loadMobileHeader", {
+			this.$store.dispatch('page/loadMobileHeader', {
 				title: this.$t("menu_more"),
 				to: false,
 				color: "brown",

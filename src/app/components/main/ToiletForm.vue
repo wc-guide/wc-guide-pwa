@@ -214,7 +214,7 @@
 				}
 			},
 			mapState({
-				map: state => state.entries.map
+				map: state => state.map.map
 			})
 		),
 		methods: {

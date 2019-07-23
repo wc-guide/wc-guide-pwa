@@ -100,7 +100,7 @@
 				this.mapBox.dragRotate.disable();
 				this.mapBox.touchZoomRotate.disableRotation();
 
-				this.$store.dispatch("entries/setMap", this.mapBox);
+				this.$store.dispatch('map/setMap', this.mapBox);
 				this.mapBox.on('load', () => {
 					i18nSetMapLang();
 				});
@@ -119,7 +119,7 @@
 			MapDirections
 		},
 		computed: mapState({
-			map: state => state.entries.map
+			map: state => state.map.map
 		})
 	};
 </script>

@@ -25,7 +25,7 @@ export default new Router({
 			path: '/:locale/list/',
 			component: List,
 			beforeEnter: (to, from, next) => {
-				if (typeof store.state.entriesList === 'object') {
+				if (typeof store.state.entries.list === 'object') {
 					next();
 				} else {
 					vueInstance.$snack.danger({
@@ -41,7 +41,7 @@ export default new Router({
 			path: '/:locale/add/',
 			component: Add,
 			beforeEnter: (to, from, next) => {
-				if (store.state.map && store.state.map.getZoom() <= 12) {
+				if (store.state.map.map && store.state.map.map.getZoom() <= 12) {
 					vueInstance.$snack.danger({
 						text: vueInstance.$t('add_zoom_closer'),
 						button: 'OK'

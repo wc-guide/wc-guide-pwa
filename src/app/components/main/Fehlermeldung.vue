@@ -54,7 +54,7 @@
 		},
 		mounted() {
 			this.loadEntry();
-			this.$store.dispatch("page/loadMobileHeader", {
+			this.$store.dispatch('page/loadMobileHeader', {
 				title: this.$t("menu_fehlermeldung"),
 				color: "red",
 				map: true
@@ -139,7 +139,7 @@
 		},
 		computed: mapState({
 			online: state => state.client.online,
-			map: state => state.entries.map
+			map: state => state.map.map
 		}),
 	};
 </script>

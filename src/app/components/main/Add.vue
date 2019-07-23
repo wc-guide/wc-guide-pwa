@@ -46,7 +46,7 @@
 				this.note = false;
 			}
 
-			this.$store.dispatch("page/loadMobileHeader", {
+			this.$store.dispatch('page/loadMobileHeader', {
 				title: this.$t("menu_add"),
 				map: true
 			});
@@ -100,7 +100,7 @@
 		},
 		computed: mapState({
 			online: state => state.client.online,
-			map: state => state.entries.map,
+			map: state => state.map.map,
 		}),
 		beforeDestroy: function () {
 			window.addMarkerOnClick = false;

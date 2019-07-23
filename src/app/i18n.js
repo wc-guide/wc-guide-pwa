@@ -103,12 +103,12 @@ export const i18nSetMapLang = function (lang = false) {
 	if (!lang) {
 		lang = i18nGetLang();
 	}
-	if (store.state.map) {
+	if (store.state.map.map) {
 		const mapBoxLanguages = ['en', 'es', 'fr', 'de', 'ru', 'zh', 'pt', 'ar', 'ja'];
 		let mapLang = lang;
 		if (mapBoxLanguages.indexOf(mapLang) === -1) {
 			mapLang = fallback;
 		}
-		store.state.map.setLayoutProperty('country-label', 'text-field', ['get', 'name_' + mapLang]);
+		store.state.map.map.setLayoutProperty('country-label', 'text-field', ['get', 'name_' + mapLang]);
 	}
 };

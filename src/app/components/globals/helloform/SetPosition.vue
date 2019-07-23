@@ -41,7 +41,7 @@
 				this.setMapMove();
 			}
 			store.subscribe((mutation, state) => {
-				if (mutation.type === "entries/setMap" && state.entries.map) {
+				if (mutation.type === 'map/setMap' && state.map.map) {
 					this.setOnlick();
 					this.setMapMove();
 				}
@@ -138,7 +138,7 @@
 		},
 		computed: mapState({
 			online: state => state.client.online,
-			map: state => state.entries.map
+			map: state => state.map.map
 		}),
 		beforeDestroy() {
 			window.addMarkerOnClick = false;

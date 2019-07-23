@@ -1,8 +1,6 @@
 <template>
 	<main class="main" id="main-content">
-		<div
-			:class="`main__header main__header--${mobileheader.color} ${mobileheader.map?'main__header--map':''}`"
-		>
+		<div :class="`main__header main__header--${mobileheader.color} ${mobileheader.map?'main__header--map':''}`">
 			<h1 class="main__pagetitle">{{(mobileheader.title ? mobileheader.title : '&nbsp;')}}</h1>
 			<localized-link
 				:to="mobileheader.to"
@@ -97,7 +95,7 @@
 		},
 		computed: mapState({
 			mobileheader: state => state.page.mobileheader,
-			map: state => state.entries.map
+			map: state => state.map.map
 		})
 	};
 </script>

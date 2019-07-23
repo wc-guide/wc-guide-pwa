@@ -40,7 +40,7 @@
 			};
 		},
 		mounted: function () {
-			this.$store.dispatch("page/loadMobileHeader", {
+			this.$store.dispatch('page/loadMobileHeader', {
 				title: this.$t("menu_search")
 			});
 		},
@@ -103,7 +103,7 @@
 		},
 		computed: mapState({
 			online: state => state.client.online,
-			map: state => state.entries.map
+			map: state => state.map.map
 		}),
 	};
 </script>

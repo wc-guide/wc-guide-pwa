@@ -13,17 +13,17 @@
 		},
 		mounted() {
 			store.subscribe((mutation, state) => {
-				if (mutation.type === "entries/setGeolocation") {
-					if (!state.entries.geolocation) {
+				if (mutation.type === 'map/setGeoLocation') {
+					if (!state.map.geolocation) {
 						return;
 					}
-					this.setOrUpdatePosition(state.entries.geolocation);
+					this.setOrUpdatePosition(state.map.geolocation);
 				}
 			});
 		},
 		computed: mapState({
 			mobileheader: state => state.page.mobileheader,
-			geolocation: state => state.entries.geolocation
+			geolocation: state => state.map.geolocation
 		}),
 		methods: {
 			setOrUpdatePosition: function (geolocation) {

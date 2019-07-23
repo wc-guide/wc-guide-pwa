@@ -85,20 +85,18 @@
 			toggleMobileNav: function (event) {
 				const $button = event.target;
 				const hide = $button.getAttribute("aria-expanded") === "true";
-				const $element = document.querySelector(
-					`#${$button.getAttribute("aria-controls")}`
-				);
+				const $element = document.querySelector(`#${$button.getAttribute("aria-controls")}`);
 				$element.setAttribute("aria-hidden", hide ? "true" : "false");
 				$button.setAttribute("aria-expanded", hide ? "false" : "true");
 				this.$el.querySelector('.feedback-button').setAttribute("aria-hidden", hide ? "false" : "true");
 			},
 			setMyPosition: function () {
 				const myPosition = new Promise((resolve, reject) => {
-					this.$store.dispatch("entries/setGeoLocation").then(() => {
+					this.$store.dispatch('map/setGeoLocation').then(() => {
 						this.$store.subscribe((mutation, state) => {
-							if (mutation.type === "entries/setGeolocation") {
-								if (state.geolocation) {
-									resolve(this.$store.state.geolocation);
+							if (mutation.type === 'map/setGeoLocation') {
+								if (state.map.geolocation) {
+									resolve(this.$store.state.map.geolocation);
 								}
 							}
 						});
@@ -121,8 +119,8 @@
 			i18nSetLang();
 		},
 		computed: mapState({
-			map: state => state.entries.map,
-			geolocation: state => state.entries.geolocation,
+			map: state => state.map.map,
+			geolocation: state => state.map.geolocation,
 		}),
 	};
 </script>

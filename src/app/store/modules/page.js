@@ -66,7 +66,7 @@ const actions = {
 
 const mutations = {
 	setPage(state, page) {
-		this.dispatch("page/loadMobileHeader", {
+		this.dispatch('page/loadMobileHeader', {
 			title: page.title,
 			to: '/more',
 			color: "brown"

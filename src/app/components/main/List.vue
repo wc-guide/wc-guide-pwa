@@ -36,7 +36,7 @@
 
 	export default {
 		mounted: function () {
-			this.$store.dispatch("page/loadMobileHeader", {
+			this.$store.dispatch('page/loadMobileHeader', {
 				title: this.$t("menu_list"),
 				to: false,
 				color: "brown",
@@ -59,17 +59,16 @@
 					});
 				}
 				const markerIndex = window.markerIds[id];
-				const marker = this.map.getSource("wcs")["_data"].features[
-					markerIndex
-					];
+				const marker = this.map.getSource("wcs")["_data"].features[markerIndex];
 				const coordinates = marker.geometry.coordinates.slice();
 				const description = marker.properties.description;
 				openMapPopup(description, coordinates, this.map);
 			}
 		},
 		computed: mapState({
-			entriesList: state => state.entries.entriesList,
-			geolocation: state => state.entries.geolocation
+			map: state => state.map.map,
+			entriesList: state => state.entries.list,
+			geolocation: state => state.map.geolocation
 		}),
 	};
 </script>

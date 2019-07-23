@@ -17,13 +17,14 @@
 		mounted() {
 			const map = this.map;
 			store.subscribe((mutation, state) => {
-				if (mutation.type === "entries/setDirections") {
+				if (mutation.type === 'map/setDirections') {
 
-					if (!state.entries.directions) {
+					if (!state.map.directions) {
 						return;
 					}
-					const from = state.entries.directions.from;
-					const to = state.entries.directions.to;
+					console.log('setDirections');
+					const from = state.map.directions.from;
+					const to = state.map.directions.to;
 					const points = `${from.lng},${from.lat};${to.lng},${to.lat}`;
 					const url = `https://api.mapbox.com/directions/v5/mapbox/walking/${points}.json?steps=true&geometries=geojson&access_token=${mapBoxSettings.token}`;
 					mapLoaderShow("directions");

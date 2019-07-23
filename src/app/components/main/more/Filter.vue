@@ -41,7 +41,7 @@
 				$fields.forEach($item => {
 					filter[$item.getAttribute("value")] = $item.checked;
 				});
-				this.$store.dispatch("entries/setToiletFilter", filter);
+				this.$store.dispatch('entries/loadFilter', filter);
 			}
 		},
 		components: {
@@ -49,7 +49,7 @@
 			HelloInput
 		},
 		computed: mapState({
-			toiletfilter: state => state.entries.toiletfilter
+			toiletfilter: state => state.entries.filter
 		}),
 	};
 </script>

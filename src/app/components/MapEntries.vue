@@ -86,7 +86,7 @@
 
 						map.on("moveend", () => {
 							this.entriesMaybeReload();
-							store.dispatch("entries/loadEntriesList", this.map.getBounds());
+							store.dispatch("entries/loadList", this.map.getBounds());
 						});
 
 						map.on("zoomend", () => {
@@ -101,10 +101,10 @@
 
 						store.subscribe((mutation, state) => {
 							if (mutation.type === "entries/setEntries") {
-								if (state.entries.entries.length === 0) {
+								if (state.entries.toilets.length === 0) {
 									//return;
 								}
-								this.entriesSet(state.entries.entries);
+								this.entriesSet(state.entries.toilets);
 							}
 						});
 					});
@@ -165,7 +165,7 @@
 					return;
 				}
 				if (parksSet == 0) {
-					store.dispatch("entries/loadEntriesList", this.map.getBounds());
+					store.dispatch("entries/loadList", this.map.getBounds());
 				}
 				parksSet = entries.length;
 				const geoElements = [];
@@ -205,7 +205,7 @@
 					this.openPopup(this.$route.params.entryId);
 				}
 				*/
-				store.dispatch("entries/loadEntriesList", this.map.getBounds());
+				store.dispatch("entries/loadList", this.map.getBounds());
 				mapLoaderHide("filterEntries");
 				mapLoaderHide("loadEntries");
 			},
@@ -252,11 +252,11 @@
 		}
 
 		const myPosition = new Promise((resolve, reject) => {
-			vueInstance.$store.dispatch("entries/setGeoLocation").then(() => {
+			vueInstance.$store.dispatch('map/setGeoLocation').then(() => {
 				vueInstance.$store.subscribe((mutation, state) => {
-					if (mutation.type === "entries/setGeolocation") {
-						if (state.entries.geolocation) {
-							resolve(vueInstance.$store.state.entries.geolocation);
+					if (mutation.type === 'map/setGeoLocation') {
+						if (state.map.geolocation) {
+							resolve(vueInstance.$store.state.map.geolocation);
 						}
 					}
 				});
@@ -266,7 +266,7 @@
 		myPosition.then(location => {
 			document.querySelector('.toilet').classList.add('toilet--route-active');
 			console.log(location);
-			vueInstance.$store.dispatch("entries/setDirections", {
+			vueInstance.$store.dispatch('map/setDirections', {
 				from: location,
 				to: {
 					lat,

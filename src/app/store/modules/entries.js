@@ -6,7 +6,6 @@ import {mapLoaderShow, mapLoaderHide} from "./../../vendor/mapLoader";
 import {toilet, distanceBetweenCoordinates, humanizeDistance, sortProperties, angleBetweenCoordinates} from "./../../vendor/funcs";
 import {api} from './../../vendor/settings';
 
-let geoWatchID = false;
 const fetchEntries = function (bounds) {
 	return new Promise((resolve, reject) => {
 		axios.post(api.wc.get, {
@@ -36,12 +35,9 @@ Object.keys(toilet.types).forEach(type => {
 let mapBounds = false;
 
 const state = {
-	entries: [],
-	entriesList: 'loading',
-	map: false,
-	geolocation: false,
-	directions: false,
-	toiletfilter,
+	toilets: [],
+	list: 'loading',
+	filter: toiletfilter,
 };
 
 const getters = {};
@@ -67,27 +63,27 @@ const actions = {
 				});
 			});
 	},
-	loadEntriesList({commit}, bounds) {
+	loadList({commit}, bounds) {
 		let newEntriesList = [];
 		const b = {
 			min: bounds.getSouthWest(),
 			max: bounds.getNorthEast()
 		};
-		Object.keys(this.state.entries).forEach(id => {
-			const entry = this.state.entries[id];
+		Object.keys(this.state.entries.toilets).forEach(id => {
+			const entry = this.state.entries.toilets[id];
 			if (
 				(b.min.lat < entry.lat && entry.lat < b.max.lat) &&
 				(b.min.lng < entry.lng && entry.lng < b.max.lng)
 			) {
 				let distance = false;
 				let angle = false;
-				if (this.state.geolocation) {
+				if (this.state.map.geolocation) {
 					const entryGeo = {
 						lat: entry.lat,
 						lng: entry.lng
 					};
-					distance = distanceBetweenCoordinates(this.state.geolocation, entryGeo);
-					angle = angleBetweenCoordinates(this.state.geolocation, entryGeo);
+					distance = distanceBetweenCoordinates(this.state.map.geolocation, entryGeo);
+					angle = angleBetweenCoordinates(this.state.map.geolocation, entryGeo);
 				}
 				const newEntry = entry;
 				newEntry.type = toilet.getType(entry);
@@ -97,62 +93,12 @@ const actions = {
 				newEntriesList.push(newEntry);
 			}
 		});
-		if (this.state.geolocation) {
+		if (this.state.map.geolocation) {
 			newEntriesList = sortProperties(newEntriesList, 'distance', true);
 		}
-		commit('setEntriesList', newEntriesList);
+		commit('setList', newEntriesList);
 	},
-	setMap({commit}, map) {
-		commit('setMap', map);
-	},
-	setGeoLocation({commit}, data) {
-		if (!"geolocation" in navigator) {
-			vueInstance.$snack.danger({
-				text: i18n.t("geolocation_not_found"),
-				button: 'OK'
-			});
-			commit('setGeolocation', false);
-			return;
-		}
-
-		mapLoaderShow('geolocation');
-		geoWatchID = navigator.geolocation.watchPosition(
-			position => {
-				const lat = position.coords.latitude;
-				const lng = position.coords.longitude;
-				commit('setGeolocation', {lat, lng});
-				mapLoaderHide('geolocation');
-			},
-			() => {
-				vueInstance.$snack.danger({
-					text: i18n.t("geolocation_not_permitted"),
-					button: "OK"
-				});
-				commit('setGeolocation', false);
-				mapLoaderHide('geolocation');
-			}
-		);
-	},
-	removeGeoLocation({commit}) {
-		commit('setGeolocation', false);
-	},
-	setDirections({commit}, data) {
-		const directions = {
-			from: {
-				lat: data.from.lat,
-				lng: data.from.lng
-			},
-			to: {
-				lat: data.to.lat,
-				lng: data.to.lng
-			}
-		};
-		commit('setDirections', directions);
-	},
-	removeDirections({commit}) {
-		commit('setDirections', false);
-	},
-	setToiletFilter({commit}, filter) {
+	loadFilter({commit}, filter) {
 		entriesDB.getAll().then(entries => {
 			const filtered = entries.filter((item) => {
 				const itemType = toilet.getType(item);
@@ -179,26 +125,17 @@ const actions = {
 
 const mutations = {
 	setEntries(state, entries) {
-		state.entries = entries;
+		state.toilets = entries;
 	},
-	setEntriesList(state, entries) {
+	setList(state, entries) {
 		if (Object.keys(entries).length >= 50) {
-			state.entriesList = false;
+			state.list = false;
 		} else {
-			state.entriesList = entries;
+			state.list = entries;
 		}
 	},
-	setMap(state, map) {
-		state.map = map;
-	},
-	setGeolocation(state, location) {
-		state.geolocation = location;
-	},
-	setDirections(state, data) {
-		state.directions = data;
-	},
 	setFilter(state, data) {
-		state.toiletfilter = data;
+		state.filter = data;
 	},
 };
 
