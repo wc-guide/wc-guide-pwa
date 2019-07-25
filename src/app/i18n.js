@@ -1,17 +1,15 @@
 import Vue from 'vue'
 import VueI18n from 'vue-i18n';
-import de from './lang/de.json';
+import de from './../content/lang/de/strings.json';
 import axios from 'axios';
 import router from './router';
-import 'vue-cookies';
-import {api} from "./vendor/settings";
+
 import {store} from "./store/store";
+import {settingsDB} from "./store/storeDB";
 
 Vue.use(VueI18n);
 
 const fallback = 'de';
-const loadedLanguages = [fallback];
-
 export const i18nDefault = fallback;
 export const i18n = new VueI18n({
 	locale: fallback,
@@ -19,85 +17,99 @@ export const i18n = new VueI18n({
 	messages: {de}
 });
 
-export const i18nGetLang = function () {
+settingsDB.set(fallback, de);
+
+export const i18nGetLang = async function () {
 
 	const pathElements = window.location.pathname.split('/');
 	if (pathElements.length >= 3) {
 		return pathElements[1];
 	}
 
-	const cookieLang = ($cookies.isKey('lang') ? $cookies.get('lang') : false);
-	if (cookieLang) {
-		return cookieLang;
+	let newLang = fallback;
+	const browserLang = navigator.language || navigator.userLanguage;
+	if (browserLang) {
+		newLang = browserLang.split('-')[0];
+	}
+	const storeLang = await settingsDB.get('lang');
+	if (storeLang) {
+		newLang = storeLang;
 	}
 
-	const userLang = navigator.language || navigator.userLanguage;
-	if (userLang) {
-		return userLang.split('-')[0];
-	}
-
-	return fallback;
+	return newLang;
 };
 
-export const i18nSetLang = function (lang = false) {
+export const i18nGetLanguages = async function (callback) {
+	settingsDB.get('languages', langs => callback(langs));
+	axios.get('/content/languages.json')
+		.then(response => {
+			const langs = response.data;
+			settingsDB.set('languages', langs);
+			callback(langs);
+		});
+};
+
+export const i18nSetLang = async function (lang = false) {
 	if (!lang) {
-		lang = i18nGetLang();
+		lang = await i18nGetLang();
 	}
 
-	const load = new Promise((resolve, reject) => {
-		if (i18n.locale !== lang) {
-			if (loadedLanguages.indexOf(lang) === -1) {
-				return axios
-					.get(`${api.wp.base}wc-guide/v1/translations/${lang}/`)
-					.then(response => {
-						const msgs = response.data;
-						i18n.setLocaleMessage(lang, msgs);
-						loadedLanguages.push(lang);
-						resolve(lang);
-					}).catch(() => reject());
+	let apiSet = false;
+
+	axios.get(`/content/lang/${lang}/strings.json`)
+		.then(response => {
+			const msgs = response.data;
+			settingsDB.set(lang, msgs);
+			apiSet = true;
+			setLang(lang, msgs);
+		});
+
+	settingsDB.get(lang)
+		.then(msgs => {
+			if (!apiSet) {
+				setLang(lang, msgs);
 			}
-			resolve(lang);
-		}
-		resolve(lang)
-	});
-
-	load.then(lang => {
-
-		/**
-		 * Set Lang
-		 */
-		i18n.locale = lang;
-		axios.defaults.headers.common['Accept-Language'] = lang;
-		document.querySelector('html').setAttribute('lang', lang);
-		$cookies.set('lang', lang);
-
-		/**
-		 * Push
-		 */
-		let pushPath = false;
-		const currentRoute = router.currentRoute;
-
-		if (currentRoute.fullPath === '/') {
-			pushPath = `${currentRoute.fullPath}${i18n.locale}/`;
-		} else if (i18n.locale !== currentRoute.params.locale) {
-			pushPath = currentRoute.fullPath.replace(`/${currentRoute.params.locale}/`, `/${i18n.locale}/`);
-		}
-
-		if (pushPath) {
-			router.push(pushPath);
-		}
-
-		/**
-		 * MapLanguage
-		 */
-		i18nSetMapLang(lang);
-
-		/**
-		 * Return
-		 */
-		return lang;
-	}).catch(() => i18nSetLang(fallback));
+		});
 };
+
+function setLang(lang, msgs) {
+	i18n.setLocaleMessage(lang, msgs);
+
+	/**
+	 * Set Lang
+	 */
+
+	i18n.locale = lang;
+	axios.defaults.headers.common['Accept-Language'] = lang;
+	document.querySelector('html').setAttribute('lang', lang);
+	settingsDB.set('lang', lang);
+
+	/**
+	 * Push
+	 */
+
+	const currentRoute = router.currentRoute;
+	if (currentRoute.fullPath === '/') {
+		return lang;
+	}
+
+	let pushPath = false;
+	if (i18n.locale !== currentRoute.params.locale) {
+		pushPath = currentRoute.fullPath.replace(`/${currentRoute.params.locale}/`, `/${i18n.locale}/`);
+	}
+
+	if (pushPath) {
+		router.push(pushPath);
+	}
+
+	/**
+	 * MapLanguage
+	 */
+
+	i18nSetMapLang(lang);
+
+	return lang;
+}
 
 export const i18nSetMapLang = function (lang = false) {
 	if (!lang) {

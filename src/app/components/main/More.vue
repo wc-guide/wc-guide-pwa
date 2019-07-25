@@ -3,24 +3,24 @@
 		<nav class="more__nav morenav">
 			<div class="morenav__category">
 				<div class="morenav__element morenav__element--lang">
-					<template v-for="lang in languages">
-						<icon
-							:key="lang"
-							:icon="`flags/${lang}`"
+					<template v-for="(lang, langKey) in languages">
+						<hello-icon
+							:key="langKey"
+							:icon="`flags/${langKey}`"
 							class="morenav__icon"
-							v-if="lang === $i18n.locale"
-						></icon>
+							v-if="langKey === $i18n.locale"
+						></hello-icon>
 					</template>
 					<div
 						class="morenav__content morenav__content--selectlang o-helloform__element o-helloform__element--type-select"
 					>
 						<select class="o-helloform__input" @change="setLanguage">
 							<option
-								v-for="lang in languages"
-								:value="lang"
-								v-bind:selected="($i18n.locale === lang)"
-								:key="lang"
-							>{{$t(`lang_${lang}`)}}
+								v-for="(lang, langKey) in languages"
+								:value="langKey"
+								v-bind:selected="($i18n.locale === langKey)"
+								:key="langKey"
+							>{{lang}}
 							</option>
 						</select>
 					</div>
@@ -58,7 +58,7 @@
 	</div>
 </template>
 <script>
-	import {i18nSetLang, i18nDefault} from "../../i18n";
+	import {i18nSetLang, i18nDefault, i18nGetLanguages} from "../../i18n";
 	import {subnavigation, api} from "./../../vendor/settings.js";
 	import axios from 'axios';
 	import Filter from './more/Filter.vue';
@@ -68,7 +68,9 @@
 		data() {
 			return {
 				navigation: subnavigation,
-				languages: [i18nDefault],
+				languages: {
+					'de': 'Deutsch'
+				},
 				installBanner: false,
 				showFilter: false
 			};
@@ -83,9 +85,9 @@
 			Update
 		},
 		created: function () {
-			axios.get(`${api.wp.base}wc-guide/v1/translations`)
+			axios.get('/content/languages.json')
 				.then(response => {
-					this.languages = Object.keys(response.data);
+					this.languages = response.data;
 				});
 		},
 		mounted: function () {

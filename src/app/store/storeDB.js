@@ -5,7 +5,7 @@ const dbVersion = 1;
 const dbStores = [
 	'settings',
 	'pages',
-	'entries'
+	'entries',
 ];
 
 const idbPromise = openDB(dbName, dbVersion, {

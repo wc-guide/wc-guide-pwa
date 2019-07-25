@@ -25,7 +25,7 @@
 
 		async created() {
 			const loaded = await import(/* webpackMode: "eager" */ `@/icons/${this.folder + this.icon}.svg`);
-			this.svg = loaded.default;
+				this.svg = loaded.default;
 		}
 	}
 </script>

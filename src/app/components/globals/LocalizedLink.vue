@@ -1,27 +1,30 @@
 <template>
-	<router-link :tag="tag" :to="getUri()" :active-class="activeClass">
+	<router-link v-if="localizedTo" :tag="tag" :to="localizedTo" :active-class="activeClass">
 		<slot></slot>
 	</router-link>
 </template>
 
 <script>
+	import {i18nGetLang} from "./../../i18n";
 
 	export default {
-		props: ["to", "tag", "activeClass"],
 
+		props: ['to', 'tag', 'activeClass'],
+		data: function () {
+			return {
+				localizedTo: this.getLocalizedLink(this.$route.params.locale)
+			}
+		},
+		mounted: async function () {
+			let locale = await i18nGetLang();
+			this.localizedTo = this.getLocalizedLink(locale);
+		},
 		methods: {
-			getUri() {
-				let locale = this.$route.params.locale;
-				/*
-				if (!langVars.all.includes(locale)) {
-					locale = langVars.fallback;
+			getLocalizedLink(locale) {
+				if (locale) {
+					return `/${locale}${this.to}`;
 				}
-				*/
-
-				if (this.to === "/") {
-					return `/${locale}/`;
-				}
-				return `/${locale}/${this.to.replace(/^\/|\/$/g, "")}/`;
+				return false;
 			}
 		}
 	};
