@@ -13,6 +13,7 @@
 	            :required="required"
 	            :placeholder="placeholder"
 	            :disabled="disabled"
+	            :has-value="(value?'true':'false')"
             ></textarea>
 			<select
 				v-else
@@ -24,6 +25,7 @@
 				:required="required"
 				:placeholder="placeholder"
 				:disabled="disabled"
+				:has-value="(value?'true':'false')"
 			>
 				<template v-if="choices">
 					<option
@@ -46,6 +48,7 @@
 			:required="required"
 			:placeholder="placeholder"
 			:disabled="disabled"
+			:has-value="(value?'true':'false')"
 		/>
 		<label :for="name" class="o-helloform__label">
 			<span v-html="title+(required?'*':'')"></span>

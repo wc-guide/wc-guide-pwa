@@ -34,15 +34,14 @@
 				<map-filter class="morenav__body" v-if="showFilter"></map-filter>
 			</div>
 			<div class="morenav__category" v-for="(category, index) in navigation" :key="index">
-				<template v-for="(vals, element) in category">
+				<template v-for="(icon, element) in category">
 					<localized-link
 						:key="element"
-						v-if="($i18n.locale in vals.page)"
 						activeClass="morenav__element--active"
 						:to="`/more/${element}/`"
 						:class="`morenav__element morenav__element--${element}`"
 					>
-						<hello-icon :icon="`fa/${vals.icon}`" class="morenav__icon"></hello-icon>
+						<hello-icon :icon="`fa/${icon}`" class="morenav__icon"></hello-icon>
 						<span class="morenav__content">{{$t(`submenu_${element}`)}}</span>
 					</localized-link>
 				</template>

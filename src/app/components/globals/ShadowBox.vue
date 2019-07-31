@@ -13,9 +13,8 @@
 </template>
 
 <script>
-	import {getPageId, fetchPage} from "../../vendor/funcsPage";
-	import {pagesDB} from "../../store/storeDB";
-	import {Portal} from '@linusborg/vue-simple-portal'
+	import {Portal} from '@linusborg/vue-simple-portal';
+	import {mapState} from "vuex";
 
 	export default {
 		props: {
@@ -28,47 +27,14 @@
 				required: true
 			}
 		},
-		data() {
-			return {
-				page: false
-			}
-		},
-		created() {
-			if (this.pageSlug) {
-				const pageId = getPageId(this.pageSlug);
-				if (!pageId) {
-					this.page = {
-						title: '404 error',
-						content: 'Page not found'
-					};
-				} else {
-					fetchPage(pageId)
-						.then(page => {
-							this.page = {
-								title: page.title,
-								content: page.content
-							};
-						})
-						.catch(() => {
-							pagesDB.get(pageId).then(page => {
-								if (page) {
-									this.page = {
-										title: page.title,
-										content: page.content
-									};
-								} else {
-									this.page = {
-										title: '404 error',
-										content: 'Page not found'
-									};
-								}
-							});
-						});
-				}
-			}
+		mounted() {
+			this.$store.dispatch('page/load', this.pageSlug);
 		},
 		components: {
 			Portal
-		}
+		},
+		computed: mapState({
+			page: state => state.page.current
+		})
 	};
 </script>

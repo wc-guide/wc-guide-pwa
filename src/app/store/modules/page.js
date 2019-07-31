@@ -1,6 +1,6 @@
 import {pagesDB} from "./../storeDB";
-import {vueInstance} from "./../../app";
-import {getPageId, fetchPage} from "../../vendor/funcsPage";
+import axios from "axios/index";
+import {i18nGetLang} from "../../i18n";
 
 const mobileHeaderDefault = {
 	title: false,
@@ -17,32 +17,80 @@ const state = {
 const getters = {};
 
 const actions = {
-	load({commit}, data) {
-		const pageId = getPageId(data);
-		if (!pageId) {
-			commit('setPage', {
-				title: '404 error',
-				content: 'Page not found',
-				loading: false
-			});
-			return;
-		}
+	async load({commit}, key) {
 
 		commit('setPage', {
 			loading: true
 		});
 
-		pagesDB.get(pageId).then(page => {
-			if (page) {
+		const lang = await i18nGetLang();
+		const pageKey = `${key}-${lang}`;
+
+		pagesDB.get(pageKey)
+			.then(page => {
+				if (page) {
+					commit('setPage', {
+						title: page.title,
+						content: page.content,
+						loading: false
+					});
+				}
+			});
+
+		axios.get(`/content/lang/${lang}/${pageKey}.html`)
+			.then(response => {
+				const regex = /<h1>(.+)<\/h1>/gm;
+				let content = response.data;
+				let title = '';
+				let m = '';
+				while ((m = regex.exec(content)) !== null) {
+					if (m.index === regex.lastIndex) {
+						regex.lastIndex++;
+					}
+
+					m.forEach((match, groupIndex) => {
+						if (groupIndex === 0) {
+							content = content.replace(match, '');
+						} else if (groupIndex === 1) {
+							title = match;
+						}
+					});
+				}
+
+				pagesDB.set(pageKey, {
+					title,
+					content
+				});
+
 				commit('setPage', {
-					title: page.title,
-					content: page.content,
+					title,
+					content,
 					loading: false
 				});
-			}
-		});
+			})
+			.catch(error => {
+				commit('setPage', {
+					title: '404 error',
+					content: 'Page not found',
+					loading: false
+				});
+			});
 
-		fetchPage(pageId)
+		/*
+		axios.get(`${api.wp.base}wp/v2/${path}`)
+			.then(r => {
+				const page = {
+					title: r.data.title.rendered,
+					content: r.data.content.rendered
+				};
+				pagesDB.set(pageId, page);
+				resolve(page);
+			})
+			.catch(error => {
+				reject(error);
+			});
+
+		fetchPage(key)
 			.then(page => {
 				if (page) {
 					commit('setPage', {
@@ -53,11 +101,13 @@ const actions = {
 				}
 			})
 			.catch(error => {
-				vueInstance.$snack.danger({
-					text: vueInstance.$t('offline_page_request'),
-					button: 'OK'
+				commit('setPage', {
+					title: '404 error',
+					content: 'Page not found',
+					loading: false
 				});
 			});
+			*/
 	},
 	loadMobileHeader({commit}, data) {
 		commit('setMobileheader', data);

@@ -1,3 +1,6 @@
+/*
+ * Integrated to src/styles/_components/_page.scss
+ */
 .grid-container-3-1 {
 	display: grid;
 	grid-template-columns: 1fr 25%;

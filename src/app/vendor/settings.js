@@ -69,67 +69,14 @@ export const navigation = {
 
 export const subnavigation = [
 	{
-		faq: {
-			icon: "question",
-			page: {
-				de: 2,
-				en: 19,
-				fr: 67,
-				it: 70
-			}
-		},
-		media: {
-			icon: "volume-up",
-			page: {
-				de: 9,
-				en: 21,
-				fr: 149,
-				it: 151
-			}
-		},
-		support: {
-			icon: "heart",
-			page: {
-				de: 11,
-				en: 23,
-				fr: 95,
-				it: 101
-			}
-		},
-		contact: {
-			icon: "envelope",
-			page: {
-				de: 13,
-				en: 25,
-				fr: 133,
-				it: 135
-			}
-		}
+		faq: "question",
+		media: "volume-up",
+		support: "heart",
+		contact: "envelope",
 	}, {
-		legal: {
-			icon: "balance",
-			page: {
-				de: 15,
-				en: 27,
-				fr: 113,
-				it: 115
-			}
-		},
-		privacy: {
-			icon: "lock",
-			page: {
-				de: 17,
-				en: 29,
-				fr: 107,
-				it: 109
-			}
-		}
+		legal: "balance",
+		privacy: "lock",
 	}
 ];
 
-export const supportPage = {
-	de: 142,
-	en: 137,
-	fr: 144,
-	it: 146
-};
+export const footernavigation = ['legal', 'privacy'];

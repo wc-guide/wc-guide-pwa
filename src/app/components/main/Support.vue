@@ -1,70 +1,34 @@
 <template>
 	<div class="content__support content-support">
-		<div v-if="page" v-html="page.content" class="page-content"></div>
+		<div v-if="page" v-html="page.content" class="page"></div>
 		<nav class="content__footer content-footerlinks">
 			<localized-link
 				v-for="link in footerLinks"
-				:key="link.title"
-				:to="link.to"
+				:key="link"
+				:to="`more/${link}/`"
 				class="content-footerlinks__element"
-			>{{link.title}}
+			>
+				{{$t(`submenu_${link}`)}}
 			</localized-link>
 		</nav>
 	</div>
 </template>
 <script>
 
-	import {supportPage} from './../../vendor/settings';
-	import {fetchPage} from "./../../vendor/funcsPage";
-	import {pagesDB} from "../../store/storeDB";
+	import {mapState} from "vuex";
+	import {footernavigation} from './../../vendor/settings';
 
 	export default {
 		data() {
 			return {
-				page: false,
-				footerLinks: {
-					legal: {
-						title: this.$t("submenu_legal"),
-						to: "/more/legal/"
-					},
-					privacy: {
-						title: this.$t("submenu_privacy"),
-						to: "/more/privacy/"
-					}
-				}
+				footerLinks: footernavigation
 			};
 		},
-		created() {
-			const lang = this.$i18n.locale;
-			const validLangs = Object.keys(supportPage);
-			let pageId = supportPage[validLangs[0]];
-
-			if (lang in supportPage) {
-				pageId = supportPage[lang];
-			}
-
-			fetchPage(pageId)
-				.then(page => {
-					this.page = {
-						title: page.title,
-						content: page.content
-					};
-				})
-				.catch(() => {
-					pagesDB.get(pageId).then(page => {
-						if (page) {
-							this.page = {
-								title: page.title,
-								content: page.content
-							};
-						} else {
-							this.page = {
-								title: '404 error',
-								content: 'Page not found'
-							};
-						}
-					});
-				});
-		}
+		mounted() {
+			this.$store.dispatch('page/load', 'support');
+		},
+		computed: mapState({
+			page: state => state.page.current
+		})
 	};
 </script>
