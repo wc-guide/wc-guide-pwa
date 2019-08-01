@@ -28,6 +28,7 @@ export default new Router({
 				if (typeof store.state.entries.list === 'object') {
 					next();
 				} else {
+					console.log(typeof store.state.entries.list, store.state.entries.list);
 					vueInstance.$snack.danger({
 						text: vueInstance.$t('zoom_closer'),
 						button: 'OK'

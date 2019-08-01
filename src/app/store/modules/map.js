@@ -4,11 +4,13 @@ import {vueInstance} from "./../../app";
 import {i18n} from '../../i18n';
 import {mapLoaderShow, mapLoaderHide} from "./../../vendor/mapLoader";
 import {toilet, distanceBetweenCoordinates, humanizeDistance, sortProperties, angleBetweenCoordinates} from "./../../vendor/funcs";
-import {api} from './../../vendor/settings';
+import {mapBoxSettings} from './../../vendor/settings';
 
 let geoWatchID = false;
+
 const state = {
 	map: false,
+	type: Object.keys(mapBoxSettings.styles)[0],
 	geolocation: false,
 	directions: false,
 };
@@ -18,6 +20,9 @@ const getters = {};
 const actions = {
 	setMap({commit}, map) {
 		commit('setMap', map);
+	},
+	setType({commit}, type) {
+		commit('setType', type);
 	},
 	setGeoLocation({commit}, data) {
 		if (!"geolocation" in navigator) {
@@ -71,6 +76,9 @@ const actions = {
 const mutations = {
 	setMap(state, map) {
 		state.map = map;
+	},
+	setType(state, type) {
+		state.type = type;
 	},
 	setGeoLocation(state, location) {
 		state.geolocation = location;

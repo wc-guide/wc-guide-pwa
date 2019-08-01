@@ -4,6 +4,7 @@
 	import {vueInstance} from "./../app";
 	import {mapLoaderShow, mapLoaderHide} from "./../vendor/mapLoader";
 	import {toilet, getEntryDescription, openMapPopup, getZoomIconSize} from "./../vendor/funcs";
+	import {mapState} from "vuex";
 
 	const markerImages = [
 		"eurokey",
@@ -32,145 +33,91 @@
 	window.markerIds = {};
 
 	export default {
-		props: ["map"],
+		props: ['map'],
 		data() {
 			return {};
 		},
 		mounted() {
-			const map = this.map;
-			this.mapImagesLoaded()
-				.then(() => {
-					map.on("load", () => {
-						map.addSource("wcs", {
-							type: "geojson",
-							data: {
-								type: "FeatureCollection",
-								features: []
-							}
-						});
-
-						map.addLayer({
-							id: "wcs",
-							interactive: true,
-							source: "wcs",
-							type: "symbol",
-							layout: {
-								"icon-image": "marker-{icon}",
-								"icon-allow-overlap": true,
-								"icon-size": getZoomIconSize(this.map.getZoom())
-							}
-						});
-
-						map.on("click", "wcs", e => {
-							if (window.addMarkerOnClick) {
-								return;
-							}
-							const coordinates = e.features[0].geometry.coordinates.slice();
-							const description =
-								e.features[0].properties.description;
-							while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-								coordinates[0] +=
-									e.lngLat.lng > coordinates[0] ? 360 : -360;
-							}
-
-							openMapPopup(description, coordinates, map);
-						});
-
-						map.on("mouseenter", "wcs", () => {
-							map.getCanvas().style.cursor = "pointer";
-						});
-
-						map.on("mouseleave", "wcs", () => {
-							map.getCanvas().style.cursor = "";
-						});
-
-						map.on("moveend", () => {
-							this.entriesMaybeReload();
-							store.dispatch("entries/loadList", this.map.getBounds());
-						});
-
-						map.on("zoomend", () => {
-							map.setLayoutProperty(
-								"wcs",
-								"icon-size",
-								getZoomIconSize(this.map.getZoom())
-							);
-						});
-
-						this.entriesLoad(true);
-
-						store.subscribe((mutation, state) => {
-							if (mutation.type === "entries/setEntries") {
-								if (state.entries.toilets.length === 0) {
-									//return;
-								}
-								this.entriesSet(state.entries.toilets);
-							}
-						});
-					});
-				})
-				.catch(() => console.log("error"));
+			mapLoaderShow('loadMap');
+			this.map.on('load', () => {
+				store.dispatch('entries/loadEntries');
+				mapLoaderHide('loadMap');
+				this.setLayer('test');
+				this.map.on('style.load', () => this.setLayer());
+			});
 		},
 		methods: {
-			entriesMaybeReload: function () {
-				let doLoad = true;
-				if (
-					this.map.getCenter() == currentCenter &&
-					this.map.getZoom() == currentZoom
-				) {
-					doLoad = false;
-				}
+			setLayer(layerKey) {
+				this.mapImagesLoaded().then(() => {
+					this.map.addSource('wcs-source', {
+						type: "geojson",
+						data: {
+							type: "FeatureCollection",
+							features: []
+						}
+					});
 
-				if (currentZoom && currentZoom < this.map.getZoom()) {
-					doLoad = false;
-				}
-				currentZoom = this.map.getZoom();
-				currentCenter = this.map.getCenter();
+					this.map.addLayer({
+						id: 'wcs-layer',
+						interactive: true,
+						source: 'wcs-source',
+						type: "symbol",
+						layout: {
+							"icon-image": `marker-{icon}`,
+							"icon-allow-overlap": true,
+							"icon-size": getZoomIconSize(this.map.getZoom())
+						}
+					});
 
-				if (!doLoad) {
-					return;
-				}
-				clearTimeout(loadParksTimer);
-				if (loadParksTimer === "init") {
-					// load on init
-					this.entriesLoad();
-					loadParksTimer = false;
-				} else {
-					// wait for 500ms on move
-					loadParksTimer = setTimeout(() => {
-						this.entriesLoad();
-					}, 2000);
-				}
-			},
-			entriesLoad: function (initial = false) {
-				const mapBounds = this.map.getBounds();
-				mapLoaderShow("loadEntries");
-				let bounds = [
-					{
-						lat: mapBounds.getSouthWest().lat,
-						lng: mapBounds.getSouthWest().lng
-					},
-					{
-						lat: mapBounds.getNorthEast().lat,
-						lng: mapBounds.getNorthEast().lng
-					}
-				];
-				store.dispatch("entries/loadEntries", {bounds, initial});
+					this.map.on('click', 'wcs-layer', e => {
+						if (window.addMarkerOnClick) {
+							return;
+						}
+						const coordinates = e.features[0].geometry.coordinates.slice();
+						const description = e.features[0].properties.description;
+						while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+							coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+						}
+
+						openMapPopup(description, coordinates, this.map);
+					});
+
+					this.map.on('mouseenter', 'wcs-layer', () => {
+						this.map.getCanvas().style.cursor = 'pointer';
+					});
+
+					this.map.on('mouseleave', 'wcs-layer', () => {
+						this.map.getCanvas().style.cursor = '';
+					});
+
+					this.map.on('moveend', () => {
+						store.dispatch('entries/loadEntries');
+					});
+
+					this.map.on('zoomend', () => {
+						this.map.setLayoutProperty(
+							'wcs-layer',
+							'icon-size',
+							getZoomIconSize(this.map.getZoom())
+						);
+					});
+
+					store.dispatch('entries/loadEntries');
+
+					store.subscribe((mutation, state) => {
+						if (mutation.type === 'entries/setMap') {
+							if (state.entries.map.length === 0) {
+								return;
+							}
+							store.dispatch('entries/loadList');
+							this.entriesSet(state.entries.map);
+						}
+					});
+				});
 			},
 			entriesSet: function (entries) {
 
-				if (parksSet == entries.length) {
-					mapLoaderHide("loadEntries");
-					mapLoaderHide("filterEntries");
-					return;
-				}
-				if (parksSet == 0) {
-					store.dispatch("entries/loadList", this.map.getBounds());
-				}
-				parksSet = entries.length;
 				const geoElements = [];
-				currentZoom = this.map.getZoom();
-				currentCenter = this.map.getCenter();
 				let index = 0;
 				window.markerIds = {};
 				Object.values(entries).forEach(item => {
@@ -181,9 +128,9 @@
 						icon = `${icon}-nette-toilette`;
 					}
 					geoElements.push({
-						type: "Feature",
+						type: 'Feature',
 						geometry: {
-							type: "Point",
+							type: 'Point',
 							coordinates: [item.lng, item.lat]
 						},
 						properties: {
@@ -193,21 +140,12 @@
 					});
 				});
 
-				if (this.map.getSource("wcs")) {
-					this.map.getSource("wcs").setData({
-						type: "FeatureCollection",
+				if (this.map.getSource('wcs-source')) {
+					this.map.getSource('wcs-source').setData({
+						type: 'FeatureCollection',
 						features: geoElements
 					});
 				}
-
-				/*
-				if (this.$route.params.entryId) {
-					this.openPopup(this.$route.params.entryId);
-				}
-				*/
-				store.dispatch("entries/loadList", this.map.getBounds());
-				mapLoaderHide("filterEntries");
-				mapLoaderHide("loadEntries");
 			},
 			mapImagesLoaded: function () {
 				return new Promise((resolve, reject) => {
@@ -216,9 +154,7 @@
 					}
 					const loaded = [];
 					markerImages.forEach(key => {
-						this.map.loadImage(
-							`/assets/img/marker/png-30/${key}.png`,
-							(error, image) => {
+						this.map.loadImage(`/assets/img/marker/png-30/${key}.png`, (error, image) => {
 								this.map.addImage(`marker-${key}`, image);
 								loaded.push(key);
 								if (loaded.length === markerImages.length) {
@@ -231,7 +167,7 @@
 			},
 			openPopup: function (entryId) {
 				const markerIndex = window.markerIds[entryId];
-				const marker = this.map.getSource("wcs")["_data"].features[markerIndex];
+				const marker = this.map.getSource(`wcs-${this.mapStyle}`)['_data'].features[markerIndex];
 				const coordinates = marker.geometry.coordinates.slice();
 				const description = marker.properties.description;
 
@@ -239,7 +175,10 @@
 				this.map.setZoom(12);
 				openMapPopup(description, coordinates, this.map);
 			}
-		}
+		},
+		computed: mapState({
+			mapStyle: state => state.map.type,
+		})
 	};
 
 	window.setDirectionTo = function (lat, lng) {
@@ -265,7 +204,6 @@
 
 		myPosition.then(location => {
 			document.querySelector('.toilet').classList.add('toilet--route-active');
-			console.log(location);
 			vueInstance.$store.dispatch('map/setDirections', {
 				from: location,
 				to: {

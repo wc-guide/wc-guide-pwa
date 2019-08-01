@@ -23,14 +23,13 @@
 				</div>
 			</button>
 		</template>
-		<div v-else class="o-feedback o-feedback--error list__feedback">
+		<div class="o-feedback o-feedback--error list__feedback" v-else>
 			<p class="o-feedback__colored">{{$t('zoom_closer')}}</p>
 		</div>
 	</div>
 </template>
 <script>
 	import {mapState} from "vuex";
-	import mapboxgl from "mapbox-gl";
 	import {isMobile} from "./../../vendor/settings";
 	import {getEntryDescription, openMapPopup} from "./../../vendor/funcs";
 

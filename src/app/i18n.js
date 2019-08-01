@@ -121,6 +121,8 @@ export const i18nSetMapLang = function (lang = false) {
 		if (mapBoxLanguages.indexOf(mapLang) === -1) {
 			mapLang = fallback;
 		}
-		store.state.map.map.setLayoutProperty('country-label', 'text-field', ['get', 'name_' + mapLang]);
+		if (store.state.map.type === 'custom') {
+			store.state.map.map.setLayoutProperty('country-label', 'text-field', ['get', 'name_' + mapLang]);
+		}
 	}
 };

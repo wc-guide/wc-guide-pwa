@@ -35,13 +35,12 @@
 		},
 		methods: {
 			updateFilter: function () {
-				mapLoaderShow("filterEntries");
 				const filter = {};
 				const $fields = this.$el.querySelectorAll("input[type=checkbox");
 				$fields.forEach($item => {
 					filter[$item.getAttribute("value")] = $item.checked;
 				});
-				this.$store.dispatch('entries/loadFilter', filter);
+				this.$store.dispatch('entries/updateFilter', filter);
 			}
 		},
 		components: {

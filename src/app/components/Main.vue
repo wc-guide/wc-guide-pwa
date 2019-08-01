@@ -39,11 +39,11 @@
 					:to="(element==='fehlermeldung'?'/':`/${element}/`)"
 					:class="`navigation-element navigation-element--${element}`"
 				>
-					<hello-icon :icon="icon" class="navigation-element__button"></hello-icon>
+					<hello-icon :icon="icon" class="navigation-element__button"/>
 					<span class="navigation-element__title">{{$t(`menu_${element}`)}}</span>
 				</localized-link>
 			</nav>
-			<router-view class="content__content"></router-view>
+			<router-view class="content__content"/>
 		</div>
 	</main>
 </template>

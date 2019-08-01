@@ -1,10 +1,10 @@
 <template>
 	<div class="app" id="app">
 		<button :class="'app__location '+(geolocation?'app__location--active':'')" @click="setMyPosition()">
-			<hello-icon icon="position"></hello-icon>
+			<hello-icon icon="position"/>
 		</button>
-		<Main class="app__main app__main--mobile-hidden"></Main>
-		<Map class="app__map"></Map>
+		<Main class="app__main app__main--mobile-hidden"/>
+		<Map class="app__map"/>
 		<div class="navigation-mobile app__mobilenav">
 			<button
 				class="navtoggler navigation-mobile__navtoggler"
@@ -19,18 +19,14 @@
 	                :class="`navtoggler__line navtoggler__line--${line}`"
                 ></span>
 			</button>
-			<nav
-				class="navigation-mobile__navigation navigation"
-				id="mobile-nav"
-				aria-hidden="true"
-			>
+			<nav class="navigation-mobile__navigation navigation" id="mobile-nav" aria-hidden="true">
 				<localized-link v-for="(icon, element) in navigation"
 				                :key="element"
 				                active-class="navigation-element--active"
 				                :to="`/${element}/`"
 				                :class="`navigation-element navigation-element--${element}`"
 				>
-					<hello-icon :icon="icon" class="navigation-element__button"></hello-icon>
+					<hello-icon :icon="icon" class="navigation-element__button"/>
 					<span class="navigation-element__title">{{$t(`menu_${element}`)}}</span>
 				</localized-link>
 			</nav>
@@ -38,8 +34,8 @@
 		<button class="app__feedback feedback-button" @click="showFeedbackForm(true)">
 			Beta<br>Feed<br>back
 		</button>
-		<feedback-form v-if="feedbackForm" :close="function(){showFeedbackForm(false);}"></feedback-form>
-		<cookie-banner></cookie-banner>
+		<feedback-form v-if="feedbackForm" :close="function(){showFeedbackForm(false);}"/>
+		<cookie-banner/>
 	</div>
 </template>
 <script>
@@ -63,9 +59,7 @@
 			return {
 				title: false,
 				titleTemplate: title => {
-					return title
-						? `WC-Guide: ${title}`
-						: `WC-Guide: ${this.$t('claim')}`;
+					return title ? `WC-Guide: ${title}` : `WC-Guide: ${this.$t('claim')}`;
 				},
 				meta: [
 					{
@@ -121,6 +115,7 @@
 		computed: mapState({
 			map: state => state.map.map,
 			geolocation: state => state.map.geolocation,
+			mapStyle: state => state.map.type
 		}),
 	};
 </script>

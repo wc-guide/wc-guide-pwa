@@ -1,9 +1,24 @@
 .morenav {
-	&__category:not(:first-child) {
+	&__category:not(:first-child):not(:nth-child(2)) {
 		border-top: 1px solid c();
 		padding-top: $space-item/2;
 		margin-top: $space-item/2;
 	}
+
+	&__category--map {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin: $space-item 0;
+		.o-hello-icon {
+			font-size: 3rem;
+			opacity: .5;
+		}
+		.o-button {
+			width: 130px;
+		}
+	}
+
 	&__element {
 		display: flex;
 		align-items: center;

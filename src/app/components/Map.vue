@@ -6,9 +6,9 @@
 		<div class="map__loader js-maps-loader"></div>
 		<div class="map__map" id="map">
 			<template v-if="map">
-				<map-entries :map="map"></map-entries>
-				<map-geo-location :map="map"></map-geo-location>
-				<map-directions :map="map"></map-directions>
+				<map-entries :map="map"/>
+				<map-geo-location :map="map"/>
+				<map-directions :map="map"/>
 			</template>
 		</div>
 		<button
@@ -37,6 +37,7 @@
 	import logo from "./../../img/wc-guide-logo.svg";
 
 	export default {
+		props: ['mapStyle'],
 		data() {
 			return {
 				logo,
@@ -45,16 +46,23 @@
 		},
 		mounted() {
 			this.loadMap();
+			this.$store.subscribe((mutation, state) => {
+				if (mutation.type === 'map/setType') {
+					if (this.mapBox && state.map.type in mapBoxSettings.styles) {
+						this.mapBox.setStyle(mapBoxSettings.styles[state.map.type]);
+					}
+				}
+			});
 		},
 		methods: {
-			toggleDesktopMain: function () {
+			toggleDesktopMain() {
 				const $main = document.querySelector("#main-content");
 				$main.classList.toggle("app__main--desktop-hidden");
 				window.setTimeout(() => {
 					this.mapBox.resize();
 				}, settings.easing_speed);
 			},
-			getCenter: function () {
+			getCenter() {
 				return new Promise(resolve => {
 					settingsDB.get("mapCenter").then(resp => {
 						if (typeof resp !== "undefined") {
@@ -74,7 +82,7 @@
 					});
 				});
 			},
-			getZoom: function () {
+			getZoom() {
 				return new Promise(resolve => {
 					settingsDB.get("mapZoom").then(resp => {
 						if (typeof resp !== "undefined") {
@@ -92,7 +100,7 @@
 				mapboxgl.accessToken = mapBoxSettings.token;
 				this.mapBox = new mapboxgl.Map({
 					container: "map",
-					style: mapBoxSettings.style,
+					style: Object.values(mapBoxSettings.styles)[0],
 					center,
 					zoom,
 					minZoom: 7
@@ -119,7 +127,7 @@
 			MapDirections
 		},
 		computed: mapState({
-			map: state => state.map.map
+			map: state => state.map.map,
 		})
 	};
 </script>
