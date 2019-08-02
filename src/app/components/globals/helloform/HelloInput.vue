@@ -1,6 +1,6 @@
 <template>
 	<div
-		:class="`o-helloform__element o-helloform__element--type-${type} ${(disabled?'o-helloform__element--disabled':'')}`"
+		:class="`o-helloform__element o-helloform__element--type-${type} ${(disabled?'o-helloform__element--disabled':'')} ${(size!=='normal'?'o-helloform__element--'+size:'')}`"
 	>
 		<template v-if="type === 'textarea' || type === 'select'">
             <textarea
@@ -104,6 +104,10 @@
 			hint: {
 				type: Function | Boolean,
 				default: false
+			},
+			size: {
+				type: String,
+				default: 'normal'
 			}
 		},
 		methods: {

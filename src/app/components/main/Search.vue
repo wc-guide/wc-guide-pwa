@@ -7,7 +7,7 @@
 			<p>{{$t('offline_form')}}</p>
 		</div>
 		<template v-else>
-			<form class="home__search-form search-form" @submit.prevent="searchLocations">
+			<form class="home__search-form search-form" @submit.prevent="selectFirst">
 				<input
 					:placeholder="$t('form_search_for')"
 					class="search-form__input"
@@ -74,6 +74,11 @@
 					});
 				}
 			},
+			selectFirst() {
+				if (this.results[0]) {
+					this.setCenter(this.results[0].center);
+				}
+			},
 			setCenter: function (center) {
 				if (this.map) {
 					let zoom = 14;
@@ -87,6 +92,11 @@
 						this.$router.push({
 							path: `/${this.$i18n.locale}/`
 						});
+						const $button = document.querySelector('#mobile-navtoggler');
+						const $element = document.querySelector(`#${$button.getAttribute("aria-controls")}`);
+						$element.setAttribute("aria-hidden", "true");
+						$button.setAttribute("aria-expanded", "false");
+						document.querySelector('.feedback-button').setAttribute("aria-hidden", "false");
 					}
 					this.map.flyTo({
 						center: {

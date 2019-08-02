@@ -104,6 +104,8 @@
 				});
 				this.mapBox.dragRotate.disable();
 				this.mapBox.touchZoomRotate.disableRotation();
+				const zoomControl = new mapboxgl.NavigationControl();
+				this.mapBox.addControl(zoomControl, 'bottom-left');
 
 				this.$store.dispatch('map/setMap', this.mapBox);
 				this.mapBox.on('load', () => {

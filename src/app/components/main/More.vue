@@ -13,7 +13,7 @@
 						<hello-icon :key="langKey" :icon="`flags/${langKey}`" class="morenav__icon" v-if="langKey === $i18n.locale"/>
 					</template>
 					<div class="morenav__content morenav__content--selectlang o-helloform__element o-helloform__element--type-select">
-						<select class="o-helloform__input" @change="setLanguage">
+						<select class="o-helloform__input o-helloform__input--transparent" @change="setLanguage">
 							<option v-for="(lang, langKey) in languages" :value="langKey" v-bind:selected="($i18n.locale === langKey)" :key="langKey">
 								{{lang}}
 							</option>

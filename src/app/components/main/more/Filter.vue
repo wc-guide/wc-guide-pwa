@@ -15,6 +15,7 @@
 			:title="$t(`type_${toiletTypes[key]}`)+`<img src='/assets/img/marker/png-30/${toiletTypes[key]}.png' />`"
 			:checked="checked"
 			type="checkbox"
+			size="small"
 			:hellochange="updateFilter"
 		></hello-input>
 	</hello-form>
