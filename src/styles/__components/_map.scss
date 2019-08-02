@@ -93,6 +93,15 @@
 	}
 }
 
+.map-mysearch {
+	width: 17px;
+	height: 17px;
+	border-radius: 50%;
+	background-color: c(red);
+	box-shadow: 0 0 2px rgba(0, 0, 0, 0.25);
+	border: 2px solid #fff;
+}
+
 .mapboxgl-ctrl-bottom-left {
 	@media (max-width: 1040px) {
 		bottom: 5px;

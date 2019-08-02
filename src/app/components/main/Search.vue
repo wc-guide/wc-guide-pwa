@@ -30,8 +30,10 @@
 	import axios from "axios";
 	import {mapBoxSettings, isMobile} from "./../../vendor/settings";
 	import {mapState} from "vuex";
+	import mapboxgl from "mapbox-gl";
 
 	const searchPlace = `https://api.mapbox.com/geocoding/v5/mapbox.places/{text}.json?access_token=${mapBoxSettings.token}&types=place,address,poi&proximity={lon}%2C{lat}&language={lang}`;
+	let marker = false;
 
 	export default {
 		data() {
@@ -105,7 +107,28 @@
 						},
 						zoom
 					});
+					if (!marker) {
+						const el = document.createElement("div");
+						el.className = "map-mysearch";
+						marker = new mapboxgl.Marker(el)
+							.setLngLat({
+								lng: center[0],
+								lat: center[1]
+							})
+							.addTo(this.map);
+					} else {
+						marker.setLngLat({
+							lng: center[0],
+							lat: center[1]
+						});
+					}
 				}
+			}
+		},
+		beforeDestroy() {
+			if (marker && this.map) {
+				marker.remove();
+				marker = false;
 			}
 		},
 		components: {
