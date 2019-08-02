@@ -1,5 +1,6 @@
 import axios from 'axios';
-import {entriesDB} from "./../storeDB";
+import {entriesDB, settingsDB} from "./../storeDB";
+import {xml2json} from 'xml-js';
 import {vueInstance} from "./../../app";
 import {i18n} from '../../i18n';
 import {mapLoaderShow, mapLoaderHide} from "./../../vendor/mapLoader";
@@ -7,9 +8,12 @@ import {toilet, distanceBetweenCoordinates, humanizeDistance, sortProperties, an
 import {api} from './../../vendor/settings';
 
 const toiletfilter = {};
+let isDoingDelete = false;
 Object.keys(toilet.types).forEach(type => {
 	toiletfilter[type] = true;
 });
+
+entriesDB.set('1755', {test: 'test'});
 
 const state = {
 	all: {},
@@ -58,6 +62,46 @@ const actions = {
 			});
 			commit('setEntries', newToilets);
 			commit('setMap', mapBounds);
+			/**
+			 * Update Deleted
+			 */
+			if (!isDoingDelete) {
+
+				settingsDB.get('deleted-check').then(date => {
+					let checkFrom = '2019-01-01';
+					let doCheck = true;
+					if (date) {
+						checkFrom = date.toISOString().split('T')[0];
+						let nextCheck = date;
+						nextCheck.setHours(nextCheck.getHours() + 1);
+						if (nextCheck >= new Date()) {
+							doCheck = false;
+						}
+					}
+					settingsDB.set('deleted-check', new Date());
+					if (doCheck) {
+						isDoingDelete = true;
+						axios.get(api.wc.deleted.replace('{date}', checkFrom)).then(r => {
+							isDoingDelete = false;
+							const resp = JSON.parse(xml2json(r.data, {compact: true}));
+							const deleted = resp.plist.dict.array[0].string;
+							const deletedIDs = [];
+							deleted.forEach(e => deletedIDs.push(e['_text']));
+							if (deletedIDs.length) {
+								entriesDB.keys().then(keys => {
+									keys.forEach(key => {
+										if (deletedIDs.includes(key)) {
+											entriesDB.delete(key);
+										}
+									});
+								});
+								commit('deleteEntries', deletedIDs);
+								commit('setMap', mapBounds)
+							}
+						});
+					}
+				});
+			}
 		});
 	},
 	loadList({commit, rootState}) {
@@ -95,6 +139,11 @@ const actions = {
 const mutations = {
 	setEntries(state, entries) {
 		state.all = Object.assign(state.all, entries);
+	},
+	deleteEntries(sate, ids) {
+		const all = state.all;
+		ids.forEach(id => delete all[id]);
+		state.all = all;
 	},
 	setMap(state, mapBounds) {
 		const b = {

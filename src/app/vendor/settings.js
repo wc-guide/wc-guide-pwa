@@ -35,7 +35,8 @@ export const api = {
 		base: WcBase,
 		get: `${WcBase}ajax/deu/toilets/get`,
 		add: `${WcBase}ajax/toilets/add`,
-		failure: `${WcBase}ajax/deu/toilets/failure`
+		failure: `${WcBase}ajax/deu/toilets/failure`,
+		deleted: `${WcBase}api/getUpdates?Datetime={date}&locale=deu&token=50a226e9-7638-481c-a3a3-71cbc0a80145`,
 	},
 	wp: {
 		base: 'https://wc-guide.sayhello.dev/wp-json/',
