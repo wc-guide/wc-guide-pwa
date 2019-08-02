@@ -111,7 +111,11 @@ export const openMapPopup = function (description, coordinates, map) {
 	})
 		.setLngLat(coordinates)
 		.setHTML(description)
-		.addTo(map);
+		.addTo(map)
+		.on('close', function (e) {
+			vueInstance.$store.dispatch('map/toggleDirections', false);
+		});
+
 	map.flyTo({
 		center: coordinates
 	});

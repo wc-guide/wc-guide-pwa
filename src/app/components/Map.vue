@@ -1,7 +1,7 @@
 <template>
 	<div class="map">
 		<localized-link to="/" class="map__logo">
-			<figure v-html="logo"></figure>
+			<logo/>
 		</localized-link>
 		<div class="map__loader js-maps-loader"></div>
 		<div class="map__map" id="map">
@@ -34,13 +34,10 @@
 	const MapGeoLocation = () => import(/* webpackChunkName: "map" */'./MapGeoLocation.vue');
 	const MapDirections = () => import(/* webpackChunkName: "map" */'./MapDirections.vue');
 
-	import logo from "./../../img/wc-guide-logo.svg";
-
 	export default {
 		props: ['mapStyle'],
 		data() {
 			return {
-				logo,
 				mapBox: false
 			};
 		},

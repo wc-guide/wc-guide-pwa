@@ -56,11 +56,12 @@
 	}
 
 	&__input {
-		border: none;
-		border-bottom: 2px solid c(gray, light);
-		padding: $space-item/2 0;
+		//border: none;
+		border: 1px solid c(gray, light);
+		padding: $space-item/2;
+		margin-top: $space-item/4;
 		@include transition();
-		background-color: transparent;
+		background-color: #fff;
 		outline: 2px dashed transparent;
 		outline-offset: 3px;
 		&:focus {

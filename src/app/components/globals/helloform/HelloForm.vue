@@ -3,15 +3,12 @@
 		<div class="o-helloform__feedback o-helloform__feedback--success o-feedback" v-if="formSuccess" v-html="formSuccess">
 		</div>
 		<template v-else>
-			<div class="o-helloform__feedback o-helloform__feedback--error" v-if="formError">
+			<!--<div class="o-helloform__feedback o-helloform__feedback--error" v-if="formError">
 				<p>{{formError}}</p>
-			</div>
+			</div>-->
 			<form :id="formKey" class="o-helloform__form" @submit.prevent="onSubmit">
 				<slot></slot>
-				<div
-					v-if="submitButton"
-					:class="'o-helloform__element o-helloform__element--controls '+(disabled?'o-helloform__element--disabled':'')"
-				>
+				<div v-if="submitButton" :class="'o-helloform__element o-helloform__element--controls '+(disabled?'o-helloform__element--disabled':'')">
 					<button
 						v-if="(controlsLeft && controlsLeftFunction)"
 						class="o-button o-button--gray o-helloform__control--back"
@@ -68,6 +65,16 @@
 			controlsLeftFunction: {
 				type: Function | Boolean,
 				default: false
+			}
+		},
+		watch: {
+			formError: function (newVal, oldVal) {
+				if (oldVal === false && typeof newVal === 'string') {
+					this.$snack.danger({
+						text: newVal,
+						button: 'OK'
+					});
+				}
 			}
 		},
 		data() {

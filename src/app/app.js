@@ -18,11 +18,13 @@ import Icon from "./components/globals/Icon.vue";
 import HelloIcon from "./components/globals/HelloIcon.vue";
 import LocalizedLink from "./components/globals/LocalizedLink.vue";
 import ShadowBox from "./components/globals/ShadowBox.vue";
+import Logo from "./components/globals/Logo.vue";
 
 Vue.component('icon', Icon);
 Vue.component('hello-icon', HelloIcon);
 Vue.component('localized-link', LocalizedLink);
 Vue.component('shadow-box', ShadowBox);
+Vue.component('logo', Logo);
 
 Vue.use(VueI18n);
 Vue.use(VueCookies);

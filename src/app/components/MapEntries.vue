@@ -192,19 +192,17 @@
 
 		const myPosition = new Promise((resolve, reject) => {
 			vueInstance.$store.dispatch('map/setGeoLocation').then(() => {
-				vueInstance.$store.subscribe((mutation, state) => {
-					if (mutation.type === 'map/setGeoLocation') {
-						if (state.map.geolocation) {
-							resolve(vueInstance.$store.state.map.geolocation);
-						}
+				const interval = window.setInterval(function () {
+					if (vueInstance.$store.state.map.geolocation) {
+						clearInterval(interval);
+						resolve(vueInstance.$store.state.map.geolocation);
 					}
-				});
+				}, 200);
 			});
 		});
 
 		myPosition.then(location => {
-			document.querySelector('.toilet').classList.add('toilet--route-active');
-			vueInstance.$store.dispatch('map/setDirections', {
+			vueInstance.$store.dispatch('map/toggleDirections', {
 				from: location,
 				to: {
 					lat,

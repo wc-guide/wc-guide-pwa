@@ -34,26 +34,48 @@ const actions = {
 			return;
 		}
 
-		mapLoaderShow('geolocation');
+		navigator.geolocation.getCurrentPosition(position => {
+			const lat = position.coords.latitude;
+			const lng = position.coords.longitude;
+			commit('setGeoLocation', {lat, lng});
+		});
+
+		//mapLoaderShow('geolocation');
 		geoWatchID = navigator.geolocation.watchPosition(
 			position => {
 				const lat = position.coords.latitude;
 				const lng = position.coords.longitude;
 				commit('setGeoLocation', {lat, lng});
-				mapLoaderHide('geolocation');
-			},
-			() => {
+				//mapLoaderHide('geolocation');
+			}, () => {
 				vueInstance.$snack.danger({
 					text: i18n.t("geolocation_not_permitted"),
 					button: "OK"
 				});
 				commit('setGeoLocation', false);
-				mapLoaderHide('geolocation');
+				//mapLoaderHide('geolocation');
 			}
 		);
 	},
 	removeGeoLocation({commit}) {
 		commit('setGeoLocation', false);
+	},
+	toggleDirections({commit, state}, data) {
+		if (state.directions || !data) {
+			commit('setDirections', false);
+		} else {
+			const directions = {
+				from: {
+					lat: data.from.lat,
+					lng: data.from.lng
+				},
+				to: {
+					lat: data.to.lat,
+					lng: data.to.lng
+				}
+			};
+			commit('setDirections', directions);
+		}
 	},
 	setDirections({commit}, data) {
 		const directions = {

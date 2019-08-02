@@ -7,7 +7,7 @@
 	import {mapLoaderShow, mapLoaderHide} from "./../vendor/mapLoader";
 	import mapboxgl from "mapbox-gl";
 
-	const source = "wcdirections";
+	const layerID = 'wcdirections';
 
 	export default {
 		props: ["map"],
@@ -18,11 +18,25 @@
 			const map = this.map;
 			store.subscribe((mutation, state) => {
 				if (mutation.type === 'map/setDirections') {
-
 					if (!state.map.directions) {
+						if (this.map.getSource(layerID)) {
+							this.map.getSource(layerID).setData({
+								type: "Feature",
+								properties: {},
+								geometry: {
+									type: "LineString",
+									coordinates: []
+								}
+							});
+						}
+						const $way = document.querySelector('.js-toilet-way');
+						const $toilet = document.querySelector('.toilet');
+						if ($way) $way.innerHTML = '';
+						if ($toilet) $toilet.classList.remove('toilet--route-active');
+						mapLoaderHide("directions");
 						return;
 					}
-					console.log('setDirections');
+
 					const from = state.map.directions.from;
 					const to = state.map.directions.to;
 					const points = `${from.lng},${from.lat};${to.lng},${to.lat}`;
@@ -42,11 +56,11 @@
 								}
 							};
 
-							if (this.map.getSource(source)) {
-								this.map.getSource(source).setData(geojson);
+							if (this.map.getSource(layerID)) {
+								this.map.getSource(layerID).setData(geojson);
 							} else {
 								this.map.addLayer({
-									id: source,
+									id: layerID,
 									type: "line",
 									source: {
 										type: "geojson",
@@ -64,18 +78,15 @@
 								});
 							}
 
-							const $way = document.querySelector(".js-toilet-way");
-							$way.innerHTML = `<span>${humanizeDuration(
-								resp.routes[0].duration
-							)}</span><span>${humanizeDistance(
-								resp.routes[0].distance
-							)}</span>`;
+							document.querySelector('.toilet').classList.add('toilet--route-active');
+							const $way = document.querySelector('.js-toilet-way');
+							$way.innerHTML = `<span>${humanizeDuration(resp.routes[0].duration)}</span><span>${humanizeDistance(resp.routes[0].distance)}</span>`;
 
-							const bounds = coordinates.reduce(function (bounds,
-																		coord) {
+							const bounds = coordinates.reduce(function (bounds, coord) {
 									return bounds.extend(coord);
 								},
-								new mapboxgl.LngLatBounds(coordinates[0], coordinates[0]));
+								new mapboxgl.LngLatBounds(coordinates[0], coordinates[0])
+							);
 
 							this.map.fitBounds(bounds, {
 								padding: 40
