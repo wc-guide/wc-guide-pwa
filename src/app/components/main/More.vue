@@ -51,8 +51,8 @@
 	</div>
 </template>
 <script>
-	import {i18nSetLang, i18nDefault, i18nGetLanguages} from "../../i18n";
-	import {subnavigation, api, mapBoxSettings} from "./../../vendor/settings.js";
+	import {i18nSetLang} from "../../i18n";
+	import {subnavigation, api, mapBoxSettings, isMobile} from "./../../vendor/settings.js";
 	import axios from 'axios';
 	import Filter from './more/Filter.vue';
 	import Update from './more/Update.vue';
@@ -100,6 +100,17 @@
 		methods: {
 			setMap(type) {
 				this.$store.dispatch('map/setType', type);
+				if (isMobile()) {
+					document.querySelector("#main-content").classList.add("app__main--mobile-hidden");
+					this.$router.push({
+						path: `/${this.$i18n.locale}/`
+					});
+					const $button = document.querySelector('#mobile-navtoggler');
+					const $element = document.querySelector(`#${$button.getAttribute("aria-controls")}`);
+					$element.setAttribute("aria-hidden", "true");
+					$button.setAttribute("aria-expanded", "false");
+					document.querySelector('.feedback-button').setAttribute("aria-hidden", "false");
+				}
 			},
 			setLanguage: function (event) {
 				i18nSetLang(event.target.value);

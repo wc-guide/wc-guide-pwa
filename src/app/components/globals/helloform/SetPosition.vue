@@ -120,8 +120,9 @@
 					}
 				});
 				const sourceSet = new Promise(resolve => {
+					const map = this.map;
 					const interval = window.setInterval(function () {
-						if (this.map.getSource('wcs-source')) {
+						if (map.getSource('wcs-source')) {
 							clearInterval(interval);
 							resolve();
 						}

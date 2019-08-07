@@ -1,5 +1,8 @@
 import {vueInstance} from "./../app.js"
 import mapboxgl from "mapbox-gl";
+import {i18nGetLang} from "../i18n";
+import {pagesDB} from "../store/storeDB";
+import axios from "axios/index";
 
 export const humanizeDistance = function (meters) {
 	if (meters >= 1000) {
@@ -178,4 +181,60 @@ export const sortProperties = function (sortable, sortedBy = 1, isNumericSort = 
 		});
 	}
 	return sortable;
+};
+
+export const loadPage = async function (key, cb) {
+
+	const lang = await i18nGetLang();
+	const pageKey = `${key}-${lang}`;
+
+	pagesDB.get(pageKey)
+		.then(page => {
+			if (page) {
+				cb({
+					title: page.title,
+					content: page.content,
+					loading: false
+				});
+			}
+		});
+
+	axios.get(`/content/lang/${lang}/${pageKey}.html`)
+		.then(response => {
+			const regex = /<h1>(.+)<\/h1>/gm;
+			let content = response.data;
+			let title = '';
+			let m = '';
+			while ((m = regex.exec(content)) !== null) {
+				if (m.index === regex.lastIndex) {
+					regex.lastIndex++;
+				}
+
+				m.forEach((match, groupIndex) => {
+					if (groupIndex === 0) {
+						content = content.replace(match, '');
+					} else if (groupIndex === 1) {
+						title = match;
+					}
+				});
+			}
+
+			pagesDB.set(pageKey, {
+				title,
+				content
+			});
+
+			cb({
+				title,
+				content,
+				loading: false
+			});
+		})
+		.catch(error => {
+			cb({
+				title: '404 error',
+				content: 'Page not found',
+				loading: false
+			});
+		});
 };

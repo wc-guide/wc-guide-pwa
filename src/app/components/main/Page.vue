@@ -2,7 +2,7 @@
 	<div class="page">
 		<div class="page__loading" v-if="page.loading"></div>
 		<template v-else>
-			<h2 class="page__title">{{page.title}}</h2>
+			<h1 class="page__title">{{page.title}}</h1>
 			<div class="page__content page-content" v-html="page.content"></div>
 		</template>
 	</div>

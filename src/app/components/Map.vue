@@ -25,10 +25,9 @@
 	import axios from "axios";
 	import mapboxgl from "mapbox-gl";
 	import {settingsDB} from "../store/storeDB";
-	import {mapBoxSettings, api} from "../vendor/settings";
+	import {mapBoxSettings, api, settings, isMobile} from "../vendor/settings";
 	import {mapState} from "vuex";
 	import {i18nSetMapLang} from "./../i18n";
-	import {settings} from "./../vendor/settings";
 
 	const MapEntries = () => import(/* webpackChunkName: "map" */'./MapEntries.vue');
 	const MapGeoLocation = () => import(/* webpackChunkName: "map" */'./MapGeoLocation.vue');
@@ -104,8 +103,10 @@
 				});
 				this.mapBox.dragRotate.disable();
 				this.mapBox.touchZoomRotate.disableRotation();
-				const zoomControl = new mapboxgl.NavigationControl();
-				this.mapBox.addControl(zoomControl, 'bottom-left');
+				if (!isMobile()) {
+					const zoomControl = new mapboxgl.NavigationControl();
+					this.mapBox.addControl(zoomControl, 'bottom-left');
+				}
 
 				this.$store.dispatch('map/setMap', this.mapBox);
 				this.mapBox.on('load', () => {
