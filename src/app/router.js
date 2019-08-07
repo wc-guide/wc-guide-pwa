@@ -25,10 +25,9 @@ export default new Router({
 			path: '/:locale/list/',
 			component: List,
 			beforeEnter: (to, from, next) => {
-				if (typeof store.state.entries.list === 'object') {
+				if (typeof store.state.entries.map === 'object') {
 					next();
 				} else {
-					console.log(typeof store.state.entries.list, store.state.entries.list);
 					vueInstance.$snack.danger({
 						text: vueInstance.$t('zoom_closer'),
 						button: 'OK'

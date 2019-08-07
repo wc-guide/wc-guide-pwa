@@ -18,7 +18,6 @@ entriesDB.set('1755', {test: 'test'});
 const state = {
 	all: {},
 	map: {},
-	list: 'loading',
 	filter: toiletfilter,
 };
 
@@ -104,32 +103,6 @@ const actions = {
 			}
 		});
 	},
-	loadList({commit, rootState}) {
-		let newEntriesList = [];
-		Object.keys(this.state.entries.map).forEach(id => {
-			const entry = this.state.entries.map[id];
-			let distance = false;
-			let angle = false;
-			if (rootState.map.geolocation) {
-				const entryGeo = {
-					lat: entry.lat,
-					lng: entry.lng
-				};
-				distance = distanceBetweenCoordinates(this.state.map.geolocation, entryGeo);
-				angle = angleBetweenCoordinates(this.state.map.geolocation, entryGeo);
-			}
-			const newEntry = entry;
-			newEntry.type = toilet.getType(entry);
-			newEntry.distance = distance;
-			newEntry.distanceHumanized = (distance ? humanizeDistance(distance) : false);
-			newEntry.angle = angle;
-			newEntriesList.push(newEntry);
-		});
-		if (rootState.map.geolocation) {
-			newEntriesList = sortProperties(newEntriesList, 'distance', true);
-		}
-		commit('setList', newEntriesList);
-	},
 	updateFilter({commit, rootState}, filter) {
 		commit('setFilter', filter);
 		commit('setMap', rootState.map.map.getBounds());
@@ -167,13 +140,6 @@ const mutations = {
 		});
 
 		state.map = mapToilets;
-	},
-	setList(state, entries) {
-		if (Object.keys(entries).length >= 50) {
-			state.list = false;
-		} else {
-			state.list = entries;
-		}
 	},
 	setFilter(state, data) {
 		state.filter = data;

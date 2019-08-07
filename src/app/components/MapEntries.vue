@@ -109,7 +109,6 @@
 							if (state.entries.map.length === 0) {
 								return;
 							}
-							store.dispatch('entries/loadList');
 							this.entriesSet(state.entries.map);
 						}
 					});
