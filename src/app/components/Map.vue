@@ -22,16 +22,16 @@
 	</div>
 </template>
 <script>
-	import axios from "axios";
-	import mapboxgl from "mapbox-gl";
-	import {settingsDB} from "../store/storeDB";
-	import {mapBoxSettings, api, settings, isMobile} from "../vendor/settings";
-	import {mapState} from "vuex";
-	import {i18nSetMapLang} from "./../i18n";
+	import axios from 'axios';
+	import mapboxgl from 'mapbox-gl';
+	import {settingsDB} from '../store/storeDB';
+	import {mapBoxSettings, api, settings, isMobile} from '../vendor/settings';
+	import {mapState} from 'vuex';
+	import {i18nSetMapLang} from './../i18n';
 
-	const MapEntries = () => import(/* webpackChunkName: "map" */'./MapEntries.vue');
-	const MapGeoLocation = () => import(/* webpackChunkName: "map" */'./MapGeoLocation.vue');
-	const MapDirections = () => import(/* webpackChunkName: "map" */'./MapDirections.vue');
+	const MapEntries = () => import(/* webpackChunkName: 'map' */'./MapEntries.vue');
+	const MapGeoLocation = () => import(/* webpackChunkName: 'map' */'./MapGeoLocation.vue');
+	const MapDirections = () => import(/* webpackChunkName: 'map' */'./MapDirections.vue');
 
 	export default {
 		props: ['mapStyle'],
@@ -52,16 +52,16 @@
 		},
 		methods: {
 			toggleDesktopMain() {
-				const $main = document.querySelector("#main-content");
-				$main.classList.toggle("app__main--desktop-hidden");
+				const $main = document.querySelector('#main-content');
+				$main.classList.toggle('app__main--desktop-hidden');
 				window.setTimeout(() => {
 					this.mapBox.resize();
 				}, settings.easing_speed);
 			},
 			getCenter() {
 				return new Promise(resolve => {
-					settingsDB.get("mapCenter").then(resp => {
-						if (typeof resp !== "undefined") {
+					settingsDB.get('mapCenter').then(resp => {
+						if (typeof resp !== 'undefined') {
 							resolve(resp);
 						} else {
 							axios
@@ -71,7 +71,7 @@
 										lat: response.data.lat,
 										lng: response.data.lon
 									};
-									settingsDB.set("mapCenter", data);
+									settingsDB.set('mapCenter', data);
 									resolve(data);
 								});
 						}
@@ -80,11 +80,11 @@
 			},
 			getZoom() {
 				return new Promise(resolve => {
-					settingsDB.get("mapZoom").then(resp => {
-						if (typeof resp !== "undefined") {
+					settingsDB.get('mapZoom').then(resp => {
+						if (typeof resp !== 'undefined') {
 							resolve(resp);
 						} else {
-							settingsDB.set("mapZoom", 9);
+							settingsDB.set('mapZoom', 9);
 							resolve(9);
 						}
 					});
@@ -95,7 +95,7 @@
 				const center = await this.getCenter();
 				mapboxgl.accessToken = mapBoxSettings.token;
 				this.mapBox = new mapboxgl.Map({
-					container: "map",
+					container: 'map',
 					style: Object.values(mapBoxSettings.styles)[0],
 					center,
 					zoom,
@@ -103,21 +103,19 @@
 				});
 				this.mapBox.dragRotate.disable();
 				this.mapBox.touchZoomRotate.disableRotation();
-				if (!isMobile()) {
-					const zoomControl = new mapboxgl.NavigationControl();
-					this.mapBox.addControl(zoomControl, 'bottom-left');
-				}
+				const zoomControl = new mapboxgl.NavigationControl();
+				this.mapBox.addControl(zoomControl, 'top-right');
 
 				this.$store.dispatch('map/setMap', this.mapBox);
 				this.mapBox.on('load', () => {
 					i18nSetMapLang();
 				});
-				this.mapBox.on("moveend", () => {
-					settingsDB.set("mapCenter", {
+				this.mapBox.on('moveend', () => {
+					settingsDB.set('mapCenter', {
 						lat: this.mapBox.getCenter().lat,
 						lng: this.mapBox.getCenter().lng
 					});
-					settingsDB.set("mapZoom", this.mapBox.getZoom());
+					settingsDB.set('mapZoom', this.mapBox.getZoom());
 				});
 			}
 		},

@@ -23,7 +23,6 @@
 		},
 		mounted() {
 			loadPage('home', (respPage => {
-				console.log(respPage);
 				this.page = respPage;
 			}))
 		},

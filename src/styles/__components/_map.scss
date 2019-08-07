@@ -133,3 +133,16 @@
 .mapboxgl-popup-content {
 	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
+
+.mapboxgl-ctrl-top-right .mapboxgl-ctrl {
+	margin-right: calc(2.5rem + 4px);
+	margin-top: calc(2.5rem + 40px + #{$space-item/2});
+	@include for-screen-min(phone) {
+		margin-right: calc(2.5rem + 16px);
+		margin-top: calc(4rem + 60px + #{$space-item/2});
+	}
+	@include desktop {
+		margin-right: 5.6rem;
+		margin-top: calc(4rem + 60px + #{$space-item});
+	}
+}
