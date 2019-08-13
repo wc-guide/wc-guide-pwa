@@ -19,13 +19,17 @@ export default new Router({
 	mode: 'history',
 	routes: [
 		{
+			path: '/',
+			component: Search,
+		},
+		{
 			path: '/:locale/',
 			component: Search,
 		}, {
 			path: '/:locale/list/',
 			component: List,
 			beforeEnter: (to, from, next) => {
-				if (typeof store.state.entries.map === 'object') {
+				if (typeof store.state.entries.map === 'object' && Object.keys(store.state.entries.map).length <= 50) {
 					next();
 				} else {
 					vueInstance.$snack.danger({

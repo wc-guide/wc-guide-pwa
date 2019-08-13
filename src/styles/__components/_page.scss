@@ -35,15 +35,21 @@
 	}
 
 	h2 {
-		color: c(black, light);
+		font-size: 1.5rem;
+		color: #000;
+		font-weight: 700;
+		margin-bottom: 1rem;
 	}
 
 	h3 {
-		font-weight: bold;
+		color: #959494;
+		font-size: 1.5rem;
+		font-weight: 400;
+		margin-bottom: 1rem;
 	}
 
 	& > * + * {
-		margin-top: $space-item;
+		margin-top: 1rem;
 	}
 
 	& > img {

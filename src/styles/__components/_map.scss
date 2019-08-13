@@ -139,10 +139,26 @@
 	margin-top: calc(2.5rem + 40px + #{$space-item/2});
 	@include for-screen-min(phone) {
 		margin-right: calc(2.5rem + 16px);
-		margin-top: calc(4rem + 60px + #{$space-item/2});
+		margin-top: calc(4rem + 50px + #{$space-item/2});
 	}
 	@include desktop {
-		margin-right: 5.6rem;
-		margin-top: calc(4rem + 60px + #{$space-item});
+		margin-right: 5.4rem;
+		margin-top: calc(4rem + 50px + #{$space-item});
 	}
+}
+
+.mapboxgl-ctrl-group .mapboxgl-ctrl-compass {
+	display: none;
+	@include desktop {
+		display: block;
+	}
+}
+
+.mapboxgl-ctrl-group:not(:empty) {
+	box-shadow: none;
+	border: 1px solid #DBD5D0;
+}
+
+.mapboxgl-ctrl-group > button + button {
+	border-top: 1px solid #DBD5D0;
 }

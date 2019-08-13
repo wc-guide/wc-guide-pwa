@@ -22,6 +22,7 @@ const sourceMap = env === 'development';
 const config = {
 	entry: [
 		`${dirSrc}/styles/app.scss`,
+		'@babel/polyfill',
 		`${dirSrc}/app/app.js`
 	],
 	output: {
@@ -35,7 +36,7 @@ const config = {
 			{
 				test: /\.svg$/,
 				exclude: /node_modules/,
-				loader: 'vue-svg-loader',
+				loader: ['babel-loader', 'vue-svg-loader'],
 			},
 			{
 				test: /\.vue$/,
