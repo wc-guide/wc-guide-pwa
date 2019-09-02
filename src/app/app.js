@@ -13,7 +13,7 @@ import VueI18n from 'vue-i18n';
 import VueCookies from 'vue-cookies'
 import VueMatomo from 'vue-matomo';
 import VueSnackbar from 'vue-snack';
-import {c, IsDev} from './vendor/settings';
+import { c, IsDev } from './vendor/settings';
 
 import Icon from "./components/globals/Icon.vue";
 import HelloIcon from "./components/globals/HelloIcon.vue";
@@ -50,8 +50,8 @@ if (!IsDev) {
 	});
 }
 
-import {store} from './store/store.js';
-import {i18n} from './i18n';
+import { store } from './store/store.js';
+import { i18n } from './i18n';
 import router from './router';
 
 export const vueInstance = new Vue({
@@ -86,7 +86,7 @@ window.addEventListener("beforeinstallprompt", e => {
 
 window.serviceWorkerEvent = false;
 if ("serviceWorker" in navigator && !IsDev) {
-//if ("serviceWorker" in navigator) {
+	//if ("serviceWorker" in navigator) {
 	navigator.serviceWorker
 		.register("/service-worker.js")
 		.then(reg => {

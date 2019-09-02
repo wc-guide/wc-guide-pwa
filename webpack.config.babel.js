@@ -1,6 +1,6 @@
 import path from 'path';
 import app from './app.json';
-import {version} from './src/version.json';
+import { version } from './src/version.json';
 
 const versionFolder = version.replace(/\./g, '-');
 
@@ -8,9 +8,9 @@ import LiveReloadPlugin from 'webpack-livereload-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import FaviconsWebpackPlugin from 'favicons-webpack-plugin';
-import {GenerateSW} from 'workbox-webpack-plugin';
+import { GenerateSW } from 'workbox-webpack-plugin';
 import WebpackPwaManifest from 'webpack-pwa-manifest'
-import {CleanWebpackPlugin} from 'clean-webpack-plugin';
+import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 
 const dirDist = path.resolve(__dirname, "dist");
