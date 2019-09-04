@@ -38,19 +38,10 @@ export const api = {
 		failure: `${WcBase}ajax/deu/toilets/failure`,
 		deleted: `${WcBase}api/getUpdates?Datetime={date}&locale=deu&token=50a226e9-7638-481c-a3a3-71cbc0a80145`,
 		mail: {
-			feedback: `https://wc-guide.sayhello.dev/mail.php?type=feedback`,
-			delete: `https://wc-guide.sayhello.dev/mail.php?type=delete-toilet`,
+			feedback: `${WcBase}mail.php?type=feedback`,
+			delete: `${WcBase}mail.php?type=delete-toilet`,
 		}
 	},
-	/*
-	wp: {
-		base: 'https://wc-guide.sayhello.dev/wp-json/',
-		delete: 'https://wc-guide.sayhello.dev/wp-json/wc-guide/v1/delete-toilet/',
-		edit: 'https://wc-guide.sayhello.dev/wp-json/wc-guide/v1/edit-toilet/',
-		add: 'https://wc-guide.sayhello.dev/wp-json/wc-guide/v1/add-toilet/',
-		feedback: 'https://wc-guide.sayhello.dev/wp-json/wc-guide/v1/feedback/'
-	}
-	*/
 };
 
 /**
