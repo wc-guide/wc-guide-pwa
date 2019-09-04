@@ -80,7 +80,7 @@
 			submitForm: function (data) {
 				return new Promise((resolve, reject) => {
 					if (data['toilet-notexist']) {
-						axios.post(`${api.wp.delete}`, data)
+						axios.post(`${api.wc.delete}`, data)
 							.then(resp => {
 								resolve(`<p class="o-feedback__colored">
 									<b>${this.$t('form_failure_success_title')}</b>
@@ -109,7 +109,7 @@
 							}
 						});
 
-						axios.post(api.wp.edit, newData);
+						//axios.post(api.wp.edit, newData);
 						axios.post(api.wc.failure, newData)
 							.then(resp => {
 								console.log(resp);

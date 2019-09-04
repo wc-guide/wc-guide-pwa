@@ -74,7 +74,7 @@
 						}
 					});
 
-					axios.post(api.wp.add, newData);
+					//axios.post(api.wp.add, newData);
 					axios.post(api.wc.add, newData)
 						.then(resp => {
 							if (resp.data.code >= 300) {

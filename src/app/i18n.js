@@ -3,9 +3,10 @@ import VueI18n from 'vue-i18n';
 import de from './../content/lang/de/strings.json';
 import axios from 'axios';
 import router from './router';
+import Cookies from 'js-cookie';
 
-import {store} from "./store/store";
-import {settingsDB} from "./store/storeDB";
+import { store } from "./store/store";
+import { settingsDB } from "./store/storeDB";
 
 Vue.use(VueI18n);
 
@@ -14,12 +15,12 @@ export const i18nDefault = fallback;
 export const i18n = new VueI18n({
 	locale: fallback,
 	fallbackLocale: fallback,
-	messages: {de}
+	messages: { de }
 });
 
 settingsDB.set(fallback, de);
 
-export const i18nGetLang = async function () {
+export const i18nGetLang = function () {
 
 	const pathElements = window.location.pathname.split('/');
 	if (pathElements.length >= 3) {
@@ -31,9 +32,9 @@ export const i18nGetLang = async function () {
 	if (browserLang) {
 		newLang = browserLang.split('-')[0];
 	}
-	const storeLang = await settingsDB.get('lang');
-	if (storeLang) {
-		newLang = storeLang;
+	const cookieLang = Cookies.get('lang');
+	if (cookieLang) {
+		newLang = cookieLang;
 	}
 
 	return newLang;
@@ -49,9 +50,9 @@ export const i18nGetLanguages = async function (callback) {
 		});
 };
 
-export const i18nSetLang = async function (lang = false) {
+export const i18nSetLang = function (lang = false) {
 	if (!lang) {
-		lang = await i18nGetLang();
+		lang = i18nGetLang();
 	}
 
 	let apiSet = false;
@@ -82,7 +83,7 @@ function setLang(lang, msgs) {
 	i18n.locale = lang;
 	axios.defaults.headers.common['Accept-Language'] = lang;
 	document.querySelector('html').setAttribute('lang', lang);
-	settingsDB.set('lang', lang);
+	Cookies.set('lang', lang, { expires: 365, path: '/' });
 
 	/**
 	 * Push

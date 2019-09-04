@@ -1,7 +1,7 @@
-import {vueInstance} from "./../app.js"
+import { vueInstance } from "./../app.js"
 import mapboxgl from "mapbox-gl";
-import {i18nGetLang} from "../i18n";
-import {pagesDB} from "../store/storeDB";
+import { i18nGetLang } from "../i18n";
+import { pagesDB } from "../store/storeDB";
 import axios from "axios/index";
 
 export const humanizeDistance = function (meters) {
@@ -119,9 +119,11 @@ export const openMapPopup = function (description, coordinates, map) {
 			vueInstance.$store.dispatch('map/toggleDirections', false);
 		});
 
-	map.flyTo({
-		center: coordinates
-	});
+	if (map.getZoom() <= 16) {
+		map.flyTo({
+			center: coordinates
+		});
+	}
 };
 
 export const closeMapPopup = function () {

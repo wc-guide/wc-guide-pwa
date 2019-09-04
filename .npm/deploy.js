@@ -10,7 +10,7 @@ const config = {
 	port: env.FTP_PORT,
 	localRoot: __dirname + env.FTP_LOCALROOT,
 	remoteRoot: env.FTP_REMOTEROOT,
-	include: ['*', '**/*'],
+	include: ['*', '**/*', '**/.*'],
 	exclude: ["**/*.map", "node_modules/**", "node_modules/**/.*"],
 	deleteRemote: false,
 	forcePasv: true
