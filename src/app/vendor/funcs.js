@@ -119,7 +119,7 @@ export const openMapPopup = function (description, coordinates, map) {
 			vueInstance.$store.dispatch('map/toggleDirections', false);
 		});
 
-	if (map.getZoom() <= 16) {
+	if (map.getZoom() >= 16) {
 		map.flyTo({
 			center: coordinates
 		});

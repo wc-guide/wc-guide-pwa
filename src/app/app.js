@@ -84,13 +84,13 @@ window.addEventListener("beforeinstallprompt", e => {
  * ServiceWorker install
  */
 
-window.serviceWorkerEvent = false;
+window.serviceWorkerRegistration = false;
 if ("serviceWorker" in navigator && !IsDev) {
 	//if ("serviceWorker" in navigator) {
 	navigator.serviceWorker
 		.register("/service-worker.js")
 		.then(reg => {
-			window.serviceWorkerEvent = reg;
+			window.serviceWorkerRegistration = reg;
 			reg.onupdatefound = function () {
 				const installing = reg.installing;
 				installing.onstatechange = function () {
@@ -99,6 +99,9 @@ if ("serviceWorker" in navigator && !IsDev) {
 							text: vueInstance.$t("pwa_installed"),
 							button: "OK"
 						});
+					} else if (installing.state === 'activated') {
+						console.log('activated');
+						window.location.reload(true);
 					}
 				}
 			};
@@ -106,4 +109,6 @@ if ("serviceWorker" in navigator && !IsDev) {
 		.catch(registrationError => {
 			console.log("SW registration failed: ", registrationError);
 		});
+
+	navigator.serviceWorker.addEventListener("controllerchange", e => console.log('controller', e));
 }

@@ -195,18 +195,6 @@ const config = {
 			importsDirectory: 'wb-assets',
 			runtimeCaching: [
 				{
-					urlPattern: new RegExp('^https://wc-guide\.sayhello\.dev/wp-content/uploads/'),
-					handler: 'cacheFirst',
-					options: {
-						cacheName: 'api-image-cache'
-					}
-				}, {
-					urlPattern: new RegExp('^https://wc-guide\.sayhello\.dev/wp-json/'),
-					handler: 'networkFirst',
-					options: {
-						cacheName: 'api-rest-cache'
-					}
-				}, {
 					urlPattern: new RegExp('^https://api\.mapbox\.com/'),
 					handler: 'networkFirst',
 					options: {
