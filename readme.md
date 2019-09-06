@@ -1,8 +1,9 @@
 # WC Guide PWA
-This is a progressive Web App for wc-guide.com
+## About the project
+WC-Guide is a directory of public toilets, started and well known in Switzerland. In principle, it is intended for all people, but the project idea was particularly aimed at people who are dependent on public toilets in their everyday lives, e.g. in order to enjoy a carefree excursion. Positive feedback from affected persons confirms the sense and purpose of this project and the reason for its continuation and further development.
 
 ## Technology
-It is based on [vueJS](https://vuejs.org/) and uses nodeJS and WebPack for the build process.
+The progressive Web App PWA is based on [vueJS](https://vuejs.org/) and uses nodeJS and WebPack for the build process.
 
 ### Setup
 To use the source code you need nodeJS (min v. 8.10) and npm (min v. 6.9).  
@@ -18,6 +19,11 @@ There are several tasks configured:
 
 ### PWA
 This app is served as a PWA. That means its designed to work offline first (using IndexedDB and a ServiceWorker) and generates a manifest.json to make it installable.
+
+## Translations
+The WC-Guide is currently available in English, German, French and Italian. 
+
+If you want to make a contribution and translate the website in your own language, you'll find the relevant files in the source under [/src/content/lang]( https://github.com/wc-guide/wc-guide-pwa/tree/master/src/content/lang)
 
 ## Backend
 The app has several connections to the wc-guide.com Backend and to mapBox. They are all defined inside the [settings.js](https://github.com/wc-guide/wc-guide-pwa/blob/master/src/app/vendor/settings.js) (`const api`, `const mapBoxSettings`).  
