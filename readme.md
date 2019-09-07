@@ -1,4 +1,5 @@
 # WC Guide PWA
+![WC-Guide Logo](https://github.com/wc-guide/wc-guide-pwa/blob/master/src/img/wc-guide-logo.svg)
 ## About the project
 WC-Guide is a directory of public toilets, started and well known in Switzerland. In principle, it is intended for all people, but the project idea was particularly aimed at people who are dependent on public toilets in their everyday lives, e.g. in order to enjoy a carefree excursion. Positive feedback from affected persons confirms the sense and purpose of this project and the reason for its continuation and further development.
 
