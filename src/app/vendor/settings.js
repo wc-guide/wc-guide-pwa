@@ -79,5 +79,3 @@ export const subnavigation = [
 		privacy: "lock",
 	}
 ];
-
-export const footernavigation = ['legal', 'privacy'];

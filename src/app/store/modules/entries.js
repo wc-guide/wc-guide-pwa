@@ -13,8 +13,6 @@ Object.keys(toilet.types).forEach(type => {
 	toiletfilter[type] = true;
 });
 
-entriesDB.set('1755', {test: 'test'});
-
 const state = {
 	all: {},
 	map: {},

@@ -77,7 +77,14 @@ export const getEntryDescription = function (item) {
 	}
 	let typeText = "";
 	if (item.toilet_type_text) {
-		typeText = `<p class="toilet__type">${item.toilet_type_text}</p>`;
+		let typeKey = snakecasify(item.toilet_type_text);
+		if (typeKey === 'normale_toilette') {
+			typeKey = 'normal';
+		} else if (typeKey === 'normale_und_behinderten_toilette') {
+			typeKey = 'iv';
+		}
+
+		typeText = `<p class="toilet__type">${vueInstance.$t(`type_${typeKey}`)}</p>`;
 	}
 
 	let fehlermeldung = '';
@@ -119,7 +126,7 @@ export const openMapPopup = function (description, coordinates, map) {
 			vueInstance.$store.dispatch('map/toggleDirections', false);
 		});
 
-	if (map.getZoom() >= 16) {
+	if (map.getZoom() >= 12) {
 		map.flyTo({
 			center: coordinates
 		});
@@ -240,3 +247,13 @@ export const loadPage = async function (key, cb) {
 			});
 		});
 };
+
+function snakecasify(str) {
+	if (!str) return '';
+
+	return String(str)
+		.replace(/^[^A-Za-z0-9]*|[^A-Za-z0-9]*$/g, '')
+		.replace(/([a-z])([A-Z])/g, (m, a, b) => a + '_' + b.toLowerCase())
+		.replace(/[^A-Za-z0-9]+|_+/g, '_')
+		.toLowerCase();
+}

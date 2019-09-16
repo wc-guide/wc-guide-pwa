@@ -184,8 +184,16 @@ export default {
         }
     },
     computed: mapState({
-        mapStyle: state => state.map.type
-    })
+        mapStyle: state => state.map.type,
+        mapEntries: state => state.entries.map
+    }),
+    watch: {
+        $route(to, from) {
+            if (to.params.locale !== from.params.locale) {
+                this.entriesSet(this.mapEntries);
+            }
+        }
+    }
 };
 
 window.setDirectionTo = function(lat, lng) {

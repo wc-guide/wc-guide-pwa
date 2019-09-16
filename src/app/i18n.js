@@ -81,7 +81,7 @@ function setLang(lang, msgs) {
 	 */
 
 	i18n.locale = lang;
-	axios.defaults.headers.common['Accept-Language'] = lang;
+	//axios.defaults.headers.common['Accept-Language'] = lang;
 	document.querySelector('html').setAttribute('lang', lang);
 	Cookies.set('lang', lang, { expires: 365, path: '/' });
 

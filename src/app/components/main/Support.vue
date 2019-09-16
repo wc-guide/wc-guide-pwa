@@ -1,11 +1,6 @@
 <template>
 	<div class="content__support content-support">
 		<div v-if="page" v-html="page.content" class="page-content"></div>
-		<nav class="content__footer content-footerlinks">
-			<localized-link v-for="link in footerLinks" :key="link" :to="`more/${link}/`" class="content-footerlinks__element">
-				{{$t(`submenu_${link}`)}}
-			</localized-link>
-		</nav>
 	</div>
 </template>
 <script>
@@ -17,7 +12,6 @@
 	export default {
 		data() {
 			return {
-				footerLinks: footernavigation,
 				page: false
 			};
 		},

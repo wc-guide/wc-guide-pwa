@@ -1,6 +1,7 @@
 .toggle-trigger {
 	cursor: pointer;
 	position: relative;
+	padding-right: 1.5em;
 	&:after {
 		content: '';
 		width: 0.6em;

@@ -30,24 +30,37 @@ export default {
     }),
     watch: {
         page() {
-            this.$el.querySelectorAll(".toggle-trigger").forEach($trigger => {
-                const targetId = $trigger.getAttribute("data-trigger-for");
-                const $target = this.$el.querySelector(`#${targetId}`);
-                $trigger.onclick = e => {
-                    if ($target) {
-                        const shouldClose =
-                            $trigger.getAttribute("data-trigger-open") ===
-                            "true";
-                        if (shouldClose) {
-                            $trigger.setAttribute("data-trigger-open", "false");
-                            slideUp($target, { duration: 200 });
-                        } else {
-                            $trigger.setAttribute("data-trigger-open", "true");
-                            slideDown($target, { duration: 200 });
-                        }
-                    }
-                };
-            });
+            window.setTimeout(() => {
+                this.$el
+                    .querySelectorAll(".toggle-trigger")
+                    .forEach($trigger => {
+                        const targetId = $trigger.getAttribute(
+                            "data-trigger-for"
+                        );
+                        const $target = this.$el.querySelector(`#${targetId}`);
+                        $trigger.onclick = e => {
+                            if ($target) {
+                                const shouldClose =
+                                    $trigger.getAttribute(
+                                        "data-trigger-open"
+                                    ) === "true";
+                                if (shouldClose) {
+                                    $trigger.setAttribute(
+                                        "data-trigger-open",
+                                        "false"
+                                    );
+                                    slideUp($target, { duration: 200 });
+                                } else {
+                                    $trigger.setAttribute(
+                                        "data-trigger-open",
+                                        "true"
+                                    );
+                                    slideDown($target, { duration: 200 });
+                                }
+                            }
+                        };
+                    });
+            }, 10);
         }
     }
 };

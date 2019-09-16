@@ -1,5 +1,5 @@
-import {i18nGetLang} from "../../i18n";
-import {loadPage} from './../../vendor/funcs';
+import { i18nGetLang } from "../../i18n";
+import { loadPage } from './../../vendor/funcs';
 
 const mobileHeaderDefault = {
 	title: false,
@@ -16,7 +16,7 @@ const state = {
 const getters = {};
 
 const actions = {
-	load({commit}, key) {
+	load({ commit }, key) {
 
 		commit('setPage', {
 			loading: true
@@ -26,7 +26,7 @@ const actions = {
 			commit('setPage', resp);
 		});
 	},
-	loadMobileHeader({commit}, data) {
+	loadMobileHeader({ commit }, data) {
 		commit('setMobileheader', data);
 	},
 };
