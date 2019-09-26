@@ -126,9 +126,6 @@ export default {
                 );
                 $element.setAttribute("aria-hidden", "true");
                 $button.setAttribute("aria-expanded", "false");
-                document
-                    .querySelector(".feedback-button")
-                    .setAttribute("aria-hidden", "false");
             }
         },
         setLanguage: function(event) {

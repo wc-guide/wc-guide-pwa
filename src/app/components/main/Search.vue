@@ -98,7 +98,6 @@
 						const $element = document.querySelector(`#${$button.getAttribute("aria-controls")}`);
 						$element.setAttribute("aria-hidden", "true");
 						$button.setAttribute("aria-expanded", "false");
-						document.querySelector('.feedback-button').setAttribute("aria-hidden", "false");
 					}
 					this.map.flyTo({
 						center: {
