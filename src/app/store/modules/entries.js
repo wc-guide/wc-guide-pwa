@@ -1,11 +1,11 @@
 import axios from 'axios';
-import {entriesDB, settingsDB} from "./../storeDB";
-import {xml2json} from 'xml-js';
-import {vueInstance} from "./../../app";
-import {i18n} from '../../i18n';
-import {mapLoaderShow, mapLoaderHide} from "./../../vendor/mapLoader";
-import {toilet, distanceBetweenCoordinates, humanizeDistance, sortProperties, angleBetweenCoordinates} from "./../../vendor/funcs";
-import {api} from './../../vendor/settings';
+import { entriesDB, settingsDB } from "./../storeDB";
+import { xml2json } from 'xml-js';
+import { vueInstance } from "./../../app";
+import { i18n } from '../../i18n';
+import { mapLoaderShow, mapLoaderHide } from "./../../vendor/mapLoader";
+import { toilet, distanceBetweenCoordinates, humanizeDistance, sortProperties, angleBetweenCoordinates } from "./../../vendor/funcs";
+import { api } from './../../vendor/settings';
 
 const toiletfilter = {};
 let isDoingDelete = false;
@@ -22,7 +22,7 @@ const state = {
 const getters = {};
 
 const actions = {
-	loadEntries({commit, rootState}, data) {
+	loadEntries({ commit, rootState }, data) {
 		if (!rootState.map.map) {
 			console.log('Map not yet loaded');
 			return;
@@ -80,10 +80,12 @@ const actions = {
 						isDoingDelete = true;
 						axios.get(api.wc.deleted.replace('{date}', checkFrom)).then(r => {
 							isDoingDelete = false;
-							const resp = JSON.parse(xml2json(r.data, {compact: true}));
+							const resp = JSON.parse(xml2json(r.data, { compact: true }));
 							const deleted = resp.plist.dict.array[0].string;
 							const deletedIDs = [];
-							deleted.forEach(e => deletedIDs.push(e['_text']));
+							if (typeof deleted === 'Object') {
+								deleted.forEach(e => deletedIDs.push(e['_text']));
+							}
 							if (deletedIDs.length) {
 								entriesDB.keys().then(keys => {
 									keys.forEach(key => {
@@ -101,7 +103,7 @@ const actions = {
 			}
 		});
 	},
-	updateFilter({commit, rootState}, filter) {
+	updateFilter({ commit, rootState }, filter) {
 		commit('setFilter', filter);
 		commit('setMap', rootState.map.map.getBounds());
 	},

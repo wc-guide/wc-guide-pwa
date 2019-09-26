@@ -31,10 +31,6 @@
 				</localized-link>
 			</nav>
 		</div>
-		<button class="app__feedback feedback-button" @click="showFeedbackForm(true)">
-			Beta<br>Feed<br>back
-		</button>
-		<feedback-form v-if="feedbackForm" :close="function(){showFeedbackForm(false);}"/>
 		<cookie-banner/>
 	</div>
 </template>
@@ -45,14 +41,12 @@
 	import {i18nSetLang} from './i18n';
 	import {settings, navigation, IsDev} from "./vendor/settings.js";
 	import {mapState} from "vuex";
-	import FeedbackForm from "./components/FeedbackForm.vue";
 	import CookieBanner from "./components/CookieBanner.vue";
 
 	export default {
 		data() {
 			return {
-				navigation,
-				feedbackForm: false
+				navigation
 			};
 		},
 		metaInfo() {
@@ -70,7 +64,6 @@
 			};
 		},
 		components: {
-			FeedbackForm,
 			Map,
 			Main,
 			CookieBanner
@@ -104,9 +97,6 @@
 						});
 					}
 				});
-			},
-			showFeedbackForm: function (show) {
-				this.feedbackForm = show;
 			}
 		},
 		mounted: function () {

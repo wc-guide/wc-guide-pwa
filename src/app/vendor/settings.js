@@ -28,7 +28,7 @@ export const isMobile = function () {
 /**
  * API
  */
-let WcBase = 'https://www.wc-guide.com/';
+let WcBase = 'https://wc-guide.com/';
 
 export const api = {
 	wc: {
@@ -40,7 +40,8 @@ export const api = {
 		mail: {
 			feedback: `${WcBase}mail.php?type=feedback`,
 			delete: `${WcBase}mail.php?type=delete-toilet`,
-		}
+		},
+		geolocation: `${WcBase}geolocation.php`
 	},
 };
 

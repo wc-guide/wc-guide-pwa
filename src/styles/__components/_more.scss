@@ -3,8 +3,15 @@
 	flex-direction: column;
 	flex: 1;
 
-	&__update {
+	&__footer {
 		margin-top: auto;
 		padding-top: $space-item;
+		display: flex;
+		justify-content: space-between;
+	}
+
+	&__feedback,
+	&__update {
+		font-size: $font-size-small;
 	}
 }

@@ -45,7 +45,7 @@ Vue.use(VueSnackbar, {
 if (!IsDev) {
 	Vue.use(VueMatomo, {
 		host: 'https://matomo.sonnenschauer.net/',
-		siteId: 20,
+		siteId: 4,
 		router: router,
 	});
 }

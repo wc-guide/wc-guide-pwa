@@ -1,8 +1,4 @@
 .update {
-	@include desktop {
-		text-align: right;
-	}
-	font-size: $font-size-small;
 	&__updating {
 		position: relative;
 		padding-left: 1.7em;

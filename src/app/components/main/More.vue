@@ -47,7 +47,13 @@
                 </div>
             </div>
         </nav>
-        <update class="more__update" />
+        <footer class="more__footer">
+            <update class="more__update" />
+            <button class="more__feedback" @click="showFeedbackForm(true)">
+                <hello-icon icon="fa/message-text" class="more__feedback-icon" /> Feedback
+            </button>
+            <feedback-form v-if="feedbackForm" :close="function(){showFeedbackForm(false);}" />
+        </footer>
     </div>
 </template>
 <script>
@@ -62,6 +68,7 @@ import axios from "axios";
 import Filter from "./more/Filter.vue";
 import Update from "./more/Update.vue";
 import { mapState } from "vuex";
+import FeedbackForm from "./../FeedbackForm.vue";
 
 export default {
     data() {
@@ -72,7 +79,8 @@ export default {
             },
             installBanner: false,
             showFilter: false,
-            mapStyles: Object.keys(mapBoxSettings.styles)
+            mapStyles: Object.keys(mapBoxSettings.styles),
+            feedbackForm: false
         };
     },
     metaInfo: function() {
@@ -81,6 +89,7 @@ export default {
         };
     },
     components: {
+        FeedbackForm,
         mapFilter: Filter,
         Update
     },
@@ -143,6 +152,9 @@ export default {
             } else {
                 this.showFilter = false;
             }
+        },
+        showFeedbackForm: function(show) {
+            this.feedbackForm = show;
         }
     },
     computed: mapState({

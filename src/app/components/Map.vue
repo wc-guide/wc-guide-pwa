@@ -67,19 +67,19 @@ export default {
         getCenter() {
             return new Promise(resolve => {
                 settingsDB.get("mapCenter").then(resp => {
-                    if (typeof resp !== "undefined") {
+                    if (typeof resp !== "undefined" && resp.lat) {
                         resolve(resp);
                     } else {
-                        axios
-                            .get(`${api.wp.base}wc-guide/v1/geolocation/`)
-                            .then(function(response) {
+                        axios.get(api.wc.geolocation).then(response => {
+                            if (response.data.lat && response.data.lon) {
                                 const data = {
                                     lat: response.data.lat,
                                     lng: response.data.lon
                                 };
-                                settingsDB.set("mapCenter", data);
-                                resolve(data);
-                            });
+                                settingsDB.set("mapCenter", response.data);
+                            }
+                            resolve(response.data);
+                        });
                     }
                 });
             });
