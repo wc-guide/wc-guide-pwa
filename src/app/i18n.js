@@ -7,6 +7,7 @@ import Cookies from 'js-cookie';
 
 import { store } from "./store/store";
 import { settingsDB } from "./store/storeDB";
+import { vueInstance } from "./app";
 
 Vue.use(VueI18n);
 
@@ -81,6 +82,7 @@ function setLang(lang, msgs) {
 	 */
 
 	i18n.locale = lang;
+	vueInstance.$meta().refresh();
 	//axios.defaults.headers.common['Accept-Language'] = lang;
 	document.querySelector('html').setAttribute('lang', lang);
 	Cookies.set('lang', lang, { expires: 365, path: '/' });

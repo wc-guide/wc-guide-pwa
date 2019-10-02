@@ -201,6 +201,9 @@ const config = {
 						cacheName: 'api-mapbox-cache'
 					}
 				}, {
+					urlPattern: new RegExp('^https://\.wc-guide\.com/(admin|ajax|api|css|files|fonts|img|js|mobile|xml)/'),
+					handler: 'networkOnly'
+				}, {
 					urlPattern: new RegExp(/\.(?:png|gif|jpg|svg|ico)$/),
 					handler: 'cacheFirst',
 					options: {

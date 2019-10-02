@@ -83,7 +83,6 @@ window.addEventListener("beforeinstallprompt", e => {
 /**
  * ServiceWorker install
  */
-
 window.serviceWorkerRegistration = false;
 if ("serviceWorker" in navigator && !IsDev) {
 	//if ("serviceWorker" in navigator) {
@@ -100,7 +99,6 @@ if ("serviceWorker" in navigator && !IsDev) {
 							button: "OK"
 						});
 					} else if (installing.state === 'activated') {
-						console.log('activated');
 						window.location.reload(true);
 					}
 				}

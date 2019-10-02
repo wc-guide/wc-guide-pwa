@@ -59,9 +59,7 @@ const actions = {
 			});
 			commit('setEntries', newToilets);
 			commit('setMap', mapBounds);
-			/**
-			 * Update Deleted
-			 */
+
 			if (!isDoingDelete) {
 
 				settingsDB.get('deleted-check').then(date => {
