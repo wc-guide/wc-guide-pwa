@@ -122,12 +122,6 @@ const config = {
 				to: './assets/fonts/',
 				flatten: true
 			}, {
-				from: 'src/content/**/*',
-				to: './content/',
-				transformPath(targetPath, absolutePath) {
-					return targetPath.replace('\\src\\content', '');
-				},
-			}, {
 				from: 'src/version.json',
 				to: './version.json',
 				toType: 'file'

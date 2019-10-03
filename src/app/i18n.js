@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueI18n from 'vue-i18n';
-import de from './../content/lang/de/strings.json';
+import de from './../i18n-strings.json';
 import axios from 'axios';
 import router from './router';
 import Cookies from 'js-cookie';
@@ -8,6 +8,7 @@ import Cookies from 'js-cookie';
 import { store } from "./store/store";
 import { settingsDB } from "./store/storeDB";
 import { vueInstance } from "./app";
+import { api } from "./vendor/settings";
 
 Vue.use(VueI18n);
 
@@ -43,7 +44,7 @@ export const i18nGetLang = function () {
 
 export const i18nGetLanguages = async function (callback) {
 	settingsDB.get('languages', langs => callback(langs));
-	axios.get('/content/languages.json')
+	axios.get(`${api.page.base}/languages.json`)
 		.then(response => {
 			const langs = response.data;
 			settingsDB.set('languages', langs);
@@ -58,7 +59,7 @@ export const i18nSetLang = function (lang = false) {
 
 	let apiSet = false;
 
-	axios.get(`/content/lang/${lang}/strings.json`)
+	axios.get(`${api.page.lang}/${lang}/strings.json`)
 		.then(response => {
 			const msgs = response.data;
 			settingsDB.set(lang, msgs);

@@ -3,6 +3,7 @@ import mapboxgl from "mapbox-gl";
 import { i18nGetLang } from "../i18n";
 import { pagesDB } from "../store/storeDB";
 import axios from "axios/index";
+import { api } from "./settings";
 
 export const humanizeDistance = function (meters) {
 	if (meters >= 1000) {
@@ -208,7 +209,7 @@ export const loadPage = async function (key, cb) {
 			}
 		});
 
-	axios.get(`/content/lang/${lang}/${pageKey}.html`)
+	axios.get(`${api.page.lang}/${lang}/${pageKey}.html`)
 		.then(response => {
 			const regex = /<h1>(.+)<\/h1>/gm;
 			let content = response.data;

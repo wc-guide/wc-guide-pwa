@@ -43,6 +43,10 @@ export const api = {
 		},
 		geolocation: `${WcBase}geolocation.php`
 	},
+	page: {
+		base: `${WcBase}content`,
+		lang: `${WcBase}content/lang`,
+	}
 };
 
 /**

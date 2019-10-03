@@ -94,7 +94,7 @@ export default {
         Update
     },
     created: function() {
-        axios.get("/content/languages.json").then(response => {
+        axios.get(`${api.page.base}/languages.json`).then(response => {
             this.languages = response.data;
         });
     },
