@@ -6,9 +6,6 @@ const res = request('GET', 'https://wc-guide.com/version.json');
 const version = JSON.parse(res.getBody()).version;
 const packageVersionNumbers = file.version.split('.');
 const versionNumbers = version.split('.');
-fs.writeFile('./src/versionPrev.json', JSON.stringify({ version }), function (err) {
-	if (err) return console.log('\x1b[31m', err);
-});
 
 let subVersion = parseInt(versionNumbers[versionNumbers.length - 1]);
 if (packageVersionNumbers[0] !== versionNumbers[0] || packageVersionNumbers[1] !== versionNumbers[1]) {
