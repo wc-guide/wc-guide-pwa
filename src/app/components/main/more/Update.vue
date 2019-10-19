@@ -10,7 +10,7 @@
     </p>
 </template>
 <script>
-import prev from "./../../../../../versionPrev.json";
+import prev from "./../../../../versionPrev.json";
 import axios from "axios";
 import { mapState } from "vuex";
 import { settingsDB } from "./../../../store/storeDB.js";
