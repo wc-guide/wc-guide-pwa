@@ -16,7 +16,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@master
-      - name: npm tasks
       - uses: actions/setup-node@v1      
         with:
           node-version: '10.x'
