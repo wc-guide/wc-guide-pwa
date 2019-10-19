@@ -2,6 +2,8 @@ import path from 'path';
 import app from './app.json';
 import { version } from './src/version.json';
 
+const versionFolder = version.replace(/\./g, '-');
+
 import LiveReloadPlugin from 'webpack-livereload-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
@@ -25,7 +27,7 @@ const config = {
 	],
 	output: {
 		path: `${dirDist}`,
-		filename: 'assets/[hash]/app-[hash].js',
+		filename: `assets/${versionFolder}/app-[hash].js`,
 		publicPath: '/'
 	},
 	devtool: sourceMap ? `cheap-module-eval-source-map` : undefined,
@@ -101,8 +103,8 @@ const config = {
 			cleanStaleWebpackAssets: false
 		}),
 		new MiniCssExtractPlugin({
-			filename: `assets/[hash]/app-[hash].css`,
-			chunkFilename: `assets/[hash]/app-[id]-[hash].css`
+			filename: `assets/${versionFolder}/app-[hash].css`,
+			chunkFilename: `assets/${versionFolder}/app-[id]-[hash].css`
 		}),
 		new CopyWebpackPlugin([
 			{
