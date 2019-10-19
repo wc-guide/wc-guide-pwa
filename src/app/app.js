@@ -2,10 +2,6 @@ if (location.protocol !== 'https:') {
 	location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
 }
 
-//import 'whatwg-fetch'
-//import 'promise-polyfill/src/polyfill';
-//import '@babel/polyfill';
-
 import Vue from 'vue';
 import App from './App.vue';
 import './vendor/a11y.js';
