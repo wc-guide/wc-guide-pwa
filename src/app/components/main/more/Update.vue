@@ -18,7 +18,7 @@ import { settingsDB } from "./../../../store/storeDB.js";
 export default {
     data() {
         return {
-            version: prev.Version,
+            version: prev.version,
             newVersion: false,
             updating: false,
             update: false
