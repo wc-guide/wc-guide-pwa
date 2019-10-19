@@ -20,7 +20,14 @@ jobs:
         uses: actions/npm@master
         with:
           args: install
-      - name: npm build
+      - name: npm deploy
         uses: actions/npm@master
         with:
-          args: run prod
+          args: run deploy
+        env: 
+          FTP_USER: ${{ secrets.FTP_USER }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          FTP_HOST: ${{ secrets.FTP_HOST }}
+          FTP_PORT: ${{ secrets.FTP_PORT }}
+          FTP_LOCALROOT: ${{ secrets.FTP_LOCALROOT }}
+          FTP_REMOTEROOT: ${{ secrets.FTP_REMOTEROOT }}
