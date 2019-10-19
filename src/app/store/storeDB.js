@@ -16,7 +16,6 @@ const idbPromise = openDB(dbName, dbVersion, {
 	}
 });
 
-
 const exp = {};
 dbStores.forEach(store => {
 	exp[store] = {
