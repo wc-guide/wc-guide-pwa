@@ -10,14 +10,15 @@
     </p>
 </template>
 <script>
-import pkg from "./../../../../../package";
+import prev from "./../../../../../versionPrev.json";
 import axios from "axios";
 import { mapState } from "vuex";
+import { settingsDB } from "./../../../store/storeDB.js";
 
 export default {
     data() {
         return {
-            version: pkg.version,
+            version: prev.Version,
             newVersion: false,
             updating: false,
             update: false
@@ -43,7 +44,7 @@ export default {
             this.updating = true;
             if (window.serviceWorkerRegistration) {
                 window.serviceWorkerRegistration.update().then(() => {
-                    console.log("dobe");
+                    //console.log("dobe");
                     //window.location.reload(true);
                 });
             } else {
