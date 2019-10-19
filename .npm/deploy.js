@@ -16,7 +16,7 @@ const config = {
 	forcePasv: true
 };
 
-console.log('\x1b[36m%s\x1b[0m', `FTP upload to ${env.FTP_HOST} started..`);
+console.log('\x1b[36m%s\x1b[0m', "FTP upload started..");
 ftpDeploy.deploy(config)
 	.then(res => {
 		console.log('\x1b[36m%s\x1b[0m', 'FTP upload finished');
