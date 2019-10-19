@@ -1,7 +1,11 @@
 import fs from 'fs';
+import request from 'sync-request';
 import file from './../package.json';
 
-const versionNumbers = file.version.split('.');
+const res = request('GET', 'https://wc-guide.com/version.json');
+const version = JSON.parse(res.getBody()).version;
+
+const versionNumbers = version.split('.');
 versionNumbers[versionNumbers.length - 1]++;
 const newVersion = versionNumbers.join('.');
 
