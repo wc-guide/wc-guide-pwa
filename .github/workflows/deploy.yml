@@ -23,4 +23,4 @@ jobs:
       - name: npm build
         uses: actions/npm@master
         with:
-          args: run build
+          args: run prod
