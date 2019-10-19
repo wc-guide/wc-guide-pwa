@@ -211,6 +211,7 @@ export const loadPage = async function (key, cb) {
 
 	axios.get(`${api.page.lang}/${lang}/${pageKey}.html`)
 		.then(response => {
+			// Sorry for the ugly parsing
 			const regex = /<h1>(.+)<\/h1>/gm;
 			let content = response.data;
 			let title = '';
