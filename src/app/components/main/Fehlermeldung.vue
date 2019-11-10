@@ -100,10 +100,8 @@ export default {
 
                     //axios.post(api.wp.edit, newData);
                     axios
-                        .post(api.wc.failure, qs.stringify(newData))
+                        .post(api.wc.mail.failure, qs.stringify(newData))
                         .then(resp => {
-                            console.log(resp);
-                            console.log(resp.data.code);
                             if (resp.data.code >= 300) {
                                 reject(resp.data.message);
                             } else {
