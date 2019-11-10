@@ -39,6 +39,7 @@ export const api = {
 		deleted: `${WcBase}api/getUpdates?Datetime={date}&locale=deu&token=50a226e9-7638-481c-a3a3-71cbc0a80145`,
 		mail: {
 			feedback: `${WcBase}mail.php?type=feedback`,
+			failure: `${WcBase}mail.php?type=failure`,
 			delete: `${WcBase}mail.php?type=delete-toilet`,
 		},
 		geolocation: `${WcBase}geolocation.php`
