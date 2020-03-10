@@ -21,11 +21,6 @@ There are several tasks configured:
 ### PWA
 This app is served as a PWA. That means its designed to work offline first (using IndexedDB and a ServiceWorker) and generates a manifest.json to make it installable.
 
-## Translations
-The WC-Guide is currently available in English, German, French and Italian. 
-
-If you want to make a contribution and translate the website in your own language, you'll find the relevant files in the source under [/src/content/lang]( https://github.com/wc-guide/wc-guide-pwa/tree/master/src/content/lang). Thank you!
-
 ## Backend
 The app has several connections to the wc-guide.com Backend and to mapBox. They are all defined inside the [settings.js](https://github.com/wc-guide/wc-guide-pwa/blob/master/src/app/vendor/settings.js) (`const api`, `const mapBoxSettings`).  
 There are no dependencies to other external ressources.
