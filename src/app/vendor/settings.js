@@ -78,7 +78,8 @@ export const subnavigation = [
 	{
 		faq: "question",
 		media: "volume-up",
-		support: "heart",
+		support: "support",
+		donate: "heart",
 		contact: "envelope",
 	}, {
 		legal: "balance",

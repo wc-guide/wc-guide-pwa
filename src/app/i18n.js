@@ -5,10 +5,10 @@ import axios from 'axios';
 import router from './router';
 import Cookies from 'js-cookie';
 
-import { store } from "./store/store";
-import { settingsDB } from "./store/storeDB";
-import { vueInstance } from "./app";
-import { api } from "./vendor/settings";
+import {store} from "./store/store";
+import {settingsDB} from "./store/storeDB";
+import {vueInstance} from "./app";
+import {api} from "./vendor/settings";
 
 Vue.use(VueI18n);
 
@@ -17,7 +17,7 @@ export const i18nDefault = fallback;
 export const i18n = new VueI18n({
 	locale: fallback,
 	fallbackLocale: fallback,
-	messages: { de }
+	messages: {de}
 });
 
 settingsDB.set(fallback, de);
@@ -86,7 +86,7 @@ function setLang(lang, msgs) {
 	vueInstance.$meta().refresh();
 	//axios.defaults.headers.common['Accept-Language'] = lang;
 	document.querySelector('html').setAttribute('lang', lang);
-	Cookies.set('lang', lang, { expires: 365, path: '/' });
+	Cookies.set('lang', lang, {expires: 365, path: '/'});
 
 	/**
 	 * Push
