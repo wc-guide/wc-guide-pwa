@@ -8,3 +8,4 @@ wc-guide.code-workspace
 ssr-cache/
 .env
 .idea/
+yarn.lock
