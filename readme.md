@@ -4,12 +4,11 @@
 WC-Guide is a directory of public toilets, started and well known in Switzerland. In principle, it is intended for all people, but the project idea was particularly aimed at people who are dependent on public toilets in their everyday lives, e.g. in order to enjoy a carefree excursion. Positive feedback from affected persons confirms the sense and purpose of this project and the reason for its continuation and further development.
 
 ## Technology
-The progressive Web App PWA is based on [vueJS](https://vuejs.org/) and uses nodeJS and WebPack for the build process.
+The progressive Web App PWA is based on [PreactJS](https://preactjs.com/) and uses nodeJS and WebPack for the build process.
 
 ### Setup
 To use the source code you need nodeJS (min v. 8.10) and npm (min v. 6.9).  
 Then you can use `npm install` to install all dependencies.  
-It also uses [Livereload](http://livereload.com/) to sync changes with your browser.
 
 ### Build process
 There are several tasks configured:
