@@ -3,7 +3,7 @@
         <div v-if="entriesList === 'loading'" class="list__loading"></div>
         <template v-else-if="entriesList">
             <button v-for="(entry, id) in entriesList" @click="openInfobox(entry.id, entry.lat, entry.lng)" :key="id" class="list__element">
-                <img class="list__image" :src="`/assets/img/marker/${getType(entry)}.svg`" />
+                <img class="list__image" :src="`/assets/img/marker/${entry.type}.svg`" />
                 <div class="list__inner">
                     <b class="list__name">{{entry.name}}</b>
                     <span class="list__place">{{entry.place}}, {{entry.address}}</span>
@@ -58,7 +58,7 @@ export default {
             openMapPopup(description, coordinates, this.map);
         },
         getType: function(item) {
-            let icon = toilet.getType(item);
+            let icon = item.type;
             if (item.details && item.details.indexOf("5") !== -1) {
                 icon = `${icon}-nette-toilette`;
             }
