@@ -63,6 +63,7 @@
     "offline_entries_request": "Neue Eintr\u00e4ge konnten nicht geladen werden",
     "offline_page_request": "Seiteninformationen konnten nicht geladen werden",
     "offline_form": "Formulare k\u00f6nnen offline nicht verarbeitet werden. Bitte stelle sicher, dass Du eine aktive Internetverbindung hast.",
+    "error_loading_entries": "Wir haben zur Zeit ein Problem mit der Datenschnittstelle. Deshalb konnten die neuen Einträge nicht geladen werden. Bitte laden Sie die Seite neu.",
     "ok": "Ok",
     "update_version": "Version {version}",
     "update_updating": "Neue Version wird installiert",

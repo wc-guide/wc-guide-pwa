@@ -13,6 +13,9 @@ import {
 } from "./../../vendor/funcs";
 import { api } from "./../../vendor/settings";
 
+const CancelToken = axios.CancelToken;
+let mapEntriesCancelTokenSource;
+
 const toiletfilter = {};
 let isDoingDelete = false;
 toilet.types.map(type => {
@@ -33,6 +36,7 @@ const actions = {
       console.log("Map not yet loaded");
       return;
     }
+    mapLoaderShow("loadEntries");
 
     const mapBounds = rootState.map.map.getBounds();
     /*
@@ -45,6 +49,11 @@ const actions = {
       commit("setMap", mapBounds);
     });*/
 
+    if (mapEntriesCancelTokenSource) {
+      mapEntriesCancelTokenSource.cancel();
+    }
+    mapEntriesCancelTokenSource = CancelToken.source();
+
     axios
       .get(
         api.wc.get +
@@ -55,9 +64,15 @@ const actions = {
               n: mapBounds.getNorthEast().lat,
               e: mapBounds.getNorthEast().lng
             })
-          )}`
+          )}`,
+        {
+          cancelToken: mapEntriesCancelTokenSource.token
+        }
       )
       .then(resp => {
+        mapEntriesCancelTokenSource = null;
+        mapLoaderHide("loadEntries");
+
         const newToilets = {};
 
         resp.data.map(entry => {
@@ -69,7 +84,18 @@ const actions = {
         commit("setEntries", newToilets);
         commit("setMap", mapBounds);
       })
-      .catch(e => {});
+      .catch(e => {
+        e.response &&
+          e.response.status === 400 &&
+          vueInstance.$snack.danger({
+            text: i18n.t("error_loading_entries"),
+            button: "RELOAD",
+            action: () => location.reload(true)
+          });
+        if (axios.isCancel(e)) {
+          mapEntriesCancelTokenSource = null;
+        }
+      });
   },
   updateFilter({ commit, rootState }, filter) {
     commit("setFilter", filter);

@@ -214,7 +214,7 @@ module.exports = (env, argv) => {
         runtimeCaching: [
           {
             urlPattern: new RegExp("^https://api.mapbox.com/"),
-            handler: "networkFirst",
+            handler: "NetworkFirst",
             options: {
               cacheName: "api-mapbox-cache"
             }
@@ -223,18 +223,18 @@ module.exports = (env, argv) => {
             urlPattern: new RegExp(
               "^https://.wc-guide.com/(admin|ajax|api|css|files|fonts|img|js|mobile|xml)/"
             ),
-            handler: "networkOnly"
+            handler: "NetworkOnly"
           },
           {
             urlPattern: new RegExp(/\.(?:png|gif|jpg|svg|ico)$/),
-            handler: "cacheFirst",
+            handler: "CacheFirst",
             options: {
               cacheName: "image-cache"
             }
           },
           {
             urlPattern: new RegExp(/\.html$/),
-            handler: "networkFirst",
+            handler: "NetworkFirst",
             options: {
               cacheName: "index-cache"
             }
@@ -245,7 +245,8 @@ module.exports = (env, argv) => {
       }),
       new DefinePlugin({
         API_BASE:
-          JSON.stringify(process.env.API_BASE) || "https://wc-guide.com/"
+          JSON.stringify(process.env.API_BASE) || "https://wc-guide.com/",
+        USE_PWA: (JSON.stringify(process.env.USE_PWA) || "true") === "true"
       })
     ]
   };

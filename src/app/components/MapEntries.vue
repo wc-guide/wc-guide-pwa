@@ -129,10 +129,7 @@ export default {
         window.markerIds[item.id] = index;
         index++;
         const icon = item.type;
-        /*
-        if (item.details && item.details.indexOf("5") !== -1) {
-          icon = `${icon}-nette-toilette`;
-        }*/
+
         geoElements.push({
           type: "Feature",
           geometry: {

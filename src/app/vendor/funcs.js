@@ -58,16 +58,6 @@ export const getEntryDescription = function(item) {
         : null;
     })
     .filter(f => !!f);
-  /*
-            item.details.forEach(index => {
-              if (toilet.getProperty(index)) {
-                const prop = toilet.getProperty(index);
-                const title = vueInstance.$t(`form_property_${prop}`);
-                properties += `<img title="${title}" src="/assets/img/marker/${prop}.svg" />`;
-              }
-            });
-            properties = `<p class="toilet__properties">${properties}</p>`;
-          }*/
   let typeText = "";
   if (item.toilet_type_text) {
     let typeKey = snakecasify(item.toilet_type_text);
@@ -103,7 +93,12 @@ export const getEntryDescription = function(item) {
           : ""
       }
 			<p class="toilet__url">
-			<a href="${item.url}" target="_blank">${vueInstance.$t("open_in_osm")}</a>
+			<a class="toilet__url-osm" href="${item.url}" target="_blank">${vueInstance.$t(
+    "open_in_osm"
+  )}</a>
+			<button class="toilet__url-failure"  onclick="setFehlermeldung(${
+        item.id
+      });">${vueInstance.$t("menu_fehlermeldung")}</button>
 </p>
 		</div>
 	</div>`;

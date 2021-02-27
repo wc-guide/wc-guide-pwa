@@ -56,9 +56,16 @@
 
   &__url {
     font-size: $font-size-small;
+    margin-top: 1em;
+    display: flex;
+    justify-content: space-between;
 
-    a {
-      color: c(green);
+    &-osm {
+      color: #666;
+    }
+
+    &-failure {
+      color: c(red);
     }
   }
 
