@@ -128,7 +128,7 @@ export default {
       Object.values(entries).forEach(item => {
         window.markerIds[item.id] = index;
         index++;
-        const icon = item.type;
+        const icon = item.features.nettetoilette ? `${item.type}-nette-toilette` :  item.type;
 
         geoElements.push({
           type: "Feature",

@@ -22,7 +22,7 @@ import mapboxgl from "mapbox-gl";
 import {settingsDB} from "../store/storeDB";
 import {mapBoxSettings, api, settings, isMobile} from "../vendor/settings";
 import {mapState} from "vuex";
-import {i18nSetMapLang} from "./../i18n";
+import {i18nSetMapLang} from "../i18n";
 
 const MapEntries = () =>
     import(/* webpackChunkName: 'map' */ "./MapEntries.vue");
