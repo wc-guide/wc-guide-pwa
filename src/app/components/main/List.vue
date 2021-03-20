@@ -78,7 +78,6 @@ export default {
   computed: mapState({
     map: state => state.map.map,
     entriesList: state => {
-      console.log('entriesList', state.entries.map)
       return state.entries.map
     },
     geolocation: state => state.map.geolocation
