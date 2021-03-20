@@ -1,4 +1,4 @@
-import { vueInstance } from "./../app.js";
+import { vueInstance } from "../app.js";
 import mapboxgl from "mapbox-gl";
 import { i18nGetLang } from "../i18n";
 import { pagesDB } from "../store/storeDB";
@@ -47,7 +47,10 @@ export const toilet = {
 export const getEntryDescription = function(item) {
   let directionButton = "";
   if ("geolocation" in navigator) {
-    //directionButton = `<button onclick="setDirectionTo(${item.lat},${item.lng});" class="toilet__direction"><img src="/assets/img/route.svg" width="35px" height="35px" /></button><div class="toilet__way js-toilet-way"></div>`;
+    directionButton = `<button onclick="setDirectionTo(${item.lat},${item.lon});" class="toilet__direction">
+            <img src="/assets/img/route.svg" width="35px" height="35px" />
+        </button>
+        <div class="toilet__way js-toilet-way"></div>`;
   }
 
   const features = Object.entries(item.features)
@@ -92,6 +95,11 @@ export const getEntryDescription = function(item) {
           ? `<p class="toilet__features">${features.join("")}</p>`
           : ""
       }
+			${
+        item.access
+          ? `<p class="toilet__access">${vueInstance.$t("has_access")}</p>`
+          : ""
+      }
 			<p class="toilet__url">
 			<a class="toilet__url-osm" href="${item.url}" target="_blank">${vueInstance.$t(
     "open_in_osm"
@@ -101,6 +109,7 @@ export const getEntryDescription = function(item) {
       });">${vueInstance.$t("menu_fehlermeldung")}</button>
 </p>
 		</div>
+					${directionButton && `<div class="toilet__side">${directionButton}</div>`}
 	</div>`;
 };
 

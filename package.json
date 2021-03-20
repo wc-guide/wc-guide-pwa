@@ -104,5 +104,5 @@
       "@babel/plugin-syntax-dynamic-import"
     ]
   },
-  "browserslist": "> 1%, not ie <= 11"
+  "browserslist": ["> 1%", "not ie <= 11"]
 }
