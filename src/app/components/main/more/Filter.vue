@@ -12,7 +12,7 @@
 			:key="key"
 			:name="`toilet-type-${key}`"
 			:value="key"
-			:title="$t(`type_${toiletTypes[key]}`)+`<img src='/assets/img/marker/png-30/${toiletTypes[key]}.png' />`"
+			:title="$t(`type_${key}`)+`<img src='/assets/img/marker/png-30/${key}.png' />`"
 			:checked="checked"
 			type="checkbox"
 			size="small"

@@ -1,164 +1,172 @@
 .map {
-	&__loader {
-		position: relative;
-		top: 0;
-		left: 50%;
-		transform: translateX(-50%) translateY(300%);
-		opacity: 1;
-		@include transition();
-		will-change: transform, opacity;
-		z-index: 20;
-		width: 40px;
-		height: 40px;
-		border-radius: 50%;
-		background-color: #fff;
-		@include box-shadow();
-		&:after {
-			content: '';
-			margin: 7px 0 0 7px;
-			@include spinner(4px solid c(blue), 26px);
-		}
-		&[aria-hidden='true'] {
-			transform: translateX(-50%) translateY(-150%);
-			opacity: 0;
-		}
-	}
-	&__logo {
-		display: block;
-		@include desktop {
-			display: none;
-		}
-		position: relative;
-		z-index: 10;
-		width: 35vw;
-		left: 2.5rem;
-		top: 2.5rem;
-	}
-	&__togglemain {
-		position: absolute;
-		display: none;
-		@include desktop {
-			display: block;
-		}
-		top: 10%;
-		left: 0;
-		padding: 15px 5px 15px 3px;
-		background-color: c(white, background);
-		z-index: 20;
-		@include box-shadow();
-		color: c(black, light);
-	}
-	&__togglemain-icon {
-		display: block;
-		will-change: transform;
-		transform: rotate(180deg);
-		@include transition();
-		pointer-events: none;
-	}
+  &__loader {
+    position: relative;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%) translateY(300%);
+    opacity: 1;
+    @include transition();
+    will-change: transform, opacity;
+    z-index: 20;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #fff;
+    @include box-shadow();
+
+    &:after {
+      content: '';
+      margin: 7px 0 0 7px;
+      @include spinner(4px solid c(blue), 26px);
+    }
+
+    &[aria-hidden='true'] {
+      transform: translateX(-50%) translateY(-150%);
+      opacity: 0;
+    }
+  }
+
+  &__logo {
+    display: block;
+    @include desktop {
+      display: none;
+    }
+    position: relative;
+    z-index: 10;
+    width: 35vw;
+    left: 2.5rem;
+    top: 2.5rem;
+  }
+
+  &__togglemain {
+    position: absolute;
+    display: none;
+    @include desktop {
+      display: block;
+    }
+    top: 10%;
+    left: 0;
+    padding: 15px 5px 15px 3px;
+    background-color: c(white, background);
+    z-index: 20;
+    @include box-shadow();
+    color: c(black, light);
+  }
+
+  &__togglemain-icon {
+    display: block;
+    will-change: transform;
+    transform: rotate(180deg);
+    @include transition();
+    pointer-events: none;
+  }
 }
 
 #map {
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	width: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
 }
 
 .map-myposition {
-	width: 15px;
-	height: 15px;
-	border-radius: 50%;
-	background-color: c(blue);
-	box-shadow: 0 0 2px rgba(0, 0, 0, 0.25);
-	&:before,
-	&:after {
-		content: '';
-		border-radius: 50%;
-		position: absolute;
-	}
-	&:before {
-		background-color: c(blue);
-		width: 15px;
-		height: 15px;
-		animation: wcmap-marker-pulse 2s infinite;
-	}
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: c(blue);
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.25);
 
-	&:after {
-		border: 2px solid #fff;
-		height: 19px;
-		left: -2px;
-		top: -2px;
-		width: 19px;
-		box-sizing: border-box;
-	}
+  &:before,
+  &:after {
+    content: '';
+    border-radius: 50%;
+    position: absolute;
+  }
+
+  &:before {
+    background-color: c(blue);
+    width: 15px;
+    height: 15px;
+    animation: wcmap-marker-pulse 2s infinite;
+  }
+
+  &:after {
+    border: 2px solid #fff;
+    height: 19px;
+    left: -2px;
+    top: -2px;
+    width: 19px;
+    box-sizing: border-box;
+  }
 }
 
 .map-mysearch {
-	width: 17px;
-	height: 17px;
-	border-radius: 50%;
-	background-color: c(red);
-	box-shadow: 0 0 2px rgba(0, 0, 0, 0.25);
-	border: 2px solid #fff;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  background-color: c(red);
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.25);
+  border: 2px solid #fff;
 }
 
 .mapboxgl-ctrl-bottom-left {
-	@media (max-width: 1040px) {
-		bottom: 5px;
-		left: inherit;
-		right: 45px;
-	}
+  @media (max-width: 1040px) {
+    bottom: 5px;
+    left: inherit;
+    right: 45px;
+  }
 }
 
 .mapboxgl-popup-close-button {
-	font-size: 20px;
-	line-height: 30px;
-	width: 30px;
-	text-align: center;
-	color: rgba(c(), 0.4);
-	cursor: pointer;
-	z-index: 40;
-	will-change: background-color;
-	@include transition();
-	&:hover {
-		background-color: #fff;
-		color: c();
-	}
+  font-size: 20px;
+  line-height: 30px;
+  width: 30px;
+  text-align: center;
+  color: rgba(c(), 0.4);
+  cursor: pointer;
+  z-index: 40;
+  will-change: background-color;
+  @include transition();
+
+  &:hover {
+    background-color: #fff;
+    color: c();
+  }
 }
 
 .mapboxgl-popup-tip {
-	border-width: 15px;
+  border-width: 15px;
 }
 
 .mapboxgl-popup-content {
-	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
 
 .mapboxgl-ctrl-top-right .mapboxgl-ctrl {
-	margin-right: calc(2.5rem + 4px);
-	margin-top: calc(2.5rem + 40px + #{$space-item/2});
-	@include for-screen-min(phone) {
-		margin-right: calc(2.5rem + 16px);
-		margin-top: calc(4rem + 50px + #{$space-item/2});
-	}
-	@include desktop {
-		margin-right: 5.4rem;
-		margin-top: calc(4rem + 50px + #{$space-item});
-	}
+  margin-right: calc(2.5rem + 4px);
+  margin-top: calc(2.5rem + 40px + #{$space-item/2});
+  @include for-screen-min(phone) {
+    margin-right: calc(2.5rem + 16px);
+    margin-top: calc(4rem + 50px + #{$space-item/2});
+  }
+  @include desktop {
+    margin-right: 5.4rem;
+    margin-top: calc(4rem + 50px + #{$space-item});
+  }
 }
 
 .mapboxgl-ctrl-group .mapboxgl-ctrl-compass {
-	display: none;
-	@include desktop {
-		display: block;
-	}
+  display: none;
+  @include desktop {
+    display: block;
+  }
 }
 
 .mapboxgl-ctrl-group:not(:empty) {
-	box-shadow: none;
-	border: 1px solid #DBD5D0;
+  box-shadow: none;
+  border: 1px solid #DBD5D0;
 }
 
 .mapboxgl-ctrl-group > button + button {
-	border-top: 1px solid #DBD5D0;
+  border-top: 1px solid #DBD5D0;
 }

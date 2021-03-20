@@ -1,44 +1,31 @@
-let loading = {};
+const loading = {};
 
-export const mapLoaderShow = function (key = 'default') {
-	loading[key] = 'set';
-	const $loader = document.querySelector(".js-maps-loader");
-	$loader.setAttribute("aria-hidden", "false");
+export const mapLoaderShow = function(key = "default") {
+  loading[key] = "set";
 
-	/*
-	let show = true;
-	if (force && force === "hide") {
-		show = false;
-	}
-	if (!force && $loader.getAttribute("aria-hidden") == "false") {
-		show = false;
-	}
-	if (show) {
-		$loader.setAttribute("aria-hidden", "false");
-	} else {
-		$loader.setAttribute("aria-hidden", "true");
-	}
-	*/
+  const $loader = document.querySelector(".js-maps-loader");
+  $loader.setAttribute("aria-hidden", "false");
 };
 
-export const mapLoaderHide = function (key = 'default', force = false) {
-	delete loading[key];
-	if (force) {
-		loading = {};
-	}
-	if (!loading.length) {
-		const $loader = document.querySelector(".js-maps-loader");
-		$loader.setAttribute("aria-hidden", "true");
-	} else {
-		console.log('still loading..', loading);
-	}
+export const mapLoaderHide = function(key = "default", force = false) {
+  delete loading[key];
+  if (force) {
+    Object.keys(loading).map(key => {
+      delete loading[key];
+    });
+  }
+
+  if (Object.keys(loading).length === 0) {
+    const $loader = document.querySelector(".js-maps-loader");
+    $loader.setAttribute("aria-hidden", "true");
+  }
 };
 
-export const mapLoader = function (key = 'default') {
-	const $loader = document.querySelector(".js-maps-loader");
-	if ($loader.getAttribute("aria-hidden") === "false") {
-		mapLoaderShow(key);
-	} else {
-		mapLoaderHide(key);
-	}
+export const mapLoader = function(key = "default") {
+  const $loader = document.querySelector(".js-maps-loader");
+  if ($loader.getAttribute("aria-hidden") === "false") {
+    mapLoaderShow(key);
+  } else {
+    mapLoaderHide(key);
+  }
 };
