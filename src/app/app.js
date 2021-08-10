@@ -1,7 +1,8 @@
+/*
 if (location.protocol !== "https:") {
   location.href =
     "https:" + window.location.href.substring(window.location.protocol.length);
-}
+}*/
 
 import Vue from "vue";
 import App from "./App.vue";

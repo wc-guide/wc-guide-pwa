@@ -112,6 +112,7 @@ export default {
 
         store.subscribe((mutation, state) => {
           if (mutation.type === "entries/setMap") {
+            console.log('state.entries.map',state.entries.map)
             if (state.entries.map.length === 0) {
               return;
             }
@@ -126,9 +127,10 @@ export default {
 
       window.markerIds = {};
       Object.values(entries).forEach(item => {
+        console.log(item);
         window.markerIds[item.id] = index;
         index++;
-        const icon = item.features.nettetoilette ? `${item.type}-nette-toilette` :  item.type;
+        const icon = item.features.nettetoilette ? `${item.type}-nette-toilette` : item.type;
 
         geoElements.push({
           type: "Feature",

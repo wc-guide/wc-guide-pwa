@@ -54,17 +54,31 @@ const actions = {
     }
     mapEntriesCancelTokenSource = CancelToken.source();
 
+    const round = value => Math.round(value * 1000000) / 1000000;
+
+    const bounds = {
+      s: mapBounds.getSouthWest().lat,
+      w: mapBounds.getSouthWest().lng,
+      n: mapBounds.getNorthEast().lat,
+      e: mapBounds.getNorthEast().lng
+    };
+
+    const params = {
+      format: "json",
+      in_bbox: encodeURIComponent(
+        [bounds.w, bounds.s, bounds.e, bounds.n]
+          .map(value => round(value))
+          .join(",")
+      )
+    };
+
     axios
       .get(
         api.wc.get +
-          `?bounds=${encodeURIComponent(
-            JSON.stringify({
-              s: mapBounds.getSouthWest().lat,
-              w: mapBounds.getSouthWest().lng,
-              n: mapBounds.getNorthEast().lat,
-              e: mapBounds.getNorthEast().lng
-            })
-          )}`,
+          "?" +
+          Object.entries(params)
+            .reduce((acc, [key, value]) => [...acc, `${key}=${value}`], [])
+            .join("&"),
         {
           cancelToken: mapEntriesCancelTokenSource.token
         }
@@ -75,11 +89,22 @@ const actions = {
 
         const newToilets = {};
 
-        resp.data.map(entry => {
-          const id = entry.id;
+        resp.data.features.map(entry => {
+          const id = `${entry.geometry.coordinates[0]}x${entry.geometry.coordinates[1]}`;
           //entriesDB.set(id, entry);
-          newToilets[id] = entry;
+          newToilets[id] = {
+            id,
+            lat: entry.geometry.coordinates[0],
+            lon: entry.geometry.coordinates[1],
+            type: entry.properties.type,
+            features: entry.properties.features,
+            name: entry.properties.name,
+            operator: entry.properties.operator,
+            description: entry.properties.description
+          };
         });
+
+        console.log("newToilets", newToilets);
 
         commit("setEntries", newToilets);
         commit("setMap", mapBounds);

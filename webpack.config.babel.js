@@ -244,8 +244,9 @@ module.exports = (env, argv) => {
         skipWaiting: true
       }),
       new DefinePlugin({
-        API_BASE:
-          JSON.stringify(process.env.API_BASE) || "https://wc-guide.com/",
+        API_BASE: JSON.stringify(
+          process.env.API_BASE || "http://51.15.121.145/"
+        ),
         USE_PWA: (JSON.stringify(process.env.USE_PWA) || "true") === "true"
       })
     ]
