@@ -89,22 +89,21 @@ const actions = {
 
         const newToilets = {};
 
-        resp.data.features.map(entry => {
+        resp.data.results.features.map(entry => {
           const id = `${entry.geometry.coordinates[0]}x${entry.geometry.coordinates[1]}`;
           //entriesDB.set(id, entry);
           newToilets[id] = {
             id,
-            lat: entry.geometry.coordinates[0],
-            lon: entry.geometry.coordinates[1],
+            lat: entry.geometry.coordinates[1],
+            lon: entry.geometry.coordinates[0],
             type: entry.properties.type,
             features: entry.properties.features,
             name: entry.properties.name,
             operator: entry.properties.operator,
-            description: entry.properties.description
+            description: entry.properties.description,
+            url: `https://www.openstreetmap.org/${entry.properties.id}`
           };
         });
-
-        console.log("newToilets", newToilets);
 
         commit("setEntries", newToilets);
         commit("setMap", mapBounds);
@@ -147,20 +146,14 @@ const mutations = {
       .map(([type, active]) => (!active ? null : type))
       .filter(f => !!f);
 
-    const mapToilets = {};
-    Object.values(state.all).map(entry => {
-      if (
+    state.map = Object.values(state.all).filter(
+      entry =>
         b.min.lat < entry.lat &&
         entry.lat < b.max.lat &&
         b.min.lng < entry.lon &&
         entry.lon < b.max.lng &&
         activeFilters.indexOf(entry.type) !== -1
-      ) {
-        mapToilets[entry.id] = entry;
-      }
-    });
-
-    state.map = mapToilets;
+    );
   },
   setFilter(state, data) {
     state.filter = data;
