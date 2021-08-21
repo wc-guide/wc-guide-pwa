@@ -208,9 +208,7 @@ module.exports = (env, argv) => {
         ]
       }),
       new GenerateSW({
-        importWorkboxFrom: "local",
         include: [/\.html$/, /\.js$/, /\.css$/],
-        importsDirectory: "wb-assets",
         runtimeCaching: [
           {
             urlPattern: new RegExp("^https://api.mapbox.com/"),
@@ -221,9 +219,16 @@ module.exports = (env, argv) => {
           },
           {
             urlPattern: new RegExp(
-              "^https://.wc-guide.com/(admin|ajax|api|css|files|fonts|img|js|mobile|xml)/"
+              "^https://wc-guide.com/(admin|ajax|api|css|files|fonts|img|js|mobile|xml)/"
             ),
             handler: "NetworkOnly"
+          },
+          {
+            urlPattern: new RegExp("^https://wc-guide.com/content/"),
+            handler: "CacheFirst",
+            options: {
+              cacheName: "content-cache"
+            }
           },
           {
             urlPattern: new RegExp(/\.(?:png|gif|jpg|svg|ico)$/),

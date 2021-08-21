@@ -101,9 +101,10 @@ export const getEntryDescription = function(item) {
           : ""
       }
 			<p class="toilet__url">
-			<a class="toilet__url-osm" href="${item.url}" target="_blank">${vueInstance.$t(
-    "open_in_osm"
-  )}</a>
+			${item.url &&
+        `<a class="toilet__url-osm" href="${item.url}" target="_blank">
+            ${vueInstance.$t("open_in_osm")}
+          </a>`}
 			<button class="toilet__url-failure"  onclick="setFehlermeldung(${
         item.id
       });">${vueInstance.$t("menu_fehlermeldung")}</button>

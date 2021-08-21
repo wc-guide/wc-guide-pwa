@@ -101,7 +101,9 @@ const actions = {
             name: entry.properties.name,
             operator: entry.properties.operator,
             description: entry.properties.description,
-            url: `https://www.openstreetmap.org/${entry.properties.id}`
+            url: entry.properties.id
+              ? `https://www.openstreetmap.org/${entry.properties.id}`
+              : null
           };
         });
 
