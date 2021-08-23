@@ -100,14 +100,30 @@ export const getEntryDescription = function(item) {
           ? `<p class="toilet__access">${vueInstance.$t("has_access")}</p>`
           : ""
       }
-			<p class="toilet__url">
-			${item.url &&
-        `<a class="toilet__url-osm" href="${item.url}" target="_blank">
+						<p class="toilet__url">
+			${
+        Boolean(item.url)
+          ? `<a class="toilet__url-osm" href="${item.url}" target="_blank">
             ${vueInstance.$t("open_in_osm")}
-          </a>`}
-			<button class="toilet__url-failure"  onclick="setFehlermeldung(${
-        item.id
-      });">${vueInstance.$t("menu_fehlermeldung")}</button>
+          </a>`
+          : ""
+      }
+			${
+        item.type === "eurokey"
+          ? `<p>${vueInstance.$t(
+              "eurokey_source"
+            )}: <a class="toilet__url-osm" href="https://www.eurokey.ch/" target="_blank">
+            eurokey.ch
+          </a></p>`
+          : ""
+      }
+			${
+        false
+          ? `<button class="toilet__url-failure"  onclick="setFehlermeldung(${
+              item.id
+            });">${vueInstance.$t("menu_fehlermeldung")}</button>`
+          : ""
+      }
 </p>
 		</div>
 					${directionButton && `<div class="toilet__side">${directionButton}</div>`}
