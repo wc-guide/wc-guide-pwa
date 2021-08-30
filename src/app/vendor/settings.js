@@ -34,7 +34,8 @@ export const api = {
   wc: {
     base: WcBase,
     get: `${WcBase}toilets`,
-    geolocation: `${WcBase}geolocation`
+    getOverpass: `${WcBase}overpass`,
+    geolocation: `${WcBase}ip-api/`
     /*
     add: `${WcBase}ajax/toilets/add`,
     failure: `${WcBase}ajax/deu/toilets/failure`,

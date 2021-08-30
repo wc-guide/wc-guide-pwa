@@ -54,17 +54,32 @@ const actions = {
     }
     mapEntriesCancelTokenSource = CancelToken.source();
 
+    const round = value => Math.round(value * 1000000) / 1000000;
+
+    const bounds = {
+      s: mapBounds.getSouthWest().lat,
+      w: mapBounds.getSouthWest().lng,
+      n: mapBounds.getNorthEast().lat,
+      e: mapBounds.getNorthEast().lng
+    };
+    const bbox = encodeURIComponent(
+      [bounds.w, bounds.s, bounds.e, bounds.n]
+        .map(value => round(value))
+        .join(",")
+    );
+
+    const params = {
+      format: "json",
+      in_bbox: bbox
+    };
+
     axios
       .get(
         api.wc.get +
-          `?bounds=${encodeURIComponent(
-            JSON.stringify({
-              s: mapBounds.getSouthWest().lat,
-              w: mapBounds.getSouthWest().lng,
-              n: mapBounds.getNorthEast().lat,
-              e: mapBounds.getNorthEast().lng
-            })
-          )}`,
+          "?" +
+          Object.entries(params)
+            .reduce((acc, [key, value]) => [...acc, `${key}=${value}`], [])
+            .join("&"),
         {
           cancelToken: mapEntriesCancelTokenSource.token
         }
@@ -75,14 +90,36 @@ const actions = {
 
         const newToilets = {};
 
-        resp.data.map(entry => {
-          const id = entry.id;
-          //entriesDB.set(id, entry);
-          newToilets[id] = entry;
-        });
+        return (resp.data.results.features.length === 0
+          ? new Promise((resolve, reject) =>
+              axios
+                .get(`${api.wc.getOverpass}?in_bbox=${bbox}`)
+                .then(resp => resolve(resp.data.features))
+                .catch(e => reject(e))
+            )
+          : new Promise(resolve => resolve(resp.data.results.features))
+        ).then(features => {
+          features.map(entry => {
+            const id = `${entry.geometry.coordinates[0]}x${entry.geometry.coordinates[1]}`;
+            //entriesDB.set(id, entry);
+            newToilets[id] = {
+              id,
+              lat: entry.geometry.coordinates[1],
+              lon: entry.geometry.coordinates[0],
+              type: entry.properties.type,
+              features: entry.properties.features,
+              name: entry.properties.name,
+              operator: entry.properties.operator,
+              description: entry.properties.description,
+              url: entry.properties.id
+                ? `https://www.openstreetmap.org/${entry.properties.id}`
+                : null
+            };
+          });
 
-        commit("setEntries", newToilets);
-        commit("setMap", mapBounds);
+          commit("setEntries", newToilets);
+          commit("setMap", mapBounds);
+        });
       })
       .catch(e => {
         e.response &&
@@ -122,20 +159,14 @@ const mutations = {
       .map(([type, active]) => (!active ? null : type))
       .filter(f => !!f);
 
-    const mapToilets = {};
-    Object.values(state.all).map(entry => {
-      if (
+    state.map = Object.values(state.all).filter(
+      entry =>
         b.min.lat < entry.lat &&
         entry.lat < b.max.lat &&
         b.min.lng < entry.lon &&
         entry.lon < b.max.lng &&
         activeFilters.indexOf(entry.type) !== -1
-      ) {
-        mapToilets[entry.id] = entry;
-      }
-    });
-
-    state.map = mapToilets;
+    );
   },
   setFilter(state, data) {
     state.filter = data;
