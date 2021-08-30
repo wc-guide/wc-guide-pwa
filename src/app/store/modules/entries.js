@@ -62,14 +62,15 @@ const actions = {
       n: mapBounds.getNorthEast().lat,
       e: mapBounds.getNorthEast().lng
     };
+    const bbox = encodeURIComponent(
+      [bounds.w, bounds.s, bounds.e, bounds.n]
+        .map(value => round(value))
+        .join(",")
+    );
 
     const params = {
       format: "json",
-      in_bbox: encodeURIComponent(
-        [bounds.w, bounds.s, bounds.e, bounds.n]
-          .map(value => round(value))
-          .join(",")
-      )
+      in_bbox: bbox
     };
 
     axios
@@ -89,26 +90,36 @@ const actions = {
 
         const newToilets = {};
 
-        resp.data.results.features.map(entry => {
-          const id = `${entry.geometry.coordinates[0]}x${entry.geometry.coordinates[1]}`;
-          //entriesDB.set(id, entry);
-          newToilets[id] = {
-            id,
-            lat: entry.geometry.coordinates[1],
-            lon: entry.geometry.coordinates[0],
-            type: entry.properties.type,
-            features: entry.properties.features,
-            name: entry.properties.name,
-            operator: entry.properties.operator,
-            description: entry.properties.description,
-            url: entry.properties.id
-              ? `https://www.openstreetmap.org/${entry.properties.id}`
-              : null
-          };
-        });
+        return (resp.data.results.features.length === 0
+          ? new Promise((resolve, reject) =>
+              axios
+                .get(`${api.wc.getOverpass}?in_bbox=${bbox}`)
+                .then(resp => resolve(resp.data.features))
+                .catch(e => reject(e))
+            )
+          : new Promise(resolve => resolve(resp.data.results.features))
+        ).then(features => {
+          features.map(entry => {
+            const id = `${entry.geometry.coordinates[0]}x${entry.geometry.coordinates[1]}`;
+            //entriesDB.set(id, entry);
+            newToilets[id] = {
+              id,
+              lat: entry.geometry.coordinates[1],
+              lon: entry.geometry.coordinates[0],
+              type: entry.properties.type,
+              features: entry.properties.features,
+              name: entry.properties.name,
+              operator: entry.properties.operator,
+              description: entry.properties.description,
+              url: entry.properties.id
+                ? `https://www.openstreetmap.org/${entry.properties.id}`
+                : null
+            };
+          });
 
-        commit("setEntries", newToilets);
-        commit("setMap", mapBounds);
+          commit("setEntries", newToilets);
+          commit("setMap", mapBounds);
+        });
       })
       .catch(e => {
         e.response &&
