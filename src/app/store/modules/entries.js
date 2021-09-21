@@ -94,8 +94,6 @@ const actions = {
           };
         });
 
-        console.log("newToilets", newToilets);
-
         commit("setEntries", newToilets);
         commit("setMap", mapBounds);
       })
