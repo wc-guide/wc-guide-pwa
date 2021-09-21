@@ -61,21 +61,20 @@ const actions = {
       e: mapBounds.getNorthEast().lng
     };
 
-    const newToilets = {};
-
-    const getTranslatedText = text => {
-      if (typeof text === "object") {
-        if (i18n.locale in text) {
-          return text[i18n.locale];
-        }
-        return Object.values(text)[0];
-      }
-      return text;
-    };
-
     getToilets(bounds)
       .then(features => {
         mapLoaderHide("loadEntries");
+        const newToilets = {};
+
+        const getTranslatedText = text => {
+          if (text && typeof text === "object") {
+            if (text[i18n.locale]) {
+              return text[i18n.locale];
+            }
+            return Object.values(text)[0];
+          }
+          return text;
+        };
 
         features.map(entry => {
           const id = `${entry.geometry.coordinates[0]}x${entry.geometry.coordinates[1]}`;
@@ -94,6 +93,8 @@ const actions = {
               : null
           };
         });
+
+        console.log("newToilets", newToilets);
 
         commit("setEntries", newToilets);
         commit("setMap", mapBounds);
