@@ -33,7 +33,7 @@ const getters = {};
 const actions = {
   loadEntries({ commit, rootState }, data) {
     if (!rootState.map.map) {
-      console.log("Map not yet loaded");
+      console.log("Map not yet loaded.");
       return;
     }
     mapLoaderShow("loadEntries");
