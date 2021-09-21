@@ -34,6 +34,7 @@ export const api = {
   wc: {
     base: WcBase,
     get: `${WcBase}toilets`,
+    getOthers: `${WcBase}others`,
     getOverpass: `${WcBase}overpass`,
     geolocation: `${WcBase}ip-api/`
     /*
