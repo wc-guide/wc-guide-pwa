@@ -1,17 +1,16 @@
 import axios from "axios";
 import { entriesDB, settingsDB } from "./../storeDB";
 import { xml2json } from "xml-js";
-import { vueInstance } from "./../../app";
+import { vueInstance } from "../../app";
 import { i18n } from "../../i18n";
-import { mapLoaderShow, mapLoaderHide } from "./../../vendor/mapLoader";
+import { mapLoaderShow, mapLoaderHide } from "../../vendor/mapLoader";
 import {
   toilet,
   distanceBetweenCoordinates,
   humanizeDistance,
   sortProperties,
   angleBetweenCoordinates
-} from "./../../vendor/funcs";
-import { api } from "./../../vendor/settings";
+} from "../../vendor/funcs";
 import { getToilets } from "../../vendor/api";
 
 const CancelToken = axios.CancelToken;
@@ -64,6 +63,16 @@ const actions = {
 
     const newToilets = {};
 
+    const getTranslatedText = text => {
+      if (typeof text === "object") {
+        if (i18n.locale in text) {
+          return text[i18n.locale];
+        }
+        return Object.values(text)[0];
+      }
+      return text;
+    };
+
     getToilets(bounds)
       .then(features => {
         mapLoaderHide("loadEntries");
@@ -79,7 +88,7 @@ const actions = {
             features: entry.properties.features,
             name: entry.properties.name,
             operator: entry.properties.operator,
-            description: entry.properties.description,
+            description: getTranslatedText(entry.properties.description),
             url: entry.properties.id
               ? `https://www.openstreetmap.org/${entry.properties.id}`
               : null
