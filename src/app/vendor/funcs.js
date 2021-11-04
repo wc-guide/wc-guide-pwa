@@ -1,30 +1,30 @@
-import { vueInstance } from "../app.js";
-import mapboxgl from "mapbox-gl";
-import { i18nGetLang } from "../i18n";
-import { pagesDB } from "../store/storeDB";
-import axios from "axios/index";
-import { api } from "./settings";
+import { vueInstance } from '../app.js';
+import mapboxgl from 'mapbox-gl';
+import { i18nGetLang } from '../i18n';
+import { pagesDB } from '../store/storeDB';
+import axios from 'axios/index';
+import { api } from './settings';
 
 export const humanizeDistance = function(meters) {
   if (meters >= 1000) {
     const km = meters / 1000;
-    return Math.floor(km * 10) / 10 + " km";
+    return Math.floor(km * 10) / 10 + ' km';
   }
-  return Math.floor(meters) + " m";
+  return Math.floor(meters) + ' m';
 };
 
 export const humanizeDuration = function(seconds) {
-  return Math.floor(seconds / 60) + " min";
+  return Math.floor(seconds / 60) + ' min';
 };
 
-const toiletTypes = ["normal", "iv", "pissoir", "eurokey"];
+const toiletTypes = ['normal', 'iv', 'pissoir', 'eurokey'];
 
 const toiletProperties = {
-  2: "wickeltisch",
-  3: "treppe",
-  4: "gelaender",
-  1: "kostenpflichtig",
-  5: "nettetoilette"
+  2: 'wickeltisch',
+  3: 'treppe',
+  4: 'gelaender',
+  1: 'kostenpflichtig',
+  5: 'nettetoilette',
 };
 
 export const toilet = {
@@ -41,12 +41,12 @@ export const toilet = {
       }
     });
     return i;
-  }
+  },
 };
 
 export const getEntryDescription = function(item) {
-  let directionButton = "";
-  if ("geolocation" in navigator) {
+  let directionButton = '';
+  if ('geolocation' in navigator) {
     directionButton = `<button onclick="setDirectionTo(${item.lat},${item.lon});" class="toilet__direction">
             <img src="/assets/img/route.svg" width="35px" height="35px" />
         </button>
@@ -61,13 +61,13 @@ export const getEntryDescription = function(item) {
         : null;
     })
     .filter(f => !!f);
-  let typeText = "";
+  let typeText = '';
   if (item.toilet_type_text) {
     let typeKey = snakecasify(item.toilet_type_text);
-    if (typeKey === "normale_toilette") {
-      typeKey = "normal";
-    } else if (typeKey === "normale_und_behinderten_toilette") {
-      typeKey = "iv";
+    if (typeKey === 'normale_toilette') {
+      typeKey = 'normal';
+    } else if (typeKey === 'normale_und_behinderten_toilette') {
+      typeKey = 'iv';
     }
 
     typeText = `<p class="toilet__type">${vueInstance.$t(
@@ -78,51 +78,51 @@ export const getEntryDescription = function(item) {
   return `<div class="toilet">
 		<div class="toilet__main">
 			<p class="toilet__type">${vueInstance.$t(`type_${item.type}`)}</p>
-			${item.name ? `<h2 class="toilet__title">${item.name}</h2>` : ""}
-			${item.operator ? `<p class="toilet__operator">${item.operator}</p>` : ""}
+			${item.name ? `<h2 class="toilet__title">${item.name}</h2>` : ''}
+			${item.operator ? `<p class="toilet__operator">${item.operator}</p>` : ''}
 			${
         item.description
           ? `<p class="toilet__description">${item.description}</p>`
-          : ""
+          : ''
       }
 			${
-        item["opening_hours"]
-          ? `<p class="toilet__opening-hours">${item["opening_hours"]}</p>`
-          : ""
+        item['opening_hours']
+          ? `<p class="toilet__opening-hours">${item['opening_hours']}</p>`
+          : ''
       }
 			${
         features.length !== 0
-          ? `<p class="toilet__features">${features.join("")}</p>`
-          : ""
+          ? `<p class="toilet__features">${features.join('')}</p>`
+          : ''
       }
 			${
         item.access
-          ? `<p class="toilet__access">${vueInstance.$t("has_access")}</p>`
-          : ""
+          ? `<p class="toilet__access">${vueInstance.$t('has_access')}</p>`
+          : ''
       }
 						<p class="toilet__url">
 			${
         Boolean(item.url)
           ? `<a class="toilet__url-osm" href="${item.url}" target="_blank">
-            ${vueInstance.$t("open_in_osm")}
+            ${vueInstance.$t('open_in_osm')}
           </a>`
-          : ""
+          : ''
       }
 			${
-        item.type === "eurokey"
+        item.subType === 'eurokey'
           ? `<p>${vueInstance.$t(
-              "eurokey_source"
+              'eurokey_source'
             )}: <a class="toilet__url-osm" href="https://www.eurokey.ch/" target="_blank">
             eurokey.ch
           </a></p>`
-          : ""
+          : ''
       }
 			${
         false
           ? `<button class="toilet__url-failure"  onclick="setFehlermeldung(${
               item.id
-            });">${vueInstance.$t("menu_fehlermeldung")}</button>`
-          : ""
+            });">${vueInstance.$t('menu_fehlermeldung')}</button>`
+          : ''
       }
 </p>
 		</div>
@@ -136,21 +136,21 @@ export const openMapPopup = function(description, coordinates, map) {
     activeMapPopup.remove();
   }
   activeMapPopup = new mapboxgl.Popup({
-    anchor: "bottom",
+    anchor: 'bottom',
     offset: {
-      bottom: [0, -10]
-    }
+      bottom: [0, -10],
+    },
   })
     .setLngLat(coordinates)
     .setHTML(description)
     .addTo(map)
-    .on("close", function(e) {
-      vueInstance.$store.dispatch("map/toggleDirections", false);
+    .on('close', function(e) {
+      vueInstance.$store.dispatch('map/toggleDirections', false);
     });
 
   if (map.getZoom() >= 12) {
     map.flyTo({
-      center: coordinates
+      center: coordinates,
     });
   }
 };
@@ -230,7 +230,7 @@ export const loadPage = async function(key, cb) {
       cb({
         title: page.title,
         content: page.content,
-        loading: false
+        loading: false,
       });
     }
   });
@@ -241,8 +241,8 @@ export const loadPage = async function(key, cb) {
       // Sorry for the ugly parsing
       const regex = /<h1>(.+)<\/h1>/gm;
       let content = response.data;
-      let title = "";
-      let m = "";
+      let title = '';
+      let m = '';
       while ((m = regex.exec(content)) !== null) {
         if (m.index === regex.lastIndex) {
           regex.lastIndex++;
@@ -250,7 +250,7 @@ export const loadPage = async function(key, cb) {
 
         m.forEach((match, groupIndex) => {
           if (groupIndex === 0) {
-            content = content.replace(match, "");
+            content = content.replace(match, '');
           } else if (groupIndex === 1) {
             title = match;
           }
@@ -259,30 +259,30 @@ export const loadPage = async function(key, cb) {
 
       pagesDB.set(pageKey, {
         title,
-        content
+        content,
       });
 
       cb({
         title,
         content,
-        loading: false
+        loading: false,
       });
     })
     .catch(error => {
       cb({
-        title: "404 error",
-        content: "Page not found",
-        loading: false
+        title: '404 error',
+        content: 'Page not found',
+        loading: false,
       });
     });
 };
 
 function snakecasify(str) {
-  if (!str) return "";
+  if (!str) return '';
 
   return String(str)
-    .replace(/^[^A-Za-z0-9]*|[^A-Za-z0-9]*$/g, "")
-    .replace(/([a-z])([A-Z])/g, (m, a, b) => a + "_" + b.toLowerCase())
-    .replace(/[^A-Za-z0-9]+|_+/g, "_")
+    .replace(/^[^A-Za-z0-9]*|[^A-Za-z0-9]*$/g, '')
+    .replace(/([a-z])([A-Z])/g, (m, a, b) => a + '_' + b.toLowerCase())
+    .replace(/[^A-Za-z0-9]+|_+/g, '_')
     .toLowerCase();
 }
