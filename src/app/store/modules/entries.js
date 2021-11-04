@@ -1,17 +1,17 @@
-import axios from "axios";
-import { entriesDB, settingsDB } from "./../storeDB";
-import { xml2json } from "xml-js";
-import { vueInstance } from "../../app";
-import { i18n } from "../../i18n";
-import { mapLoaderShow, mapLoaderHide } from "../../vendor/mapLoader";
+import axios from 'axios';
+import { entriesDB, settingsDB } from './../storeDB';
+import { xml2json } from 'xml-js';
+import { vueInstance } from '../../app';
+import { i18n } from '../../i18n';
+import { mapLoaderShow, mapLoaderHide } from '../../vendor/mapLoader';
 import {
   toilet,
   distanceBetweenCoordinates,
   humanizeDistance,
   sortProperties,
-  angleBetweenCoordinates
-} from "../../vendor/funcs";
-import { getToilets } from "../../vendor/api";
+  angleBetweenCoordinates,
+} from '../../vendor/funcs';
+import { getToilets } from '../../vendor/api';
 
 const CancelToken = axios.CancelToken;
 let mapEntriesCancelTokenSource;
@@ -25,7 +25,7 @@ toilet.types.map(type => {
 const state = {
   all: {},
   map: {},
-  filter: toiletfilter
+  filter: toiletfilter,
 };
 
 const getters = {};
@@ -33,10 +33,10 @@ const getters = {};
 const actions = {
   loadEntries({ commit, rootState }, data) {
     if (!rootState.map.map) {
-      console.log("Map not yet loaded.");
+      console.log('Map not yet loaded.');
       return;
     }
-    mapLoaderShow("loadEntries");
+    mapLoaderShow('loadEntries');
 
     const mapBounds = rootState.map.map.getBounds();
     /*
@@ -58,16 +58,15 @@ const actions = {
       s: mapBounds.getSouthWest().lat,
       w: mapBounds.getSouthWest().lng,
       n: mapBounds.getNorthEast().lat,
-      e: mapBounds.getNorthEast().lng
+      e: mapBounds.getNorthEast().lng,
     };
 
     getToilets(bounds)
       .then(features => {
-        mapLoaderHide("loadEntries");
-        const newToilets = {};
+        mapLoaderHide('loadEntries');
 
         const getTranslatedText = text => {
-          if (text && typeof text === "object") {
+          if (text && typeof text === 'object') {
             if (text[i18n.locale]) {
               return text[i18n.locale];
             }
@@ -75,35 +74,39 @@ const actions = {
           }
           return text;
         };
-
-        features.map(entry => {
+        const newToilets = features.reduce((acc, entry) => {
           const id = `${entry.geometry.coordinates[0]}x${entry.geometry.coordinates[1]}`;
-          //entriesDB.set(id, entry);
-          newToilets[id] = {
+          const element = {
             id,
             lat: entry.geometry.coordinates[1],
             lon: entry.geometry.coordinates[0],
-            type: entry.properties.type,
+            type:
+              entry.properties.type === 'eurokeyosm'
+                ? 'eurokey'
+                : entry.properties.type,
+            subType: entry.properties.type,
             features: entry.properties.features,
             name: entry.properties.name,
             operator: entry.properties.operator,
             description: getTranslatedText(entry.properties.description),
             url: entry.properties.id
               ? `https://www.openstreetmap.org/${entry.properties.id}`
-              : null
+              : null,
           };
-        });
 
-        commit("setEntries", newToilets);
-        commit("setMap", mapBounds);
+          return { ...acc, [id]: element };
+        }, {});
+
+        commit('setEntries', newToilets);
+        commit('setMap', mapBounds);
       })
       .catch(e => {
         e.response &&
           e.response.status === 400 &&
           vueInstance.$snack.danger({
-            text: i18n.t("error_loading_entries"),
-            button: "RELOAD",
-            action: () => location.reload(true)
+            text: i18n.t('error_loading_entries'),
+            button: 'RELOAD',
+            action: () => location.reload(true),
           });
         if (axios.isCancel(e)) {
           mapEntriesCancelTokenSource = null;
@@ -111,9 +114,9 @@ const actions = {
       });
   },
   updateFilter({ commit, rootState }, filter) {
-    commit("setFilter", filter);
-    commit("setMap", rootState.map.map.getBounds());
-  }
+    commit('setFilter', filter);
+    commit('setMap', rootState.map.map.getBounds());
+  },
 };
 
 const mutations = {
@@ -128,7 +131,7 @@ const mutations = {
   setMap(state, mapBounds) {
     const b = {
       min: mapBounds.getSouthWest(),
-      max: mapBounds.getNorthEast()
+      max: mapBounds.getNorthEast(),
     };
 
     const activeFilters = Object.entries(state.filter)
@@ -146,7 +149,7 @@ const mutations = {
   },
   setFilter(state, data) {
     state.filter = data;
-  }
+  },
 };
 
 export default {
@@ -154,5 +157,5 @@ export default {
   state,
   getters,
   actions,
-  mutations
+  mutations,
 };
