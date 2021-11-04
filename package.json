@@ -1,6 +1,6 @@
 {
   "name": "wc-guide.com",
-  "version": "1.2.6",
+  "version": "1.2.7",
   "description": "A Vue-PWA for wc-guide.com",
   "repository": {
     "type": "git",
