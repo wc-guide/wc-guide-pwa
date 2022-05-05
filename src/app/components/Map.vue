@@ -105,7 +105,7 @@ export default {
         style: Object.values(mapBoxSettings.styles)[0],
         center,
         zoom,
-        minZoom: 7
+        minZoom: 9
       });
       this.mapBox.dragRotate.disable();
       this.mapBox.touchZoomRotate.disableRotation();
