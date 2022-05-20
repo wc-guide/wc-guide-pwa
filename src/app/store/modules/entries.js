@@ -90,7 +90,7 @@ const actions = {
             operator: entry.properties.operator,
             description: getTranslatedText(entry.properties.description),
             url: entry.properties.id
-              ? `https://www.openstreetmap.org/${entry.properties.id}`
+              ? `https://www.openstreetmap.org/edit?node=${entry.properties.id}`
               : null,
           };
 
