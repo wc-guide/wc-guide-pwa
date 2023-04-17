@@ -15,7 +15,6 @@
 					@keyup="searchLocations"
 				/>
 				<hello-icon class="search-form__icon" icon="search"></hello-icon>
-				<div v-if="searchText" @click="clearSearch" class="clear-search">X</div>
 			</form>
 			<div class="home__search-list search-list">
 				<button @click="setCenter(place.center)" v-for="(place, index) in results" :key="index" class="search-list__element">
@@ -82,10 +81,6 @@
 					this.setCenter(this.results[0].center);
 				}
 			},
-			clearSearch() {
-		      this.searchText = "";
-		      this.searchLocations();
-		    },
 			setCenter: function (center) {
 				if (this.map) {
 					let zoom = 14;
@@ -144,16 +139,3 @@
 		}),
 	};
 </script>
-<style scoped>
-	.search-form {
-	  position: relative;
-	}
-
-	.clear-search {
-	  position: absolute;
-	  right: 10px;
-	  top: 50%;
-	  transform: translateY(-50%);
-	  cursor: pointer;
-	}
-</style>
