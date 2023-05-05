@@ -62,8 +62,8 @@ export const mapBoxSettings = {
   token:
     "pk.eyJ1Ijoic29ubmVuc2NoYXVlciIsImEiOiJjampsanZuNGo2YXlmM3FyNWV1cmR4MHNqIn0.ZXpoHnrWGfIdsGSUBpYO7Q",
   styles: {
-    custom: "mapbox://styles/sonnenschauer/cjjlk7zfb02lh2spjs8bzbs2k",
-    satelite: "mapbox://styles/mapbox/satellite-v9"
+    custom: "mapbox://styles/sonnenschauer/cjjlk7zfb02lh2spjs8bzbs2k?optimize=true",
+    satelite: "mapbox://styles/mapbox/satellite-v9?optimize=true"
   }
 };
 
