@@ -83,8 +83,7 @@
     "prod": "webpack -p",
     "deploy": "npm run update && npm run prod && npm run upload",
     "update": "babel-node .npm/updatePackage.js",
-    "upload": "babel-node .npm/deploy.js",
-    "m": "sass-migrator division **/*.scss\n"
+    "upload": "babel-node .npm/deploy.js"
   },
   "bugs": {
     "url": "https://gitlab.com/wc-guide/wc-guide-pwa/issues"
