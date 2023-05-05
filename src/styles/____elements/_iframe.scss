@@ -1,3 +1,5 @@
+@use "sass:math";
+
 iframe {
 	max-width: 100% !important;
 	height: auto;
@@ -5,7 +7,7 @@ iframe {
 
 .responsive-iframe {
 	position: relative;
-	padding-bottom: percentage(9 / 16);
+	padding-bottom: percentage(math.div(9, 16));
 	height: 0;
 	overflow: hidden;
 	iframe {
@@ -22,18 +24,18 @@ iframe {
 	}
 
 	&--ratio-2x1 {
-		padding-bottom: percentage(1 / 2);
+		padding-bottom: percentage(1 * 0.5);
 	}
 
 	&--ratio-4x3 {
-		padding-bottom: percentage(3 / 4);
+		padding-bottom: percentage(3 * 0.25);
 	}
 
 	&--ratio-16x9 {
-		padding-bottom: percentage(9 / 16);
+		padding-bottom: percentage(math.div(9, 16));
 	}
 
 	&--ratio-21x9 {
-		padding-bottom: percentage(9 / 21);
+		padding-bottom: percentage(math.div(9, 21));
 	}
 }

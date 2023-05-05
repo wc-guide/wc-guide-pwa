@@ -8,7 +8,7 @@ const config = {
 	password: env.FTP_PASSWORD,
 	host: env.FTP_HOST,
 	port: env.FTP_PORT,
-	localRoot: __dirname + env.FTP_LOCALROOT,
+	localRoot: __dirname +'/../'+ env.FTP_LOCALROOT,
 	remoteRoot: env.FTP_REMOTEROOT,
 	include: ['*', '**/*', '**/.*'],
 	exclude: ["**/*.map", "node_modules/**", "node_modules/**/.*"],

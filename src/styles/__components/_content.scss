@@ -75,8 +75,8 @@
 		font-size: $font-size-small;
 	}
 	& > * + * {
-		margin-left: $space-item/2;
-		padding-left: $space-item/2;
+		margin-left: $space-item*0.5;
+		padding-left: $space-item*0.5;
 		position: relative;
 		&:before {
 			content: '';

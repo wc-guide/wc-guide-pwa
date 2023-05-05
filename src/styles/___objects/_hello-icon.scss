@@ -1,3 +1,5 @@
+@use "sass:math";
+
 .o-hello-icon {
 	display: inline-block;
 
@@ -11,8 +13,8 @@
 	}
 
 	&--size-lg {
-		font-size: (4em / 3);
-		line-height: (3em / 4);
+		font-size: math.div(4em, 3);
+		line-height: (3em * 0.25);
 		vertical-align: -15%;
 	}
 

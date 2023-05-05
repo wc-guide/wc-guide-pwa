@@ -3,7 +3,7 @@
 	position: relative;
 	font-size: $font-size;
 	&__input {
-		padding: $space/2 $space $space/2 ($space + $font-size);
+		padding: $space*0.5 $space $space*0.5 ($space + $font-size);
 		border: 1px solid c(gray, light);
 		border-radius: $border-radius;
 		width: 100%;
@@ -17,8 +17,8 @@
 	}
 	&__icon {
 		position: absolute;
-		left: $space/2;
-		top: $space/2;
+		left: $space*0.5;
+		top: $space*0.5;
 		color: c(gray);
 	}
 }

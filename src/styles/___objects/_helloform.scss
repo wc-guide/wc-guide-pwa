@@ -62,8 +62,8 @@
 	&__input {
 		//border: none;
 		border: 1px solid c(gray, light);
-		padding: $space-item/2;
-		margin-top: $space-item/4;
+		padding: $space-item*0.5;
+		margin-top: $space-item*0.25;
 		@include transition();
 		background-color: #fff;
 		outline: 2px dashed transparent;

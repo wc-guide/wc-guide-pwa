@@ -10,7 +10,7 @@
 		height: 4rem;
 		text-indent: -9999px;
 		position: relative;
-		margin-right: $space-nav/2;
+		margin-right: $space-nav*0.5;
 		&:after,
 		&:before {
 			content: '';
@@ -62,7 +62,7 @@
 	&__pagetitle {
 		font-size: $font-size-large;
 		color: #fff;
-		padding: $space-nav/2 $space-nav;
+		padding: $space-nav*0.5 $space-nav;
 	}
 	&__content {
 		pointer-events: auto;

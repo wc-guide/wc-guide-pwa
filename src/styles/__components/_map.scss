@@ -144,10 +144,10 @@
 
 .mapboxgl-ctrl-top-right .mapboxgl-ctrl {
   margin-right: calc(2.5rem + 4px);
-  margin-top: calc(2.5rem + 40px + #{$space-item/2});
+  margin-top: calc(2.5rem + 40px + #{$space-item*0.5});
   @include for-screen-min(phone) {
     margin-right: calc(2.5rem + 16px);
-    margin-top: calc(4rem + 50px + #{$space-item/2});
+    margin-top: calc(4rem + 50px + #{$space-item*0.5});
   }
   @include desktop {
     margin-right: 5.4rem;
