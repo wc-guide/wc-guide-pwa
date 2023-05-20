@@ -7,6 +7,7 @@
 		</div>
 		<div class="cookiebanner__controls">
 			<button class="o-button" @click="hideBanner()">{{$t('cookiebanner_agree')}}</button>
+			<button class="reject-cookies-button" @click="rejectCookies">{{$t('cookiebanner_reject')}}</button>
 		</div>
 		<shadow-box page-slug="privacy" v-if="privacy" :close="function(){setPrivacy(false);}"></shadow-box>
 	</div>
@@ -26,7 +27,12 @@
 			hideBanner: function () {
 				this.$cookies.set('cookieconsent', true);
 				this.show = false;
-			}
+			},
+
+		    rejectCookies: function() {
+		      _paq.push(['optUserOut']);
+		      console.log('Cookies wurden abgelehnt');
+		    }
 		},
 	}
 </script>
