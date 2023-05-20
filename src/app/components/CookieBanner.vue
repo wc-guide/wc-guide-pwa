@@ -30,9 +30,6 @@
 			},
 
 		    rejectCookies: function() {
-		      // Hier kannst du den Code einfügen, um Cookies abzulehnen, z.B. für Matomo
-		      // Du kannst hier Matomo-spezifischen Code verwenden, um Cookies abzulehnen
-		      // Beispiel: Matomo.optOut();
 		      _paq.push(['optUserOut']);
 		      console.log('Cookies wurden abgelehnt');
 		    }
