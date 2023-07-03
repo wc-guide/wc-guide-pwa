@@ -13,7 +13,6 @@
 					class="search-form__input"
 					id="search-place"
 					@keyup="searchLocations"
-					placeholder="Search"
 				/>
 				<hello-icon class="search-form__icon" icon="search"></hello-icon>
 			</form>
