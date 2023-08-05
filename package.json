@@ -107,5 +107,9 @@
   "browserslist": [
     "> 1%",
     "not ie <= 11"
-  ]
+  ],
+  "engines": {
+    "npm": "8.19.4",
+    "node": "16.20.1"
+  }
 }
