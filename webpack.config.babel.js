@@ -225,7 +225,7 @@ module.exports = (env, argv) => {
           },
           {
             urlPattern: new RegExp("^https://wc-guide.com/content/"),
-            handler: "CacheFirst",
+            handler: "NetworkFirst",
             options: {
               cacheName: "content-cache"
             }
